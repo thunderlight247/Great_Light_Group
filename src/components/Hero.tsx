@@ -1,143 +1,223 @@
 'use client';
 
-import { ArrowRight, Code2, Film, Sparkles, Terminal, Camera, ShieldCheck } from 'lucide-react';
-import Link from 'next/link';
-import Image from 'next/image';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ArrowRight, Code2, Film, Sparkles, Terminal, Camera, ShieldCheck, ChevronDown } from 'lucide-react';
 import { BRAND_DATA } from '@/data/portfolioData';
+import { usePrefersReducedMotion } from '@/lib/motion/useMotion';
 
 interface HeroProps {
   onSelectDiscipline: (discipline: 'all' | 'software' | 'media') => void;
 }
 
 export default function Hero({ onSelectDiscipline }: HeroProps) {
-  return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden border-b border-glg-ink/5">
-      {/* Subtle architectural grid lines in background */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(to_right,#15251d_1px,transparent_1px),linear-gradient(to_bottom,#15251d_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+  const heroRef = useRef<HTMLDivElement | null>(null);
+  const badgeRef = useRef<HTMLDivElement | null>(null);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
+  const subtitleRef = useRef<HTMLParagraphElement | null>(null);
+  const cardsRef = useRef<HTMLDivElement | null>(null);
+  const statsRef = useRef<HTMLDivElement | null>(null);
+  const prefersReduced = usePrefersReducedMotion();
 
+  useEffect(() => {
+    if (prefersReduced || typeof window === 'undefined') return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+
+      tl.fromTo(
+        badgeRef.current,
+        { opacity: 0, y: -20, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'back.out(1.7)' }
+      )
+        .fromTo(
+          titleRef.current?.querySelectorAll('.hero-line') || [],
+          { opacity: 0, y: 70, rotationX: 30, transformOrigin: 'top center' },
+          { opacity: 1, y: 0, rotationX: 0, duration: 1.1, stagger: 0.14 },
+          '-=0.4'
+        )
+        .fromTo(
+          subtitleRef.current,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.9 },
+          '-=0.6'
+        )
+        .fromTo(
+          cardsRef.current?.children || [],
+          { opacity: 0, y: 50, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 1.0, stagger: 0.18, ease: 'power3.out' },
+          '-=0.5'
+        )
+        .fromTo(
+          statsRef.current,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.8 },
+          '-=0.4'
+        );
+
+      // Subtle ambient breathing float on cards
+      gsap.to('.hero-float-1', {
+        y: -6,
+        duration: 3.5,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+      });
+      gsap.to('.hero-float-2', {
+        y: 6,
+        duration: 4.0,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        delay: 0.5,
+      });
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, [prefersReduced]);
+
+  return (
+    <section
+      ref={heroRef}
+      className="relative pt-36 pb-24 md:pt-44 md:pb-36 overflow-hidden border-b border-glg-gold/15"
+    >
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Eyebrow & Motto */}
-        <div className="flex flex-wrap items-center gap-2 mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-glg-green/10 border border-glg-green/20 text-glg-green text-xs font-semibold uppercase tracking-eyebrow">
-            <span className="w-2 h-2 rounded-full bg-glg-green animate-pulse" />
-            <span>Dual-Discipline Studio</span>
+        {/* Eyebrow & Brand Motto Badge */}
+        <div ref={badgeRef} className="flex flex-wrap items-center gap-3 mb-8">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-glg-emerald-dark/30 border border-glg-emerald/30 text-glg-emerald text-xs font-mono font-semibold uppercase tracking-wider">
+            <span className="w-2 h-2 rounded-full bg-glg-emerald animate-ping" />
+            <span>Dual-Discipline Practice</span>
           </div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-glg-gold/15 border border-glg-gold/30 text-glg-ink text-xs font-serif italic">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-glg-gold/10 border border-glg-gold/30 text-glg-gold text-xs font-serif italic tracking-wide">
+            <Sparkles className="w-3.5 h-3.5" />
             <span>&ldquo;{BRAND_DATA.motto}&rdquo;</span>
           </div>
         </div>
 
-        {/* Confident Typographic Headline */}
-        <div className="max-w-4xl mb-8">
-          <h1 className="clamp-h1 font-serif font-bold text-glg-ink tracking-tight mb-6">
-            Two Disciplines. <br />
-            <span className="text-glg-green italic font-normal">One Considered</span> Standard.
+        {/* Massive Confident Typographic Headline */}
+        <div className="max-w-5xl mb-10">
+          <h1
+            ref={titleRef}
+            className="clamp-h1 font-serif font-black text-white tracking-tight leading-[0.93] mb-6 perspective-1000"
+          >
+            <span className="hero-line block">Engineered Rigor.</span>
+            <span className="hero-line block text-transparent bg-clip-text bg-gradient-to-r from-glg-emerald via-glg-gold to-glg-gold-champagne italic font-normal">
+              Cinematic Purity.
+            </span>
           </h1>
-          <p className="clamp-body text-glg-ink/75 max-w-2xl leading-relaxed">
-            Great Light Group operates at the convergence of <strong className="font-semibold text-glg-ink">resilient software engineering</strong> and <strong className="font-semibold text-glg-ink">cinematic visual craft</strong>. We build systems that perform under load and produce imagery with editorial conviction.
+          <p
+            ref={subtitleRef}
+            className="clamp-body text-glg-text-secondary max-w-2xl leading-relaxed"
+          >
+            Great Light Group unifies high-concurrency software engineering with bespoke cinematography and editorial photography. We engineer systems that endure and craft visuals that command immediate respect.
           </p>
         </div>
 
-        {/* Primary Interactive Discipline Fork (Visitor Choice) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
-          {/* Card 1: Software & Engineering */}
+        {/* Primary Interactive Discipline Fork (Cards) */}
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-14">
+          {/* Card 1: Technology & Software */}
           <div
             onClick={() => onSelectDiscipline('software')}
-            className="group relative cursor-pointer rounded-2xl bg-white border border-glg-ink/10 p-6 md:p-8 shadow-editorial transition-all duration-300 hover:shadow-editorial-hover hover:border-glg-green/40 hover:-translate-y-1"
+            className="hero-float-1 group relative cursor-pointer rounded-2xl glass-panel p-8 sm:p-10 shadow-editorial transition-all duration-300 hover:shadow-editorial-hover hover:border-glg-emerald/50 hover:-translate-y-2"
           >
-            <div className="flex items-center justify-between mb-6">
-              <div className="w-12 h-12 rounded-xl bg-glg-green/10 text-glg-green flex items-center justify-center transition-colors group-hover:bg-glg-green group-hover:text-white">
-                <Code2 className="w-6 h-6" />
+            {/* Top Tag & Icon */}
+            <div className="flex items-center justify-between mb-8">
+              <div className="w-14 h-14 rounded-2xl bg-glg-emerald-dark/40 border border-glg-emerald/40 text-glg-emerald flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-glg-emerald group-hover:text-black shadow-emerald-glow">
+                <Code2 className="w-7 h-7" />
               </div>
-              <span className="text-xs uppercase font-mono tracking-wider text-glg-muted bg-glg-paper px-3 py-1 rounded-full border border-glg-ink/5">
-                Full-Stack & Systems
+              <span className="text-[11px] uppercase font-mono tracking-wider text-glg-emerald bg-glg-emerald/10 px-3.5 py-1 rounded-full border border-glg-emerald/30">
+                Full-Stack &amp; Systems
               </span>
             </div>
 
-            <h3 className="font-serif text-2xl font-bold text-glg-ink mb-2 group-hover:text-glg-green transition-colors">
-              Technology & Software
+            <h3 className="font-serif text-3xl font-bold text-white mb-3 group-hover:text-glg-emerald transition-colors">
+              Technology &amp; Software
             </h3>
-            <p className="text-sm text-glg-ink/70 leading-relaxed mb-6">
-              Production web applications, high-concurrency financial backends, mobile booking flows, and grounded AI study engines.
+            <p className="text-sm text-glg-text-muted leading-relaxed mb-8">
+              Production web applications, Go financial backends, mobile booking engines, and zero-hallucination AI study platforms.
             </p>
 
-            <div className="flex flex-wrap gap-1.5 mb-6">
-              <span className="text-[11px] font-mono px-2.5 py-1 rounded bg-glg-paper text-glg-ink/80 border border-glg-ink/5">
-                Next.js 15
-              </span>
-              <span className="text-[11px] font-mono px-2.5 py-1 rounded bg-glg-paper text-glg-ink/80 border border-glg-ink/5">
+            <div className="flex flex-wrap gap-2 mb-8">
+              <span className="text-xs font-mono px-3 py-1 rounded-md bg-white/5 text-glg-text-secondary border border-white/10">
                 Go 1.24
               </span>
-              <span className="text-[11px] font-mono px-2.5 py-1 rounded bg-glg-paper text-glg-ink/80 border border-glg-ink/5">
+              <span className="text-xs font-mono px-3 py-1 rounded-md bg-white/5 text-glg-text-secondary border border-white/10">
+                Next.js 15
+              </span>
+              <span className="text-xs font-mono px-3 py-1 rounded-md bg-white/5 text-glg-text-secondary border border-white/10">
                 React 19
               </span>
-              <span className="text-[11px] font-mono px-2.5 py-1 rounded bg-glg-paper text-glg-ink/80 border border-glg-ink/5">
+              <span className="text-xs font-mono px-3 py-1 rounded-md bg-white/5 text-glg-text-secondary border border-white/10">
                 PostgreSQL
               </span>
             </div>
 
-            <div className="flex items-center text-xs font-semibold text-glg-green uppercase tracking-wider gap-2">
-              <span>Inspect Software Projects</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            <div className="flex items-center text-xs font-mono font-bold text-glg-emerald uppercase tracking-wider gap-2">
+              <span>Explore Software Projects</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
             </div>
           </div>
 
           {/* Card 2: Media & Creative */}
           <div
             onClick={() => onSelectDiscipline('media')}
-            className="group relative cursor-pointer rounded-2xl bg-white border border-glg-ink/10 p-6 md:p-8 shadow-editorial transition-all duration-300 hover:shadow-editorial-hover hover:border-glg-gold/60 hover:-translate-y-1"
+            className="hero-float-2 group relative cursor-pointer rounded-2xl glass-panel p-8 sm:p-10 shadow-editorial transition-all duration-300 hover:shadow-editorial-hover hover:border-glg-gold/60 hover:-translate-y-2"
           >
-            <div className="flex items-center justify-between mb-6">
-              <div className="w-12 h-12 rounded-xl bg-glg-gold/20 text-glg-gold-dark flex items-center justify-center transition-colors group-hover:bg-glg-gold group-hover:text-glg-ink">
-                <Film className="w-6 h-6" />
+            {/* Top Tag & Icon */}
+            <div className="flex items-center justify-between mb-8">
+              <div className="w-14 h-14 rounded-2xl bg-glg-gold/20 border border-glg-gold/40 text-glg-gold flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-glg-gold group-hover:text-black shadow-gold-glow">
+                <Film className="w-7 h-7" />
               </div>
-              <span className="text-xs uppercase font-mono tracking-wider text-glg-muted bg-glg-paper px-3 py-1 rounded-full border border-glg-ink/5">
-                Film & Photography
+              <span className="text-[11px] uppercase font-mono tracking-wider text-glg-gold bg-glg-gold/10 px-3.5 py-1 rounded-full border border-glg-gold/30">
+                Cinematography &amp; Stills
               </span>
             </div>
 
-            <h3 className="font-serif text-2xl font-bold text-glg-ink mb-2 group-hover:text-glg-gold-dark transition-colors">
-              Media & Creative
+            <h3 className="font-serif text-3xl font-bold text-white mb-3 group-hover:text-glg-gold transition-colors">
+              Media &amp; Creative
             </h3>
-            <p className="text-sm text-glg-ink/70 leading-relaxed mb-6">
-              Cinematic brand storytelling, high-fashion loc & hair portraiture, precision post-production grading, and typographic design.
+            <p className="text-sm text-glg-text-muted leading-relaxed mb-8">
+              Cinematic brand storytelling, high-fashion portraiture, precision color grading in DaVinci Resolve, and editorial typographic posters.
             </p>
 
-            <div className="flex flex-wrap gap-1.5 mb-6">
-              <span className="text-[11px] font-mono px-2.5 py-1 rounded bg-glg-paper text-glg-ink/80 border border-glg-ink/5">
-                Cinematography
+            <div className="flex flex-wrap gap-2 mb-8">
+              <span className="text-xs font-mono px-3 py-1 rounded-md bg-white/5 text-glg-text-secondary border border-white/10">
+                4K Cinematography
               </span>
-              <span className="text-[11px] font-mono px-2.5 py-1 rounded bg-glg-paper text-glg-ink/80 border border-glg-ink/5">
-                Editorial Stills
+              <span className="text-xs font-mono px-3 py-1 rounded-md bg-white/5 text-glg-text-secondary border border-white/10">
+                Studio Stills
               </span>
-              <span className="text-[11px] font-mono px-2.5 py-1 rounded bg-glg-paper text-glg-ink/80 border border-glg-ink/5">
+              <span className="text-xs font-mono px-3 py-1 rounded-md bg-white/5 text-glg-text-secondary border border-white/10">
                 Color Grading
               </span>
-              <span className="text-[11px] font-mono px-2.5 py-1 rounded bg-glg-paper text-glg-ink/80 border border-glg-ink/5">
+              <span className="text-xs font-mono px-3 py-1 rounded-md bg-white/5 text-glg-text-secondary border border-white/10">
                 Posters
               </span>
             </div>
 
-            <div className="flex items-center text-xs font-semibold text-glg-gold-dark uppercase tracking-wider gap-2">
+            <div className="flex items-center text-xs font-mono font-bold text-glg-gold uppercase tracking-wider gap-2">
               <span>View Media Exhibition</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
             </div>
           </div>
         </div>
 
-        {/* Quick Highlights Bar */}
-        <div className="mt-12 pt-8 border-t border-glg-ink/10 flex flex-wrap items-center justify-between gap-6 text-xs text-glg-muted">
+        {/* Live Credibility Bar */}
+        <div
+          ref={statsRef}
+          className="mt-14 pt-8 border-t border-glg-gold/15 flex flex-wrap items-center justify-between gap-6 text-xs font-mono text-glg-text-muted"
+        >
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-glg-green" />
-            <span>12 Verified Technology Services</span>
+            <ShieldCheck className="w-4 h-4 text-glg-emerald" />
+            <span className="text-glg-text-secondary">12 Verified Software Offerings</span>
           </div>
           <div className="flex items-center gap-2">
-            <Camera className="w-4 h-4 text-glg-gold-dark" />
-            <span>Original Client Media Assets</span>
+            <Camera className="w-4 h-4 text-glg-gold" />
+            <span className="text-glg-text-secondary">4K Video Reels &amp; Editorial Stills</span>
           </div>
           <div className="flex items-center gap-2">
-            <Terminal className="w-4 h-4 text-glg-ink" />
-            <span>Clean Architecture & Public Repositories</span>
+            <Terminal className="w-4 h-4 text-white" />
+            <span className="text-glg-text-secondary">GitHub: thunderlight247 · johnseidu</span>
           </div>
         </div>
       </div>

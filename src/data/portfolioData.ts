@@ -46,7 +46,7 @@ export const BRAND_DATA = {
   email: 'greatlightgroup247@gmail.com',
   github: 'https://github.com/thunderlight247/',
   githubSecondary: 'https://github.com/johnseidu/',
-  whatsappNumber: '+233248380011',
+  whatsappNumber: '+233594273358',
   location: 'Ghana',
   founder: {
     name: 'Lead Practitioner & Engineer',

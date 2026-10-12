@@ -10,45 +10,64 @@ const config: Config = {
     extend: {
       colors: {
         glg: {
-          green: {
-            DEFAULT: '#24583e',
-            light: '#317352',
-            dark: '#1b432f',
+          bg: {
+            DEFAULT: '#070b09',      // Deep Obsidian Forest
+            elevated: '#0d1410',    // Elevated Card Surface
+            subtle: '#121c16',      // Highlight Surface
+            border: 'rgba(201, 164, 91, 0.15)',
+          },
+          emerald: {
+            DEFAULT: '#10b981',
+            glow: '#059669',
+            dark: '#064e3b',
+            accent: '#34d399',
           },
           gold: {
             DEFAULT: '#c9a45b',
-            light: '#e2c98f',
-            dark: '#9f7d37',
+            bright: '#e6c875',
+            champagne: '#f5e6b8',
+            dark: '#947532',
+            glow: 'rgba(201, 164, 91, 0.25)',
           },
-          ink: {
-            DEFAULT: '#15251d',
-            muted: '#2d3f35',
-            deep: '#0d1813',
+          text: {
+            primary: '#f8fafc',
+            secondary: '#cbd5e1',
+            muted: '#94a3b8',
+            gold: '#e6c875',
           },
-          paper: {
-            DEFAULT: '#f5f3ed',
-            bright: '#ffffff',
-            dark: '#ece9e0',
+          green: {
+            DEFAULT: '#10b981',
+            light: '#34d399',
+            dark: '#064e3b',
           },
-          sand: '#d8c7a4',
-          slate: '#202c37',
-          muted: '#6c756e',
+          paper: '#070b09',
+          ink: '#f8fafc',
         },
       },
       fontFamily: {
         serif: ['var(--font-serif)', 'Playfair Display', 'Georgia', 'serif'],
-        sans: ['var(--font-sans)', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['var(--font-sans)', 'Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['var(--font-mono)', 'JetBrains Mono', 'monospace'],
       },
       letterSpacing: {
         editorial: '-0.05em',
         subtle: '-0.02em',
-        eyebrow: '0.16em',
+        eyebrow: '0.2em',
       },
       boxShadow: {
-        editorial: '0 8px 30px rgba(21, 37, 29, 0.06)',
-        'editorial-hover': '0 20px 40px rgba(21, 37, 29, 0.12)',
-        gold: '0 4px 20px rgba(201, 164, 91, 0.25)',
+        editorial: '0 10px 40px -10px rgba(0, 0, 0, 0.7)',
+        'editorial-hover': '0 20px 50px -10px rgba(201, 164, 91, 0.15), 0 0 30px rgba(16, 185, 129, 0.1)',
+        'gold-glow': '0 0 30px rgba(201, 164, 91, 0.2)',
+        'emerald-glow': '0 0 30px rgba(16, 185, 129, 0.2)',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-33.33%)' },
+        },
+      },
+      animation: {
+        marquee: 'marquee 35s linear infinite',
       },
     },
   },
