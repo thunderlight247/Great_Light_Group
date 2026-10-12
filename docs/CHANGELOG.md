@@ -8,14 +8,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased] - 2026-10-12
 
-### Phase 1: Inventory & Evidence Initialized
+### Phase 1–5: Foundation, Design System & Core Interface Completed
 #### Added
-- Established project repository and Git tracking on branch `main`.
-- Authored `docs/PORTFOLIO_ROADMAP.md` defining all 12 project phases, completion gates, motion hierarchy (Levels 1–3), and accessibility safeguards.
-- Authored `docs/PORTFOLIO_INVENTORY.md` categorizing 10 candidate software engineering projects (e.g. Baduwa, Elgyboat, 3 Swami Stars, LearnMate, Double-Entry Go, NutritionGuide, Yadah), 6 media asset groups, 12 core software services, and brand tokens.
-- Authored `docs/DESIGN_BRIEF.md` detailing editorial visual direction, font pairings, fluid clamp scales, brand color tokens (`#24583e`, `#c9a45b`, `#15251d`, `#f5f3ed`), and motion rules.
-- Authored `docs/PROGRESS.md` establishing the milestone tracking protocol.
-- Authored `README.md` providing developer setup instructions, technology overview, and workflow rules.
+- Full Next.js 14 App Router application with TypeScript and Tailwind CSS.
+- Production UI components: `Navbar`, `Hero`, `SoftwareSection`, `MediaSection`, `ServicesSection`, `StorySection`, `EnquirySection`, `Footer`, `LivePreviewModal`, `PhotoLightboxModal`.
+- Integrated official brand logo (`/brand/logo.jpeg`) and founder portrait (`/brand/profile.jpeg`).
+- Implemented dual-channel WhatsApp message generator (+233248380011).
+- Added Lenis smooth scrolling with `prefers-reduced-motion` safety guards.
+
+#### Changed
+- Removed all PC-extracted photography files from the repository as instructed.
+- Transitioned all photography exhibition items to curated, high-resolution public editorial images with demonstration reference labels.
+
+#### Verified
+- Production build passes cleanly with zero errors and zero warnings (`npm run build`).
 
 #### Decided
 - **Scope Restriction:** Strictly narrowed portfolio scope to **Technology & Software** and **Media & Creative**. Science, agriculture, and other business arms are excluded to maximize signal for prospective clients and career opportunities.
