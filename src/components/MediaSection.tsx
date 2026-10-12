@@ -18,7 +18,7 @@ interface MediaSectionProps {
 
 export default function MediaSection({ onOpenLightbox }: MediaSectionProps) {
   const [activeCategory, setActiveCategory] = useState<string>('All Work');
-  const [selectedVideo, setSelectedVideo] = useState<'potone' | 'silent'>('potone');
+  const [selectedVideo, setSelectedVideo] = useState<'reel-01' | 'reel-02'>('reel-01');
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
@@ -128,39 +128,40 @@ export default function MediaSection({ onOpenLightbox }: MediaSectionProps) {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => {
-                    setSelectedVideo('potone');
+                    setSelectedVideo('reel-01');
                     setIsPlaying(false);
                   }}
                   className={`px-3.5 py-1 text-xs rounded-full font-mono transition-colors ${
-                    selectedVideo === 'potone'
+                    selectedVideo === 'reel-01'
                       ? 'bg-glg-gold text-black font-bold shadow-gold-glow'
                       : 'bg-white/5 text-glg-text-muted hover:text-white border border-white/10'
                   }`}
                 >
-                  01 UI Motion Reel
+                  01 Motion Reel
                 </button>
                 <button
                   onClick={() => {
-                    setSelectedVideo('silent');
+                    setSelectedVideo('reel-02');
                     setIsPlaying(false);
                   }}
                   className={`px-3.5 py-1 text-xs rounded-full font-mono transition-colors ${
-                    selectedVideo === 'silent'
+                    selectedVideo === 'reel-02'
                       ? 'bg-glg-gold text-black font-bold shadow-gold-glow'
                       : 'bg-white/5 text-glg-text-muted hover:text-white border border-white/10'
                   }`}
                 >
-                  02 Cinematic Study
+                  02 Story Reel
                 </button>
               </div>
             </div>
 
             {/* Video Container */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden bg-black border border-glg-gold/30 shadow-2xl group">
+            <div className="relative aspect-video rounded-2xl overflow-hidden bg-black border border-glg-gold/30 shadow-2xl group flex items-center justify-center">
               <video
+                key={selectedVideo}
                 ref={videoRef}
-                src={selectedVideo === 'potone' ? '/media/video/potone.mp4' : '/media/video/silent.mp4'}
-                className="w-full h-full object-cover"
+                src={selectedVideo === 'reel-01' ? '/media/video/reel-01.mp4' : '/media/video/reel-02.mp4'}
+                className="w-full h-full object-contain bg-black"
                 loop
                 playsInline
                 onPlay={() => setIsPlaying(true)}
@@ -186,12 +187,12 @@ export default function MediaSection({ onOpenLightbox }: MediaSectionProps) {
               <div className="absolute bottom-0 inset-x-0 p-5 bg-gradient-to-t from-black via-black/80 to-transparent flex items-center justify-between text-xs pointer-events-none">
                 <div>
                   <span className="font-semibold text-white block text-sm">
-                    {selectedVideo === 'potone'
-                      ? 'Potone Interaction Motion Reel · High-Framerate Micro-Interactions'
-                      : 'Atmospheric Cinematography & Grading Study · Natural Lighting & Skin Tones'}
+                    {selectedVideo === 'reel-01'
+                      ? 'Great Light Media Reel 01 · Dynamic Pacing & Studio Composition'
+                      : 'Great Light Media Reel 02 · Mobile-First Visual Storytelling & Fluid Motion'}
                   </span>
                   <span className="text-[11px] font-mono text-glg-gold">
-                    Paced sequence · Color graded in DaVinci Resolve · 4K Master
+                    HD Video · Directional Lighting & Natural Movement · Great Light Creative Division
                   </span>
                 </div>
               </div>

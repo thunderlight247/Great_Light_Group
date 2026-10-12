@@ -10,7 +10,7 @@ export interface SoftwareProject {
   techStack: string[];
   liveUrl?: string;
   githubUrl?: string;
-  status: 'Live' | 'Prototype' | 'Staging' | 'Completed';
+  status: 'Live' | 'Prototype' | 'Staging' | 'Completed' | 'In Production';
   featured: boolean;
   image: string;
   highlights: string[];
@@ -37,6 +37,17 @@ export interface ServiceItem {
   deliverables: string[];
 }
 
+export interface TechSkillGroup {
+  category: string;
+  badge: string;
+  skills: {
+    name: string;
+    level: string;
+    description: string;
+    icon?: string;
+  }[];
+}
+
 export const BRAND_DATA = {
   name: 'Great Light Group',
   motto: 'In him we have light',
@@ -58,6 +69,55 @@ export const BRAND_DATA = {
 };
 
 export const SOFTWARE_PROJECTS: SoftwareProject[] = [
+  // Full-Stack Category
+  {
+    id: 'schoolhub',
+    title: 'SchoolHub',
+    subtitle: 'Full-Stack School Administration & Management Portal',
+    category: 'Full-Stack',
+    description:
+      'Enterprise school administration and academic management portal built to demonstrate full-stack engineering: Next.js and TypeScript frontend, Go backend, and PostgreSQL for persistent state.',
+    problem:
+      'Educational institutions struggle with fragmented student records, slow exam reporting, and insecure identity management without granular administrative hierarchies.',
+    solution:
+      'Engineered a full-stack portal with master-admin RBAC access control, teacher assignments, student enrollment, attendance tracking, assessment reporting, and immediate mid-session account revocation.',
+    architecture:
+      'Next.js 14 · TypeScript · Go · PostgreSQL · RBAC Security Layer · Docker',
+    techStack: ['Go', 'Next.js', 'TypeScript', 'PostgreSQL', 'Docker', 'REST API'],
+    githubUrl: 'https://github.com/thunderlight247/schoolhub.git',
+    status: 'Completed',
+    featured: true,
+    image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1200&q=80',
+    highlights: [
+      'Full identity foundation with granular role-based access control (RBAC)',
+      'Master-admin capability with immediate mid-session account blocking',
+      'End-to-end academic records, teacher assignments, and attendance logs',
+    ],
+  },
+  {
+    id: 'dagbani-hymn',
+    title: 'Dagbani Hymn Mobile App',
+    subtitle: 'Cross-Platform Offline Church Hymnal (PCG)',
+    category: 'Full-Stack',
+    description:
+      'A cross-platform mobile application delivering the complete Presbyterian Church of Ghana (PCG) Dagbani Hymnal with instantaneous offline SQLite search, categorization, and responsive liturgical typography.',
+    problem:
+      'Congregations and choirs need instantaneous, zero-latency access to indigenous Dagbani hymns during services without relying on intermittent mobile internet connectivity.',
+    solution:
+      'Engineered a native-performance Flutter and Dart application with embedded SQLite database, state management via Provider, instant full-text search, and accessible font scaling.',
+    architecture:
+      'Flutter · Dart 3.8 · SQLite (sqflite) · Provider State · Offline-First Engine',
+    techStack: ['Flutter', 'Dart', 'SQLite', 'Mobile App', 'Provider State'],
+    githubUrl: 'https://github.com/thunderlight247/Dagbani-Hymn.git',
+    status: 'Completed',
+    featured: true,
+    image: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1200&q=80',
+    highlights: [
+      '100% offline-first local SQLite persistence for instant song loading',
+      'Sub-millisecond full-text hymn and number search engine',
+      'Custom vernacular typography scaling for optimal low-light church readability',
+    ],
+  },
   {
     id: 'baduwa-locs-naturals',
     title: 'Baduwa Locs & Naturals',
@@ -78,9 +138,35 @@ export const SOFTWARE_PROJECTS: SoftwareProject[] = [
     featured: true,
     image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=80',
     highlights: [
-      'Custom appointment scheduling workflow',
+      'Custom appointment scheduling workflow with direct client triage',
       'Fluid page transitions with zero layout shift',
       'Sub-second first contentful paint on 3G mobile networks',
+    ],
+  },
+
+  // E-commerce Category
+  {
+    id: 'ecommerce-app',
+    title: 'E-Commerce Application',
+    subtitle: 'Modern Digital Storefront & Catalog Platform',
+    category: 'E-commerce',
+    description:
+      'A responsive commercial storefront featuring product filtering, cart state management, checkout pipelines, and mobile-optimized catalog navigation.',
+    problem:
+      'Growing regional enterprises need lightweight, fast-loading digital storefronts that eliminate heavy SaaS subscription overhead while supporting regional fulfillment.',
+    solution:
+      'Engineered an agile commercial application with structured category indexing, responsive cart drawer, real-time item counter, and optimized mobile checkout.',
+    architecture:
+      'Next.js · React · TypeScript · Tailwind CSS · Client Cart State Machine',
+    techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'State Management'],
+    githubUrl: 'https://github.com/thunderlight247/ecommerce-app.git',
+    status: 'Completed',
+    featured: true,
+    image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1200&q=80',
+    highlights: [
+      'Interactive cart drawer with dynamic price estimation and item tallying',
+      'Instant product search and multi-category filtering',
+      'Mobile-first responsive architecture optimized for rapid ordering',
     ],
   },
   {
@@ -124,12 +210,38 @@ export const SOFTWARE_PROJECTS: SoftwareProject[] = [
     techStack: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'Lucide React'],
     githubUrl: 'https://github.com/johnseidu/3sslimited',
     status: 'Staging',
-    featured: true,
+    featured: false,
     image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
     highlights: [
       'Multi-category hardware inventory browser',
       'Sticky quote cart badge with responsive counter',
       'B2B commercial quotation payload generator',
+    ],
+  },
+
+  // AI & Systems Category
+  {
+    id: 'lightex',
+    title: 'LightEx',
+    subtitle: 'Custodial Financial & Local-Money Exchange Backend',
+    category: 'AI & Systems',
+    description:
+      'A Ghana/West Africa-focused custodial financial platform for crypto and local-money conversion, engineered for lower-friction user experience with wallet services, deposits/withdrawals, FX, and reserve liquidity controls.',
+    problem:
+      'Traditional P2P and exchange conversion flows across West Africa suffer from steep counterparty friction, high spreads, and complex deposit/withdrawal barriers.',
+    solution:
+      'Architecting an enterprise Go 1.25 backend with PostgreSQL 16 persistence, Docker containerization, strict KYC validation, custodial reserves management, and idempotent transaction processing.',
+    architecture:
+      'Go 1.25 · PostgreSQL 16 · Docker · Linux · High-Concurrency Financial Ledger',
+    techStack: ['Go 1.25', 'PostgreSQL 16', 'Docker', 'Linux', 'Financial Systems'],
+    githubUrl: 'https://github.com/thunderlight247/LightEx.git',
+    status: 'In Production',
+    featured: true,
+    image: 'https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=1200&q=80',
+    highlights: [
+      'Go 1.25 custodial crypto ↔ local-money conversion engine',
+      'PostgreSQL 16 transaction ledger with idempotent execution and serializable safety',
+      'Active enterprise backend currently in continuous production development',
     ],
   },
   {
@@ -157,30 +269,6 @@ export const SOFTWARE_PROJECTS: SoftwareProject[] = [
     ],
   },
   {
-    id: 'double-entry-bank-go',
-    title: 'Double-Entry Bank Ledger',
-    subtitle: 'High-Concurrency Financial Ledger in Go',
-    category: 'AI & Systems',
-    description:
-      'Production-focused Go backend modeling enterprise financial money movement using strict double-entry accounting with serializable PostgreSQL isolation.',
-    problem:
-      'Handling financial transactions concurrently without risk of race conditions, ledger drift, negative balances, or duplicate transfers.',
-    solution:
-      'Architected transactional money movement with retry loops, immutable ledger journal entries, JWT authentication, account authorization checks, and automated GitHub Actions CI/CD.',
-    architecture:
-      'Go 1.24 · Chi v5 Router · PostgreSQL · Serializable Transactions · Docker · CI Workflows',
-    techStack: ['Go 1.24', 'PostgreSQL', 'Docker', 'Chi v5', 'GitHub Actions'],
-    githubUrl: 'https://github.com/PaulBabatuyi/double-entry-bank-Go',
-    status: 'Completed',
-    featured: true,
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
-    highlights: [
-      'Strict double-entry debits/credits balance validation',
-      'Zero-deadlock retry mechanism for high-concurrency transfers',
-      '100% automated test suite with PostgreSQL test containers',
-    ],
-  },
-  {
     id: 'nutritionguide',
     title: 'NutritionGuide',
     subtitle: 'Wellness Consultation & Nutrition Platform',
@@ -205,24 +293,166 @@ export const SOFTWARE_PROJECTS: SoftwareProject[] = [
   },
 ];
 
-export const MEDIA_ITEMS: MediaItem[] = [
+export const TECH_SKILL_GROUPS: TechSkillGroup[] = [
   {
-    id: 'potone-motion-reel',
-    title: 'Potone Interface Motion Reel',
-    category: 'Cinematography',
-    type: 'video',
-    src: '/media/video/potone.mp4',
-    caption: 'High-framerate interaction recording demonstrating choreographed UI transitions and pacing.',
-    aspectRatio: '16/9',
-    client: 'Great Light Group Experimental UI',
+    category: 'Programming Languages',
+    badge: 'Core Polyglot',
+    skills: [
+      {
+        name: 'Go (Golang)',
+        level: 'Production Grade',
+        description: 'High-concurrency financial ledgers, transactional backends, Chi routing, and microservices.',
+      },
+      {
+        name: 'TypeScript',
+        level: 'Primary Standard',
+        description: 'End-to-end type safety, strict interface models, Next.js App Router integrations.',
+      },
+      {
+        name: 'Python',
+        level: 'Advanced',
+        description: 'AI model orchestration, data analysis, automation pipelines, and machine learning utilities.',
+      },
+      {
+        name: 'Dart',
+        level: 'Cross-Platform',
+        description: 'Native iOS & Android mobile engineering with Flutter, SQLite caching, and Provider state.',
+      },
+      {
+        name: 'SQL (PostgreSQL & SQLite)',
+        level: 'Deep Database',
+        description: 'ACID transactions, serializable isolation levels, indexing, complex schemas, and Prisma ORM.',
+      },
+      {
+        name: 'JavaScript (ESNext)',
+        level: 'Native Fluency',
+        description: 'Asynchronous event loops, DOM performance, Node.js engines, and modern browser APIs.',
+      },
+    ],
   },
   {
-    id: 'silent-cinematic-reel',
-    title: 'Cinematic Mood & Light Study',
+    category: 'Frontend & Mobile Engineering',
+    badge: 'Interactive UI/UX',
+    skills: [
+      {
+        name: 'Next.js (14 / 15 / 16)',
+        level: 'Expert Practice',
+        description: 'App Router architecture, React Server Components (RSC), static site generation, and SEO.',
+      },
+      {
+        name: 'React 19 / 18',
+        level: 'Core Framework',
+        description: 'Custom hooks, concurrent rendering, state isolation, and component modularity.',
+      },
+      {
+        name: 'Flutter',
+        level: 'Mobile Native',
+        description: 'Cross-platform mobile compilation, fluid gesture animations, and zero-latency offline storage.',
+      },
+      {
+        name: 'Tailwind CSS (v3 / v4)',
+        level: 'Design Tokens',
+        description: 'Bespoke design systems, responsive containers, fluid typography clamp scales, and dark themes.',
+      },
+      {
+        name: 'GSAP & ScrollTrigger',
+        level: 'Motion Choreography',
+        description: 'Section pinning, scroll-linked scrubs, timeline sequencing, and GPU-accelerated transforms.',
+      },
+      {
+        name: 'Lenis',
+        level: 'Smooth Scrolling',
+        description: 'Synchronized momentum physics with GSAP ticker and prefers-reduced-motion safety.',
+      },
+      {
+        name: 'Framer Motion',
+        level: 'Micro-Interactions',
+        description: 'Spring physics, layout transitions, animated modal overlays, and exit animations.',
+      },
+    ],
+  },
+  {
+    category: 'Backend, Systems & Cloud Architecture',
+    badge: 'Resilient Infrastructure',
+    skills: [
+      {
+        name: 'Node.js',
+        level: 'Server Runtime',
+        description: 'High-throughput event-driven microservices, CLI tools, and automation workers.',
+      },
+      {
+        name: 'PostgreSQL 16',
+        level: 'Enterprise DB',
+        description: 'Relational data modeling, connection pooling, idempotent mutations, and audit logging.',
+      },
+      {
+        name: 'Docker & Containers',
+        level: 'Containerization',
+        description: 'Multi-stage builds, production docker-compose environments, and isolated deployments.',
+      },
+      {
+        name: 'Linux (Ubuntu/Debian)',
+        level: 'Systems & CLI',
+        description: 'Server configuration, process management, shell scripting, and security hardening.',
+      },
+      {
+        name: 'Git & GitHub CI/CD',
+        level: 'DevOps & Versioning',
+        description: 'Automated test workflows, semantic versioning, branch protections, and PR pipelines.',
+      },
+      {
+        name: 'Security & Identity (RBAC)',
+        level: 'Enterprise Access',
+        description: 'JWT authentication, session revocation, role-based authorization, and input sanitization.',
+      },
+    ],
+  },
+  {
+    category: 'AI & Creative Technology',
+    badge: 'Modern Automation',
+    skills: [
+      {
+        name: 'Google Gemini GenAI API',
+        level: 'AI Orchestration',
+        description: 'Grounded prompt engineering, document interrogation, and multi-turn conversational agents.',
+      },
+      {
+        name: 'RAG & Document Intelligence',
+        level: 'Vector Extraction',
+        description: 'PDF text extraction, anti-hallucination guardrails, and concept graph generation.',
+      },
+      {
+        name: 'WhatsApp Web Automation',
+        level: 'Messaging Pipelines',
+        description: 'Automated lead dispatch, message formatting, and instant commercial quotation engines.',
+      },
+      {
+        name: 'DaVinci Resolve',
+        level: 'Color Science',
+        description: 'Log curve color grading, tonal contrast balance, and cinematic 4K exports.',
+      },
+    ],
+  },
+];
+
+export const MEDIA_ITEMS: MediaItem[] = [
+  {
+    id: 'whatsapp-reel-01',
+    title: 'Creative Visual Motion Reel 01',
     category: 'Cinematography',
     type: 'video',
-    src: '/media/video/silent.mp4',
-    caption: 'Atmospheric cinematography and color grading study focusing on tonal contrast and natural light.',
+    src: '/media/video/reel-01.mp4',
+    caption: 'Dynamic commercial motion study featuring high-framerate pacing, directional lighting, and editorial composition.',
+    aspectRatio: '16/9',
+    client: 'Great Light Creative Division',
+  },
+  {
+    id: 'whatsapp-reel-02',
+    title: 'Cinematic Visual Story Reel 02',
+    category: 'Cinematography',
+    type: 'video',
+    src: '/media/video/reel-02.mp4',
+    caption: 'Mobile-first cinematic visual production showcasing organic framing, movement rhythm, and color harmony.',
     aspectRatio: '16/9',
     client: 'Great Light Creative Division',
   },
@@ -327,7 +557,7 @@ export const SOFTWARE_SERVICES: ServiceItem[] = [
     title: 'Mobile App Development',
     category: 'software',
     description: 'High-performance cross-platform mobile apps delivering native gesture handling and offline capabilities.',
-    deliverables: ['React Native / Flutter', 'Offline-First Storage', 'Push Notification Pipelines', 'App Store Setup'],
+    deliverables: ['Flutter / Dart Apps', 'Offline-First Storage', 'Push Notification Pipelines', 'App Store Setup'],
   },
   {
     number: '03',

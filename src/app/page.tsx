@@ -8,6 +8,7 @@ import Hero from '@/components/Hero';
 import TickerBanner from '@/components/TickerBanner';
 import PinnedShowcase from '@/components/PinnedShowcase';
 import SoftwareSection from '@/components/SoftwareSection';
+import TechSkillsSection from '@/components/TechSkillsSection';
 import MediaSection from '@/components/MediaSection';
 import ServicesSection from '@/components/ServicesSection';
 import StorySection from '@/components/StorySection';
@@ -61,6 +62,11 @@ export default function Home() {
           {/* Software Section with Parallax Cards */}
           {(activeDiscipline === 'all' || activeDiscipline === 'software') && (
             <SoftwareSection onOpenLivePreview={(proj) => setPreviewProject(proj)} />
+          )}
+
+          {/* Technical Skills & Engineering Stack */}
+          {(activeDiscipline === 'all' || activeDiscipline === 'software') && (
+            <TechSkillsSection />
           )}
 
           {/* Media & Creative Section with 4K Video Reels & Lightbox */}

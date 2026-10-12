@@ -94,10 +94,10 @@ export default function Navbar({ activeDiscipline, onSelectDiscipline }: NavbarP
           {/* Desktop Right Links & CTA */}
           <div className="hidden lg:flex items-center gap-6">
             <a
-              href="#showcase"
+              href="#skills"
               className="text-xs font-mono uppercase tracking-wider text-glg-text-secondary hover:text-glg-gold transition-colors"
             >
-              Standard
+              Tech Stack
             </a>
             <a
               href="#services"
@@ -192,25 +192,32 @@ export default function Navbar({ activeDiscipline, onSelectDiscipline }: NavbarP
               01 Software Projects
             </a>
             <a
+              href="#skills"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-1.5 px-2 text-glg-text-secondary hover:text-white"
+            >
+              02 Tech Skills &amp; Stack
+            </a>
+            <a
               href="#media"
               onClick={() => setMobileMenuOpen(false)}
               className="py-1.5 px-2 text-glg-text-secondary hover:text-white"
             >
-              02 Media &amp; Creative Gallery
+              03 Media &amp; Creative Gallery
             </a>
             <a
               href="#services"
               onClick={() => setMobileMenuOpen(false)}
               className="py-1.5 px-2 text-glg-text-secondary hover:text-white"
             >
-              03 Services (12 Tech + 4 Media)
+              04 Services (12 Tech + 4 Media)
             </a>
             <a
               href="#story"
               onClick={() => setMobileMenuOpen(false)}
               className="py-1.5 px-2 text-glg-text-secondary hover:text-white"
             >
-              04 About Great Light Group
+              05 About Great Light Group
             </a>
             <a
               href="#contact"
