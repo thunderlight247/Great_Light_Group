@@ -59,20 +59,25 @@ body {
 
 /* Fluid Typography Utilities */
 .clamp-h1 {
-  font-size: clamp(2.6rem, 7vw, 6.2rem);
-  line-height: 0.94;
-  letter-spacing: -0.05em;
-}
-
-.clamp-h2 {
-  font-size: clamp(2rem, 4.5vw, 3.8rem);
-  line-height: 1.02;
+  font-size: clamp(2.15rem, 6.5vw, 6.2rem);
+  line-height: 0.96;
   letter-spacing: -0.04em;
 }
 
+.clamp-h2 {
+  font-size: clamp(1.75rem, 4.2vw, 3.8rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
 .clamp-body {
-  font-size: clamp(1rem, 1.25vw, 1.2rem);
-  line-height: 1.7;
+  font-size: clamp(0.95rem, 1.25vw, 1.2rem);
+  line-height: 1.65;
+}
+
+/* Mobile Touch Optimization */
+button, a, input, select, textarea {
+  touch-action: manipulation;
 }
 
 /* Glassmorphism Surface Utilities */

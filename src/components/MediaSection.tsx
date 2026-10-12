@@ -164,6 +164,7 @@ export default function MediaSection({ onOpenLightbox }: MediaSectionProps) {
                 className="w-full h-full object-contain bg-black"
                 loop
                 playsInline
+                preload="metadata"
                 onPlay={() => setIsPlaying(true)}
                 onPause={() => setIsPlaying(false)}
               />
@@ -172,26 +173,26 @@ export default function MediaSection({ onOpenLightbox }: MediaSectionProps) {
               <div
                 onClick={togglePlay}
                 className={`absolute inset-0 flex items-center justify-center bg-black/40 cursor-pointer transition-opacity duration-300 ${
-                  isPlaying ? 'opacity-0 hover:opacity-100' : 'opacity-100'
+                  isPlaying ? 'opacity-0 hover:opacity-100 active:opacity-100' : 'opacity-100'
                 }`}
               >
                 <button
-                  className="w-20 h-20 rounded-full bg-glg-gold text-black flex items-center justify-center shadow-gold-glow transition-transform duration-300 hover:scale-110 focus:outline-none"
+                  className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-glg-gold text-black flex items-center justify-center shadow-gold-glow transition-transform duration-300 hover:scale-110 active:scale-95 focus:outline-none"
                   aria-label={isPlaying ? 'Pause video' : 'Play video'}
                 >
-                  {isPlaying ? <Pause className="w-8 h-8" /> : <Play className="w-8 h-8 ml-1" />}
+                  {isPlaying ? <Pause className="w-6 h-6 sm:w-8 sm:h-8" /> : <Play className="w-6 h-6 sm:w-8 sm:h-8 ml-0.5" />}
                 </button>
               </div>
 
               {/* Caption Bottom Bar */}
-              <div className="absolute bottom-0 inset-x-0 p-5 bg-gradient-to-t from-black via-black/80 to-transparent flex items-center justify-between text-xs pointer-events-none">
+              <div className="absolute bottom-0 inset-x-0 p-3.5 sm:p-5 bg-gradient-to-t from-black via-black/80 to-transparent flex items-center justify-between text-xs pointer-events-none">
                 <div>
-                  <span className="font-semibold text-white block text-sm">
+                  <span className="font-semibold text-white block text-xs sm:text-sm line-clamp-1">
                     {selectedVideo === 'reel-01'
                       ? 'Great Light Media Reel 01 · Dynamic Pacing & Studio Composition'
                       : 'Great Light Media Reel 02 · Mobile-First Visual Storytelling & Fluid Motion'}
                   </span>
-                  <span className="text-[11px] font-mono text-glg-gold">
+                  <span className="text-[10px] sm:text-[11px] font-mono text-glg-gold line-clamp-1">
                     HD Video · Directional Lighting & Natural Movement · Great Light Creative Division
                   </span>
                 </div>

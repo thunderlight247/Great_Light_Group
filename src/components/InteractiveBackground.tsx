@@ -30,16 +30,18 @@ export default function InteractiveBackground() {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
+    const isMobile = window.innerWidth < 768;
     const mouse = {
       x: -1000,
       y: -1000,
-      radius: 180,
+      radius: isMobile ? 120 : 180,
     };
 
     const handleResize = () => {
       if (!canvas) return;
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
+      mouse.radius = window.innerWidth < 768 ? 120 : 180;
     };
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -52,9 +54,25 @@ export default function InteractiveBackground() {
       mouse.y = -1000;
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches && e.touches.length > 0) {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+      }
+    };
+
+    const handleTouchEnd = () => {
+      mouse.x = -1000;
+      mouse.y = -1000;
+    };
+
     window.addEventListener('resize', handleResize);
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener('touchstart', handleTouchMove, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd);
+    window.addEventListener('touchcancel', handleTouchEnd);
 
     // Generate balanced particle count based on screen size
     const particleCount = Math.min(Math.floor((width * height) / 18000), 75);
@@ -161,6 +179,10 @@ export default function InteractiveBackground() {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('touchstart', handleTouchMove);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('touchcancel', handleTouchEnd);
     };
   }, [prefersReduced]);
 

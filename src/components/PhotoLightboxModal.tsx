@@ -16,7 +16,13 @@ export default function PhotoLightboxModal({ item, onClose }: PhotoLightboxModal
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = originalOverflow;
+    };
   }, [onClose]);
 
   if (!item) return null;
@@ -24,11 +30,11 @@ export default function PhotoLightboxModal({ item, onClose }: PhotoLightboxModal
   return (
     <div
       onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 bg-black/90 backdrop-blur-md animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-8 bg-black/90 backdrop-blur-md animate-fadeIn"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative max-w-4xl max-h-[90vh] bg-glg-ink text-white rounded-2xl overflow-hidden border border-glg-gold/30 shadow-2xl flex flex-col"
+        className="relative max-w-4xl max-h-[92vh] sm:max-h-[90vh] bg-glg-bg-elevated text-white rounded-2xl overflow-hidden border border-glg-gold/30 shadow-2xl flex flex-col"
       >
         {/* Close Button */}
         <button

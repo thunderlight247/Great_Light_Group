@@ -27,14 +27,21 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       return;
     }
 
+    // Configure ScrollTrigger for mobile resilience (prevents jump on mobile address bar hide/show)
+    ScrollTrigger.config({
+      ignoreMobileResize: true,
+      autoRefreshEvents: 'visibilitychange,DOMContentLoaded,load',
+    });
+
     const lenis = new Lenis({
-      duration: 1.25,
+      duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 0.95,
-      touchMultiplier: 1.5,
+      touchMultiplier: 1.0,
+      syncTouch: false, // Ensures native mobile touch inertia is preserved without jitter
     });
 
     lenisRef.current = lenis;

@@ -42,6 +42,15 @@
 - [x] Synchronized navigation anchors (`#skills`) on both desktop navbar and mobile drawer.
 - [x] Updated WhatsApp connection to official number `0594273358`.
 
+### Phase 10 — Mobile-First Responsiveness & Cross-Device Ergonomics (Complete)
+- [x] **ScrollTrigger Address Bar Resiliency:** Configured `ignoreMobileResize: true` on ScrollTrigger to eliminate page jumps during mobile URL bar collapse/expand.
+- [x] **Mobile Touch Gestures:** Added `touchstart` and `touchmove` with `{ passive: true }` to `InteractiveBackground.tsx` for responsive finger tracking on iOS and Android.
+- [x] **Desktop Pinned vs Mobile In-Flow:** Re-architected `PinnedShowcase.tsx` using `gsap.matchMedia()`: keeps desktop 3D pinned scrubbing while providing unpinned, touch-switchable discipline cards on mobile to prevent vertical screen trapping.
+- [x] **Fluid Typography Protection:** Fine-tuned `clamp-h1` and `clamp-h2` minimum scales and added `touch-action: manipulation` across all buttons and inputs.
+- [x] **Accessible Mobile Drawer:** Added `aria-expanded` and bounded `max-h-[calc(100vh-75px)]` scroll support for landscape and small mobile screens.
+- [x] **Video Mobile Playback:** Embedded `playsInline` and `preload="metadata"` with responsive touch-friendly play/pause overlay controls.
+- [x] **Modal Scroll Locking:** Added body scroll lock on `LivePreviewModal.tsx` and `PhotoLightboxModal.tsx` during modal presentations.
+
 ---
 
 ## 3. Current Task

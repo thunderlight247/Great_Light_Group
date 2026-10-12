@@ -29,7 +29,7 @@ export default function ServicesSection() {
         </div>
 
         {/* Discipline Tab Switcher */}
-        <div className="flex items-center gap-3 mb-12 pb-3 border-b border-glg-gold/15">
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 mb-12 pb-3 border-b border-glg-gold/15">
           <button
             onClick={() => setActiveTab('software')}
             className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-mono font-bold transition-all ${

@@ -59,7 +59,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#15251d',
+  themeColor: '#070b09',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -75,7 +75,7 @@ export default function RootLayout({
       lang="en"
       className={`${playfair.variable} ${jakarta.variable} ${mono.variable} scroll-smooth`}
     >
-      <body className="min-h-screen bg-glg-paper text-glg-ink font-sans selection:bg-glg-green selection:text-glg-paper">
+      <body className="min-h-screen bg-glg-bg text-glg-text-primary font-sans antialiased selection:bg-glg-gold selection:text-black overflow-x-hidden">
         {children}
       </body>
     </html>

@@ -118,7 +118,7 @@ export default function Hero({ onSelectDiscipline }: HeroProps) {
           {/* Card 1: Technology & Software */}
           <div
             onClick={() => onSelectDiscipline('software')}
-            className="hero-float-1 group relative cursor-pointer rounded-2xl glass-panel p-8 sm:p-10 shadow-editorial transition-all duration-300 hover:shadow-editorial-hover hover:border-glg-emerald/50 hover:-translate-y-2"
+            className="hero-float-1 group relative cursor-pointer rounded-2xl glass-panel p-6 sm:p-8 md:p-10 shadow-editorial transition-all duration-300 hover:shadow-editorial-hover hover:border-glg-emerald/50 hover:-translate-y-2"
           >
             {/* Top Tag & Icon */}
             <div className="flex items-center justify-between mb-8">
@@ -130,7 +130,7 @@ export default function Hero({ onSelectDiscipline }: HeroProps) {
               </span>
             </div>
 
-            <h3 className="font-serif text-3xl font-bold text-white mb-3 group-hover:text-glg-emerald transition-colors">
+            <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-3 group-hover:text-glg-emerald transition-colors">
               Technology &amp; Software
             </h3>
             <p className="text-sm text-glg-text-muted leading-relaxed mb-8">
@@ -139,10 +139,10 @@ export default function Hero({ onSelectDiscipline }: HeroProps) {
 
             <div className="flex flex-wrap gap-2 mb-8">
               <span className="text-xs font-mono px-3 py-1 rounded-md bg-white/5 text-glg-text-secondary border border-white/10">
-                Go 1.24
+                Go 1.25
               </span>
               <span className="text-xs font-mono px-3 py-1 rounded-md bg-white/5 text-glg-text-secondary border border-white/10">
-                Next.js 15
+                Next.js 14/15
               </span>
               <span className="text-xs font-mono px-3 py-1 rounded-md bg-white/5 text-glg-text-secondary border border-white/10">
                 React 19
@@ -161,7 +161,7 @@ export default function Hero({ onSelectDiscipline }: HeroProps) {
           {/* Card 2: Media & Creative */}
           <div
             onClick={() => onSelectDiscipline('media')}
-            className="hero-float-2 group relative cursor-pointer rounded-2xl glass-panel p-8 sm:p-10 shadow-editorial transition-all duration-300 hover:shadow-editorial-hover hover:border-glg-gold/60 hover:-translate-y-2"
+            className="hero-float-2 group relative cursor-pointer rounded-2xl glass-panel p-6 sm:p-8 md:p-10 shadow-editorial transition-all duration-300 hover:shadow-editorial-hover hover:border-glg-gold/60 hover:-translate-y-2"
           >
             {/* Top Tag & Icon */}
             <div className="flex items-center justify-between mb-8">

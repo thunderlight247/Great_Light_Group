@@ -123,8 +123,9 @@ export default function Navbar({ activeDiscipline, onSelectDiscipline }: NavbarP
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-xl text-white hover:bg-white/15 focus:outline-none"
+            className="md:hidden p-2 rounded-xl text-white hover:bg-white/15 focus:outline-none min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="Toggle navigation menu"
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -133,7 +134,7 @@ export default function Navbar({ activeDiscipline, onSelectDiscipline }: NavbarP
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-glg-bg border-b border-glg-gold/20 px-4 pt-3 pb-8 shadow-2xl animate-fadeIn">
+        <div className="md:hidden bg-glg-bg/95 backdrop-blur-xl border-b border-glg-gold/20 px-4 pt-3 pb-8 shadow-2xl animate-fadeIn max-h-[calc(100vh-75px)] overflow-y-auto overscroll-contain">
           <div className="flex flex-col gap-2 pt-2 pb-4 border-b border-white/10">
             <div className="text-[11px] uppercase font-mono tracking-wider text-glg-gold font-bold px-1">
               Select Discipline

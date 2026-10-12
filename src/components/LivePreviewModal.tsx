@@ -15,16 +15,22 @@ export default function LivePreviewModal({ project, onClose }: LivePreviewModalP
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = originalOverflow;
+    };
   }, [onClose]);
 
   if (!project) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm animate-fadeIn">
-      <div className="relative w-full max-w-5xl h-[85vh] bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col border border-glg-ink/10">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 bg-black/85 backdrop-blur-sm animate-fadeIn">
+      <div className="relative w-full max-w-5xl h-[92vh] sm:h-[85vh] bg-glg-bg-elevated rounded-2xl overflow-hidden shadow-2xl flex flex-col border border-glg-gold/30">
         {/* Modal Header */}
-        <div className="px-6 py-4 bg-glg-ink text-white flex items-center justify-between border-b border-glg-ink/10">
+        <div className="px-4 sm:px-6 py-3.5 bg-glg-bg text-white flex items-center justify-between border-b border-glg-gold/20">
           <div className="flex items-center gap-3">
             <div className="w-2.5 h-2.5 rounded-full bg-glg-green animate-pulse" />
             <div>

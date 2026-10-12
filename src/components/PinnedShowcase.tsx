@@ -19,13 +19,16 @@ export default function PinnedShowcase() {
   const prefersReduced = usePrefersReducedMotion();
 
   useEffect(() => {
-    if (prefersReduced || typeof window === 'undefined') return;
+    if (typeof window === 'undefined') return;
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    // Desktop: Choreographed GSAP Scroll-Linked Pinned Scrub
+    mm.add('(min-width: 1024px)', () => {
+      if (prefersReduced) return;
       const cards = cardsRef.current?.querySelectorAll('.pinned-card');
-      if (!cards || cards.length === 0) return;
+      if (!cards || cards.length < 3) return;
 
-      // Pin the entire showcase section for a choreographed scrub experience
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
@@ -41,39 +44,36 @@ export default function PinnedShowcase() {
         },
       });
 
-      // Animate card 1 to card 2 to card 3 transitions
-      if (cards.length >= 3) {
-        timeline
-          .to(cards[0], {
-            opacity: 0.15,
-            scale: 0.92,
-            y: -30,
-            duration: 1,
-            ease: 'power2.inOut',
-          })
-          .fromTo(
-            cards[1],
-            { opacity: 0, y: 80, scale: 0.95 },
-            { opacity: 1, y: 0, scale: 1, duration: 1, ease: 'power2.out' },
-            '-=0.6'
-          )
-          .to(cards[1], {
-            opacity: 0.15,
-            scale: 0.92,
-            y: -30,
-            duration: 1,
-            ease: 'power2.inOut',
-          })
-          .fromTo(
-            cards[2],
-            { opacity: 0, y: 80, scale: 0.95 },
-            { opacity: 1, y: 0, scale: 1, duration: 1, ease: 'power2.out' },
-            '-=0.6'
-          );
-      }
-    }, containerRef);
+      timeline
+        .to(cards[0], {
+          opacity: 0.15,
+          scale: 0.92,
+          y: -30,
+          duration: 1,
+          ease: 'power2.inOut',
+        })
+        .fromTo(
+          cards[1],
+          { opacity: 0, y: 80, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: 1, ease: 'power2.out' },
+          '-=0.6'
+        )
+        .to(cards[1], {
+          opacity: 0.15,
+          scale: 0.92,
+          y: -30,
+          duration: 1,
+          ease: 'power2.inOut',
+        })
+        .fromTo(
+          cards[2],
+          { opacity: 0, y: 80, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: 1, ease: 'power2.out' },
+          '-=0.6'
+        );
+    });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, [prefersReduced]);
 
   return (
@@ -105,11 +105,13 @@ export default function PinnedShowcase() {
 
             {/* Interactive Timeline Stepper */}
             <div className="space-y-4 pt-2">
-              <div
-                className={`flex items-start gap-3 p-3.5 rounded-xl border transition-all duration-300 ${
+              <button
+                type="button"
+                onClick={() => setActiveStep(0)}
+                className={`w-full text-left flex items-start gap-3 p-3.5 rounded-xl border transition-all duration-300 cursor-pointer ${
                   activeStep === 0
                     ? 'bg-glg-bg-elevated border-glg-gold/40 shadow-gold-glow'
-                    : 'border-white/5 opacity-50'
+                    : 'border-white/5 opacity-50 hover:opacity-80'
                 }`}
               >
                 <div className="w-8 h-8 rounded-lg bg-glg-emerald-dark text-glg-emerald flex items-center justify-center shrink-0 font-mono text-xs font-bold">
@@ -123,13 +125,15 @@ export default function PinnedShowcase() {
                     Serializable transactions, sub-second TTFB, and offline resilience.
                   </p>
                 </div>
-              </div>
+              </button>
 
-              <div
-                className={`flex items-start gap-3 p-3.5 rounded-xl border transition-all duration-300 ${
+              <button
+                type="button"
+                onClick={() => setActiveStep(1)}
+                className={`w-full text-left flex items-start gap-3 p-3.5 rounded-xl border transition-all duration-300 cursor-pointer ${
                   activeStep === 1
                     ? 'bg-glg-bg-elevated border-glg-gold/40 shadow-gold-glow'
-                    : 'border-white/5 opacity-50'
+                    : 'border-white/5 opacity-50 hover:opacity-80'
                 }`}
               >
                 <div className="w-8 h-8 rounded-lg bg-glg-gold/20 text-glg-gold flex items-center justify-center shrink-0 font-mono text-xs font-bold">
@@ -143,13 +147,15 @@ export default function PinnedShowcase() {
                     Natural lighting, high dynamic range, and authentic human texture.
                   </p>
                 </div>
-              </div>
+              </button>
 
-              <div
-                className={`flex items-start gap-3 p-3.5 rounded-xl border transition-all duration-300 ${
+              <button
+                type="button"
+                onClick={() => setActiveStep(2)}
+                className={`w-full text-left flex items-start gap-3 p-3.5 rounded-xl border transition-all duration-300 cursor-pointer ${
                   activeStep === 2
                     ? 'bg-glg-bg-elevated border-glg-gold/40 shadow-gold-glow'
-                    : 'border-white/5 opacity-50'
+                    : 'border-white/5 opacity-50 hover:opacity-80'
                 }`}
               >
                 <div className="w-8 h-8 rounded-lg bg-glg-emerald-glow/20 text-glg-emerald-accent flex items-center justify-center shrink-0 font-mono text-xs font-bold">
@@ -163,7 +169,7 @@ export default function PinnedShowcase() {
                     Unified technical execution and brand storytelling under one roof.
                   </p>
                 </div>
-              </div>
+              </button>
             </div>
 
             <div className="text-xs font-serif italic text-glg-gold-bright pt-2">
@@ -174,7 +180,11 @@ export default function PinnedShowcase() {
           {/* Right Column: Layered Pinned Scrub Cards */}
           <div ref={cardsRef} className="lg:col-span-7 relative min-h-[460px] flex items-center">
             {/* Card 1: Software Rigor */}
-            <div className="pinned-card w-full rounded-2xl glass-panel p-6 sm:p-8 space-y-6 shadow-editorial transition-all duration-300">
+            <div
+              className={`pinned-card w-full rounded-2xl glass-panel p-6 sm:p-8 space-y-6 shadow-editorial transition-all duration-300 ${
+                activeStep === 0 ? 'block' : 'hidden lg:block'
+              }`}
+            >
               <div className="flex items-center justify-between border-b border-glg-gold/15 pb-4">
                 <div className="flex items-center gap-2.5">
                   <Cpu className="w-5 h-5 text-glg-emerald" />
@@ -183,7 +193,7 @@ export default function PinnedShowcase() {
                   </span>
                 </div>
                 <span className="text-[11px] font-mono px-2.5 py-0.5 rounded bg-glg-emerald/10 text-glg-emerald border border-glg-emerald/30">
-                  Go 1.24 · Next.js 15
+                  Go 1.25 · Next.js 14/15
                 </span>
               </div>
 
@@ -223,7 +233,11 @@ export default function PinnedShowcase() {
             </div>
 
             {/* Card 2: Cinematic Visual Craft */}
-            <div className="pinned-card absolute inset-0 w-full rounded-2xl glass-panel p-6 sm:p-8 space-y-6 shadow-editorial opacity-0 pointer-events-none transition-all duration-300">
+            <div
+              className={`pinned-card w-full lg:absolute lg:inset-0 rounded-2xl glass-panel p-6 sm:p-8 space-y-6 shadow-editorial transition-all duration-300 ${
+                activeStep === 1 ? 'block' : 'hidden lg:block lg:opacity-0 lg:pointer-events-none'
+              }`}
+            >
               <div className="flex items-center justify-between border-b border-glg-gold/15 pb-4">
                 <div className="flex items-center gap-2.5">
                   <Camera className="w-5 h-5 text-glg-gold" />
@@ -272,7 +286,11 @@ export default function PinnedShowcase() {
             </div>
 
             {/* Card 3: Dual Synergy */}
-            <div className="pinned-card absolute inset-0 w-full rounded-2xl glass-panel p-6 sm:p-8 space-y-6 shadow-editorial opacity-0 pointer-events-none transition-all duration-300">
+            <div
+              className={`pinned-card w-full lg:absolute lg:inset-0 rounded-2xl glass-panel p-6 sm:p-8 space-y-6 shadow-editorial transition-all duration-300 ${
+                activeStep === 2 ? 'block' : 'hidden lg:block lg:opacity-0 lg:pointer-events-none'
+              }`}
+            >
               <div className="flex items-center justify-between border-b border-glg-gold/15 pb-4">
                 <div className="flex items-center gap-2.5">
                   <Layers className="w-5 h-5 text-glg-emerald-accent" />
