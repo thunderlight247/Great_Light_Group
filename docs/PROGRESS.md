@@ -51,21 +51,31 @@
 - [x] **Video Mobile Playback:** Embedded `playsInline` and `preload="metadata"` with responsive touch-friendly play/pause overlay controls.
 - [x] **Modal Scroll Locking:** Added body scroll lock on `LivePreviewModal.tsx` and `PhotoLightboxModal.tsx` during modal presentations.
 
+### Phase 11 — Gateway Portal & Dedicated Division Architecture (Complete)
+- [x] **Root Gateway Portal (`/`):** Re-architected entrance page with authoritative brand presentation, logo, motto ("In him we have light"), and interactive dual division gates.
+- [x] **Dedicated Software Division (`/software`):** Full engineering showcase with obsidian & deep emerald bioluminescence, React Bits constellation background, project parallax cards, Go 1.25/PostgreSQL 16 stack grid, 12 software services, and dedicated scoping route (`/software/services`).
+- [x] **Dedicated Media & Creative Division (`/media`):** Transformed visual identity into a cinematic warm noir studio landing page (`#0a080d`) with celluloid light leaks, floating dust motes, 4K theatre player (Reel 01 & 02), editorial photography gallery, 4 creative services, and dedicated booking route (`/media/services`).
+- [x] **Cross-Division Navigation:** Added seamless switching links ("Software Division ↗" / "Media Division ↗" / "← Gateway") across all desktop and mobile navigation bars and footers.
+
 ---
 
 ## 3. Current Task
-Phase 9 & 10 Verification: Review complete experience on `http://localhost:3001`, check responsive breakpoints and interactive flows (WhatsApp generator, video switcher, live preview modals, photo lightbox).
+All 5 endpoints active and verified on `http://localhost:3002`:
+- `/` (Gateway Portal)
+- `/software` (Technology & Software Division)
+- `/software/services` (12 Software Offerings Deep-Dive)
+- `/media` (Cinematic Media & Creative Division)
+- `/media/services` (4 Creative Offerings Deep-Dive)
 
 ---
 
 ## 4. Next Exact Action
-1. Provide comprehensive status report with file links and preview URL.
-2. Solicit user review on layout, copy, and specific visual interactions.
-3. Prepare for production deployment readiness (Vercel / GitHub).
+1. Push updates to GitHub `origin main`.
+2. Present complete overview to user with file links and walkthrough.
 
 ---
 
 ## 5. Tests Run
-- `npm run build`: Production build passes with 0 errors and 0 warnings.
-- `curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3001/`: Returns `200`.
+- `npm run build`: Production build passes with 0 errors across all 8 static pages.
+- `urllib.request` verification: All 5 routes return `HTTP 200 OK`.
 - Git commits recorded on `main` branch.

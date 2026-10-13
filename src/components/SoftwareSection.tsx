@@ -81,7 +81,7 @@ export default function SoftwareSection({ onOpenLivePreview }: SoftwareSectionPr
   return (
     <section
       ref={sectionRef}
-      id="software"
+      id="projects"
       className="py-24 md:py-36 bg-glg-bg text-glg-text-primary border-b border-glg-gold/15 scroll-mt-20 relative"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
