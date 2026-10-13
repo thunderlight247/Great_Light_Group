@@ -22,8 +22,8 @@ export default function MediaPage() {
 
   return (
     <SmoothScroll>
-      <div className="relative min-h-screen bg-[#0c0a0e] text-[#fbf8f3] selection:bg-[#e8d5b5] selection:text-[#0c0a0e]">
-        {/* Soft Champagne Silk & Deep Espresso Atmosphere */}
+      <div className="relative min-h-screen bg-[#faf8f5] text-[#121115] selection:bg-[#b89047] selection:text-white">
+        {/* Luminous Warm Alabaster Canvas Atmosphere */}
         <MediaBackground />
 
         {/* Dedicated Media Navigation */}

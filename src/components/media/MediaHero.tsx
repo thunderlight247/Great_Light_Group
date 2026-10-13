@@ -82,16 +82,16 @@ export default function MediaHero() {
   return (
     <section
       ref={heroRef}
-      className="relative pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden border-b border-[#e8d5b5]/15"
+      className="relative pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden border-b border-[#e8decb]"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Analog Camera Aperture & Film Metadata Strip */}
         <div ref={badgeRef} className="flex flex-wrap items-center gap-3 mb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e8d5b5]/10 border border-[#e8d5b5]/30 text-[#e8d5b5] text-xs font-mono font-semibold uppercase tracking-wider shadow-[0_0_20px_rgba(232,213,181,0.15)]">
-            <Film className="w-3.5 h-3.5 text-[#e8d5b5]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#b89047]/10 border border-[#b89047]/30 text-[#9e7526] text-xs font-mono font-semibold uppercase tracking-wider shadow-sm">
+            <Film className="w-3.5 h-3.5 text-[#b89047]" />
             <span>Great Light Creative &amp; Great LENS Atelier</span>
           </div>
-          <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 border border-white/10 text-[#d4c5b9] text-[11px] font-mono">
+          <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 border border-[#e8decb] text-[#4b4754] text-[11px] font-mono shadow-sm">
             <span>[ 35MM · 4K DCI · 10-BIT LOG · DAVINCI RESOLVE · GHANA ]</span>
           </div>
         </div>
@@ -100,17 +100,17 @@ export default function MediaHero() {
         <div className="max-w-5xl mb-10">
           <h1
             ref={titleRef}
-            className="clamp-h1 font-serif font-black text-white tracking-tight leading-[0.93] mb-6"
+            className="clamp-h1 font-serif font-black text-[#121115] tracking-tight leading-[0.93] mb-6"
           >
             <span className="media-line block">Light, Paced Motion</span>
-            <span className="media-line block text-transparent bg-clip-text bg-gradient-to-r from-[#e8d5b5] via-[#f5e8d2] to-[#b89758] italic font-normal">
+            <span className="media-line block text-transparent bg-clip-text bg-gradient-to-r from-[#b89047] via-[#c59b3f] to-[#9e7526] italic font-normal">
               &amp; Human Truth.
             </span>
           </h1>
 
           <p
             ref={subtitleRef}
-            className="clamp-body text-[#d4c5b9] max-w-2xl leading-relaxed"
+            className="clamp-body text-[#4b4754] max-w-2xl leading-relaxed font-sans"
           >
             We curate imagery that endures. Specializing in high-fashion bridal couture, sacred ceremonial documentaries, and 4K cinema motion reels with directional chiaroscuro lighting.
           </p>
@@ -120,7 +120,7 @@ export default function MediaHero() {
         <div ref={ctaRef} className="flex flex-wrap items-center gap-4 pt-2">
           <a
             href="#photography"
-            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-[#e8d5b5] text-[#0c0a0e] hover:bg-[#f5e8d2] transition-all shadow-[0_0_25px_rgba(232,213,181,0.3)] hover:scale-105"
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-[#b89047] text-white hover:bg-[#9e7526] transition-all shadow-[0_10px_25px_rgba(184,144,71,0.25)] hover:scale-105"
           >
             <Camera className="w-4 h-4 fill-current" />
             <span>Explore 22 Curated Works</span>
@@ -128,15 +128,15 @@ export default function MediaHero() {
 
           <a
             href="#reels"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-xs font-mono font-semibold text-white bg-white/5 hover:bg-white/10 border border-white/15 hover:border-[#e8d5b5]/50 transition-all"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-xs font-mono font-semibold text-[#121115] bg-white hover:bg-[#faf8f5] border border-[#e8decb] hover:border-[#b89047] transition-all shadow-sm"
           >
-            <Play className="w-4 h-4 text-[#e8d5b5] fill-current" />
+            <Play className="w-4 h-4 text-[#b89047] fill-current" />
             <span>Watch 4K Motion Reels</span>
           </a>
 
           <Link
             href="/media/services"
-            className="inline-flex items-center gap-1.5 px-6 py-3.5 rounded-full text-xs font-mono text-[#e8d5b5] hover:text-white transition-colors"
+            className="inline-flex items-center gap-1.5 px-6 py-3.5 rounded-full text-xs font-mono text-[#9e7526] hover:text-[#121115] transition-colors font-semibold"
           >
             <span>View 4 Production Packages</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -144,15 +144,15 @@ export default function MediaHero() {
         </div>
 
         {/* Hero Film Strip Teaser: 4 Authentic Works */}
-        <div ref={filmStripRef} className="mt-14 pt-8 border-t border-[#e8d5b5]/15">
+        <div ref={filmStripRef} className="mt-14 pt-8 border-t border-[#e8decb]">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-[11px] uppercase font-mono tracking-widest text-[#e8d5b5] font-bold flex items-center gap-2">
-              <Aperture className="w-3.5 h-3.5 text-[#e8d5b5]" />
+            <span className="text-[11px] uppercase font-mono tracking-widest text-[#9e7526] font-bold flex items-center gap-2">
+              <Aperture className="w-3.5 h-3.5 text-[#b89047]" />
               <span>Permanent Exhibition Selection</span>
             </span>
             <a
               href="#photography"
-              className="text-xs font-mono text-zinc-400 hover:text-[#e8d5b5] transition-colors flex items-center gap-1"
+              className="text-xs font-mono text-[#787280] hover:text-[#b89047] transition-colors flex items-center gap-1"
             >
               <span>View All 22 Works</span>
               <ArrowRight className="w-3 h-3" />
@@ -164,7 +164,7 @@ export default function MediaHero() {
               <a
                 key={idx}
                 href="#photography"
-                className="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-black border border-[#e8d5b5]/20 hover:border-[#e8d5b5]/80 shadow-[0_10px_25px_rgba(0,0,0,0.6)] transition-all hover:-translate-y-1"
+                className="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-white border border-[#e8decb] hover:border-[#b89047] shadow-[0_10px_25px_rgba(0,0,0,0.06)] hover:shadow-[0_15px_30px_rgba(184,144,71,0.15)] transition-all hover:-translate-y-1"
               >
                 <Image
                   src={still.src}
@@ -173,16 +173,16 @@ export default function MediaHero() {
                   className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   sizes="(max-width: 768px) 50vw, 25vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
 
                 <div className="absolute top-2.5 left-2.5">
-                  <span className="text-[9px] font-mono uppercase tracking-wider bg-black/80 text-[#e8d5b5] px-2 py-0.5 rounded-full border border-[#e8d5b5]/30">
+                  <span className="text-[9px] font-mono uppercase tracking-wider bg-black/75 text-white px-2 py-0.5 rounded-full border border-white/20 backdrop-blur-sm">
                     {still.badge}
                   </span>
                 </div>
 
                 <div className="absolute bottom-2.5 left-2.5 right-2.5 text-white">
-                  <div className="text-xs font-serif font-bold group-hover:text-[#e8d5b5] transition-colors line-clamp-1">
+                  <div className="text-xs font-serif font-bold group-hover:text-[#f5eedc] transition-colors line-clamp-1">
                     {still.label}
                   </div>
                 </div>
@@ -192,27 +192,27 @@ export default function MediaHero() {
         </div>
 
         {/* Creative Production Benchmark Strip */}
-        <div className="mt-12 pt-8 border-t border-[#e8d5b5]/15 grid grid-cols-2 sm:grid-cols-4 gap-6 text-xs font-mono text-zinc-400">
+        <div className="mt-12 pt-8 border-t border-[#e8decb] grid grid-cols-2 sm:grid-cols-4 gap-6 text-xs font-mono text-[#787280]">
           <div>
-            <div className="text-xl sm:text-2xl font-serif font-bold text-[#e8d5b5] mb-1">
+            <div className="text-xl sm:text-2xl font-serif font-bold text-[#b89047] mb-1">
               4K DCI
             </div>
             <div className="text-[10px] uppercase tracking-wider">Master Resolution</div>
           </div>
           <div>
-            <div className="text-xl sm:text-2xl font-serif font-bold text-white mb-1">
+            <div className="text-xl sm:text-2xl font-serif font-bold text-[#121115] mb-1">
               10-Bit Log
             </div>
             <div className="text-[10px] uppercase tracking-wider">Dynamic Range</div>
           </div>
           <div>
-            <div className="text-xl sm:text-2xl font-serif font-bold text-[#f5e8d2] mb-1">
+            <div className="text-xl sm:text-2xl font-serif font-bold text-[#b89047] mb-1">
               DaVinci
             </div>
             <div className="text-[10px] uppercase tracking-wider">Color Studio Science</div>
           </div>
           <div>
-            <div className="text-xl sm:text-2xl font-serif font-bold text-white mb-1">
+            <div className="text-xl sm:text-2xl font-serif font-bold text-[#121115] mb-1">
               Chiaroscuro
             </div>
             <div className="text-[10px] uppercase tracking-wider">Sculpted Lighting</div>

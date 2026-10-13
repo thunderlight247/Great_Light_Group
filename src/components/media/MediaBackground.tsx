@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { usePrefersReducedMotion } from '@/lib/motion/useMotion';
 
-interface FilmParticle {
+interface LightMote {
   x: number;
   y: number;
   size: number;
@@ -37,19 +37,19 @@ export default function MediaBackground() {
 
     window.addEventListener('resize', handleResize);
 
-    // Warm champagne atelier particles (Pale Champagne Silk, Brushed Brass, Soft Ivory)
-    const particleCount = Math.min(Math.floor((width * height) / 32000), 40);
-    const particles: FilmParticle[] = [];
-    const colors = ['#e8d5b5', '#f5e8d2', '#b89758', '#d6c4a5'];
+    // Sunlit studio atelier motes (Soft Champagne, Warm Gold, Sunlit Linen)
+    const particleCount = Math.min(Math.floor((width * height) / 38000), 30);
+    const particles: LightMote[] = [];
+    const colors = ['#b89047', '#c59b3f', '#d9c29c', '#9e7526'];
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        size: Math.random() * 2.0 + 0.6,
-        vx: (Math.random() - 0.5) * 0.2,
-        vy: -Math.random() * 0.3 - 0.08, // Gently drifting upwards like projector dust motes
-        alpha: Math.random() * 0.25 + 0.06,
+        size: Math.random() * 2.2 + 0.8,
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: -Math.random() * 0.25 - 0.05,
+        alpha: Math.random() * 0.18 + 0.04,
         color: colors[Math.floor(Math.random() * colors.length)],
       });
     }
@@ -87,27 +87,27 @@ export default function MediaBackground() {
   }, [prefersReduced]);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#0c0a0e]">
-      {/* Soft Champagne Silk & Deep Espresso Atmospheric Halos */}
-      <div className="absolute top-[-15%] right-[-8%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-br from-[#e8d5b5]/10 via-[#b89758]/5 to-transparent blur-[160px] pointer-events-none" />
-      <div className="absolute top-[35%] left-[-15%] w-[55vw] h-[55vw] rounded-full bg-gradient-to-tr from-[#1d1625]/40 via-[#271e16]/20 to-transparent blur-[180px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[15%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-tl from-[#e8d5b5]/8 via-[#b89758]/5 to-transparent blur-[160px] pointer-events-none" />
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#faf8f5]">
+      {/* Luminous Sunlit Studio Atmospheric Soft Radial Glows */}
+      <div className="absolute top-[-10%] right-[-5%] w-[65vw] h-[65vw] rounded-full bg-gradient-to-br from-[#f2ebdc]/70 via-[#ede2cd]/40 to-transparent blur-[140px] pointer-events-none" />
+      <div className="absolute top-[35%] left-[-15%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-[#f5eee1]/60 via-[#f0e7d6]/30 to-transparent blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[10%] w-[55vw] h-[55vw] rounded-full bg-gradient-to-tl from-[#ede1cb]/50 via-[#f7f2e8]/40 to-transparent blur-[150px] pointer-events-none" />
 
-      {/* Subtle Anamorphic Champagne Horizontal Flare */}
-      <div className="absolute top-[20%] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#e8d5b5]/20 to-transparent blur-[1px] pointer-events-none" />
-      <div className="absolute top-[65%] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#b89758]/15 to-transparent blur-[1px] pointer-events-none" />
+      {/* Subtle Editorial Hairline Divider Beams */}
+      <div className="absolute top-[22%] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#b89047]/15 to-transparent pointer-events-none" />
+      <div className="absolute top-[68%] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#b89047]/10 to-transparent pointer-events-none" />
 
-      {/* Analog 35mm Celluloid Grain Texture */}
+      {/* Fine Museum Paper Grain Texture */}
       <div
-        className="absolute inset-0 opacity-[0.035] pointer-events-none mix-blend-screen"
+        className="absolute inset-0 opacity-[0.025] pointer-events-none mix-blend-multiply"
         style={{
           backgroundImage:
-            'radial-gradient(circle at 50% 50%, rgba(232, 213, 181, 0.4) 1px, transparent 1px)',
+            'radial-gradient(circle at 50% 50%, rgba(18, 17, 21, 0.4) 1px, transparent 1px)',
           backgroundSize: '4px 4px',
         }}
       />
 
-      {/* Atmospheric Canvas Motes */}
+      {/* Floating Canvas Motes */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
     </div>
   );

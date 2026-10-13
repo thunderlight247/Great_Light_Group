@@ -44,18 +44,25 @@ const config: Config = {
           ink: '#f8fafc',
         },
         atelier: {
-          bg: '#0c0a0e',            // Deep Espresso Noir
-          card: '#131017',          // Elevated Espresso Slate
-          surface: '#18141f',       // Highlight Card Surface
-          border: 'rgba(232, 213, 181, 0.15)',
-          champagne: {
-            DEFAULT: '#e8d5b5',     // Pale Champagne Silk
-            bright: '#f5e8d2',      // Crisp Pale Silk
-            muted: '#b89758',       // Muted Brushed Brass
-            dark: '#8a6d3b',        // Antique Bronze
+          bg: '#faf8f5',            // Luminous Warm Alabaster Canvas
+          card: '#ffffff',          // Crisp Gallery White Card
+          surface: '#ffffff',       // Elevated Pure White Surface
+          subtle: '#f3efe8',        // Soft Warm Paper Surface
+          border: 'rgba(184, 144, 71, 0.2)', // Delicate Champagne Gold Border
+          text: {
+            primary: '#121115',     // Deep Studio Onyx Charcoal
+            secondary: '#4b4754',   // Slate Charcoal
+            muted: '#787280',       // Muted Editorial Ash
           },
-          ivory: '#fbf8f3',         // Pure Headline Ivory
-          ash: '#9e98a3',           // Soft Warm Ash
+          champagne: {
+            DEFAULT: '#b89047',     // Rich Atelier Gold
+            bright: '#c59b3f',      // Warm Champagne Foil
+            muted: '#9e7526',       // Antique Bronze
+            dark: '#6e4f13',        // Deep Gold Ink
+            soft: '#f7f1e6',        // Soft Gold Tint
+          },
+          ivory: '#ffffff',
+          ash: '#787280',
         },
       },
       fontFamily: {

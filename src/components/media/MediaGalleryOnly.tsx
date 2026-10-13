@@ -93,50 +93,50 @@ export default function MediaGalleryOnly({ onOpenLightbox }: MediaGalleryOnlyPro
     <section
       ref={sectionRef}
       id="photography"
-      className="py-24 md:py-36 relative border-b border-[#e8d5b5]/15 scroll-mt-20"
+      className="py-24 md:py-36 relative border-b border-[#e8decb] scroll-mt-20"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>
-            <div className="text-xs uppercase font-mono tracking-eyebrow text-[#e8d5b5] font-semibold mb-3 flex items-center gap-2">
-              <Camera className="w-4 h-4 text-[#e8d5b5]" />
+            <div className="text-xs uppercase font-mono tracking-eyebrow text-[#9e7526] font-semibold mb-3 flex items-center gap-2">
+              <Camera className="w-4 h-4 text-[#b89047]" />
               <span>Great LENS · Studio Archive &amp; Lookbook</span>
             </div>
-            <h2 className="clamp-h2 font-serif font-bold text-white tracking-tight leading-[1.05]">
+            <h2 className="clamp-h2 font-serif font-bold text-[#121115] tracking-tight leading-[1.05]">
               Curated Photography &amp; <br />
-              <span className="font-normal italic text-transparent bg-clip-text bg-gradient-to-r from-[#e8d5b5] via-[#f5e8d2] to-[#b89758]">
+              <span className="font-normal italic text-transparent bg-clip-text bg-gradient-to-r from-[#b89047] via-[#c59b3f] to-[#9e7526]">
                 Editorial Stills.
               </span>
             </h2>
           </div>
           <div className="max-w-md space-y-2">
-            <p className="text-sm text-[#d4c5b9] leading-relaxed">
+            <p className="text-sm text-[#4b4754] leading-relaxed font-sans">
               Every frame is an authentic commission captured by Great Light Creative. From regal Aso-Oke bridal couture and church solemnities to cinema camera rigs and directional chiaroscuro portraiture.
             </p>
-            <div className="flex items-center gap-2 text-[11px] font-mono text-[#e8d5b5]/90">
-              <span className="w-2 h-2 rounded-full bg-[#e8d5b5] animate-pulse" />
+            <div className="flex items-center gap-2 text-[11px] font-mono text-[#9e7526] font-semibold">
+              <span className="w-2 h-2 rounded-full bg-[#b89047] animate-pulse" />
               <span>22 Original Works In Current Exhibition</span>
             </div>
           </div>
         </div>
 
         {/* Exhibition Category Tabs */}
-        <div className="flex flex-wrap items-center gap-2.5 mb-12 pb-4 border-b border-[#e8d5b5]/15">
+        <div className="flex flex-wrap items-center gap-2.5 mb-12 pb-4 border-b border-[#e8decb]">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
               className={`px-4 sm:px-5 py-2 rounded-full text-xs font-mono font-semibold transition-all flex items-center gap-2 ${
                 activeCategory === cat.id
-                  ? 'bg-[#e8d5b5] text-[#0c0a0e] font-bold shadow-[0_0_20px_rgba(232,213,181,0.3)] scale-105'
-                  : 'bg-white/5 text-[#d4c5b9] hover:text-white hover:bg-white/10 border border-white/10'
+                  ? 'bg-[#b89047] text-white font-bold shadow-[0_4px_16px_rgba(184,144,71,0.25)] scale-105'
+                  : 'bg-white text-[#4b4754] hover:text-[#121115] hover:bg-[#faf8f5] border border-[#e8decb]'
               }`}
             >
               <span>{cat.label}</span>
               <span
                 className={`text-[10px] px-1.5 py-0.5 rounded-full ${
-                  activeCategory === cat.id ? 'bg-[#0c0a0e]/20 text-[#0c0a0e]' : 'bg-white/10 text-zinc-300'
+                  activeCategory === cat.id ? 'bg-white/20 text-white' : 'bg-[#faf8f5] text-[#787280] border border-[#e8decb]/60'
                 }`}
               >
                 {cat.count}
@@ -160,25 +160,25 @@ export default function MediaGalleryOnly({ onOpenLightbox }: MediaGalleryOnlyPro
               <div
                 key={item.id}
                 onClick={() => onOpenLightbox(item, filteredItems)}
-                className={`exhibition-frame group relative cursor-pointer rounded-2xl sm:rounded-3xl overflow-hidden bg-[#131017] border border-[#e8d5b5]/15 hover:border-[#e8d5b5]/70 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.85)] hover:shadow-[0_20px_45px_rgba(232,213,181,0.15)] transition-all duration-500 hover:-translate-y-1.5 flex flex-col justify-between ${
+                className={`exhibition-frame group relative cursor-pointer rounded-2xl sm:rounded-3xl overflow-hidden bg-white border border-[#e8decb] hover:border-[#b89047] shadow-[0_10px_30px_-5px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_45px_rgba(184,144,71,0.15)] transition-all duration-500 hover:-translate-y-1.5 flex flex-col justify-between ${
                   isFeatured ? 'sm:col-span-2 lg:col-span-2' : ''
                 }`}
               >
                 {/* Top Film Stock Perforation & Metadata Strip */}
-                <div className="px-4 py-2.5 bg-black/85 border-b border-[#e8d5b5]/15 flex items-center justify-between text-[10px] font-mono text-zinc-400 z-10">
+                <div className="px-4 py-2.5 bg-[#faf8f5] border-b border-[#e8decb] flex items-center justify-between text-[10px] font-mono text-[#787280] z-10">
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-[#e8d5b5] tracking-wider">
+                    <span className="font-bold text-[#b89047] tracking-wider">
                       {item.frameNumber || `FRAME ${String(index + 1).padStart(2, '0')}`}
                     </span>
-                    <span className="text-zinc-600">·</span>
-                    <span className="uppercase tracking-widest text-[#d4c5b9]">
+                    <span className="text-[#e8decb]">·</span>
+                    <span className="uppercase tracking-widest text-[#4b4754]">
                       {item.category}
                     </span>
                   </div>
 
                   {item.lensInfo && (
-                    <div className="hidden sm:flex items-center gap-1.5 text-[#f5e8d2] bg-[#e8d5b5]/10 px-2 py-0.5 rounded border border-[#e8d5b5]/20">
-                      <Aperture className="w-3 h-3 text-[#e8d5b5]" />
+                    <div className="hidden sm:flex items-center gap-1.5 text-[#9e7526] bg-[#b89047]/10 px-2 py-0.5 rounded border border-[#b89047]/20">
+                      <Aperture className="w-3 h-3 text-[#b89047]" />
                       <span>{item.lensInfo.split('·')[0].trim()}</span>
                     </div>
                   )}
@@ -207,18 +207,18 @@ export default function MediaGalleryOnly({ onOpenLightbox }: MediaGalleryOnlyPro
                   />
 
                   {/* Subtle Film Grain Vignette */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#131017] via-transparent to-black/30 opacity-70 group-hover:opacity-40 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 opacity-60 group-hover:opacity-40 transition-opacity" />
 
                   {/* Overlaid Badge */}
                   <div className="absolute top-3 left-3 pointer-events-none">
-                    <span className="text-[10px] uppercase font-mono tracking-wider bg-black/80 text-[#e8d5b5] px-2.5 py-1 rounded-full backdrop-blur-md border border-[#e8d5b5]/30">
+                    <span className="text-[10px] uppercase font-mono tracking-wider bg-black/75 text-white px-2.5 py-1 rounded-full backdrop-blur-md border border-white/20">
                       {item.badge || 'Great LENS'}
                     </span>
                   </div>
 
                   {/* Hover Inspect Pill */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                    <div className="px-4 py-2 rounded-full bg-black/85 text-[#e8d5b5] text-xs font-mono font-bold tracking-wider border border-[#e8d5b5]/50 backdrop-blur-md shadow-[0_0_20px_rgba(232,213,181,0.3)] flex items-center gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                    <div className="px-4 py-2 rounded-full bg-black/85 text-[#f5eedc] text-xs font-mono font-bold tracking-wider border border-white/30 backdrop-blur-md shadow-[0_0_20px_rgba(0,0,0,0.5)] flex items-center gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform">
                       <Eye className="w-3.5 h-3.5" />
                       <span>Inspect Artwork</span>
                     </div>
@@ -226,21 +226,21 @@ export default function MediaGalleryOnly({ onOpenLightbox }: MediaGalleryOnlyPro
                 </div>
 
                 {/* Bottom Atelier Caption & Actions */}
-                <div className="p-5 sm:p-6 bg-[#131017] border-t border-[#e8d5b5]/10 flex flex-col justify-between gap-3">
+                <div className="p-5 sm:p-6 bg-white border-t border-[#e8decb] flex flex-col justify-between gap-3">
                   <div>
-                    <div className="text-[11px] font-mono text-[#a39ea8] mb-1">
+                    <div className="text-[11px] font-mono text-[#787280] mb-1">
                       {item.client || 'Great Light Collection'}
                     </div>
-                    <h3 className="font-serif font-bold text-lg sm:text-xl text-white group-hover:text-[#e8d5b5] transition-colors tracking-tight">
+                    <h3 className="font-serif font-bold text-lg sm:text-xl text-[#121115] group-hover:text-[#b89047] transition-colors tracking-tight">
                       {item.title}
                     </h3>
-                    <p className="text-xs text-[#a39ea8] line-clamp-2 mt-1 leading-relaxed">
+                    <p className="text-xs text-[#4b4754] line-clamp-2 mt-1 leading-relaxed">
                       {item.caption}
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-white/5 flex items-center justify-between text-xs font-mono">
-                    <span className="text-[#e8d5b5]/90 flex items-center gap-1.5 group-hover:text-[#f5e8d2]">
+                  <div className="pt-3 border-t border-[#e8decb]/60 flex items-center justify-between text-xs font-mono">
+                    <span className="text-[#787280] flex items-center gap-1.5 group-hover:text-[#b89047]">
                       <Eye className="w-3.5 h-3.5" />
                       <span>Enlarge Frame</span>
                     </span>
@@ -250,7 +250,7 @@ export default function MediaGalleryOnly({ onOpenLightbox }: MediaGalleryOnlyPro
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/5 hover:bg-[#e8d5b5] hover:text-[#0c0a0e] text-[#d4c5b9] text-[11px] transition-all border border-white/10 hover:border-[#e8d5b5]"
+                      className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#faf8f5] hover:bg-[#b89047] hover:text-white text-[#4b4754] text-[11px] transition-all border border-[#e8decb] hover:border-[#b89047]"
                     >
                       <MessageSquare className="w-3 h-3" />
                       <span>Book Style</span>

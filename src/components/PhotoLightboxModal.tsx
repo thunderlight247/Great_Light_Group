@@ -67,24 +67,24 @@ export default function PhotoLightboxModal({
     >
       {/* Ambient Champagne Silk Backlight Halo */}
       <div className="absolute inset-0 bg-radial-gradient pointer-events-none opacity-40">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vh] rounded-full bg-[#e8d5b5]/10 blur-[150px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vh] rounded-full bg-[#b89047]/10 blur-[150px]" />
       </div>
 
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-6xl max-h-[96vh] bg-[#0f0c13] text-white rounded-2xl md:rounded-3xl overflow-hidden border border-[#e8d5b5]/25 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95)] flex flex-col"
+        className="relative w-full max-w-6xl max-h-[96vh] bg-[#0f0c13] text-white rounded-2xl md:rounded-3xl overflow-hidden border border-[#b89047]/30 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95)] flex flex-col"
       >
         {/* Top Marquee Bar */}
-        <div className="px-5 py-3.5 bg-black/85 border-b border-[#e8d5b5]/15 flex items-center justify-between z-20">
+        <div className="px-5 py-3.5 bg-black/85 border-b border-white/10 flex items-center justify-between z-20">
           <div className="flex items-center gap-3">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-[#e8d5b5] font-bold px-2.5 py-1 rounded-full bg-[#e8d5b5]/10 border border-[#e8d5b5]/30">
+            <span className="text-[11px] font-mono uppercase tracking-widest text-[#b89047] font-bold px-2.5 py-1 rounded-full bg-[#b89047]/10 border border-[#b89047]/30">
               {item.frameNumber || 'FRAME'}
             </span>
-            <span className="text-xs font-mono text-[#a39ea8] hidden sm:inline">
+            <span className="text-xs font-mono text-zinc-400 hidden sm:inline">
               Great LENS · Studio Archive
             </span>
             {hasMultiple && (
-              <span className="text-xs font-mono text-[#e8d5b5]/90 bg-white/5 px-2.5 py-0.5 rounded">
+              <span className="text-xs font-mono text-[#b89047] bg-white/5 px-2.5 py-0.5 rounded">
                 {String(currentIndex + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
               </span>
             )}
@@ -95,7 +95,7 @@ export default function PhotoLightboxModal({
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-[#e8d5b5] text-[#0c0a0e] hover:bg-[#f5e8d2] transition-all shadow-[0_0_20px_rgba(232,213,181,0.25)]"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-[#b89047] text-white hover:bg-[#9e7526] transition-all shadow-sm"
             >
               <MessageSquare className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Inquire on WhatsApp</span>
@@ -140,7 +140,7 @@ export default function PhotoLightboxModal({
             <>
               <button
                 onClick={handlePrev}
-                className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/75 hover:bg-black/95 text-[#e8d5b5] border border-[#e8d5b5]/30 transition-all hover:scale-110 active:scale-95 focus:outline-none shadow-[0_0_20px_rgba(0,0,0,0.8)]"
+                className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/75 hover:bg-black/95 text-[#b89047] border border-[#b89047]/30 transition-all hover:scale-110 active:scale-95 focus:outline-none shadow-[0_0_20px_rgba(0,0,0,0.8)]"
                 aria-label="Previous artwork"
               >
                 <ChevronLeft className="w-6 h-6" />
@@ -148,7 +148,7 @@ export default function PhotoLightboxModal({
 
               <button
                 onClick={handleNext}
-                className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/75 hover:bg-black/95 text-[#e8d5b5] border border-[#e8d5b5]/30 transition-all hover:scale-110 active:scale-95 focus:outline-none shadow-[0_0_20px_rgba(0,0,0,0.8)]"
+                className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/75 hover:bg-black/95 text-[#b89047] border border-[#b89047]/30 transition-all hover:scale-110 active:scale-95 focus:outline-none shadow-[0_0_20px_rgba(0,0,0,0.8)]"
                 aria-label="Next artwork"
               >
                 <ChevronRight className="w-6 h-6" />
@@ -158,20 +158,20 @@ export default function PhotoLightboxModal({
         </div>
 
         {/* Bottom Editorial Callout & Metadata */}
-        <div className="p-5 sm:p-7 bg-[#131017] border-t border-[#e8d5b5]/15 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="p-5 sm:p-7 bg-[#0f0c13] border-t border-[#b89047]/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1.5 max-w-2xl">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-[#e8d5b5] font-bold">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-[#b89047] font-bold">
                 {item.category}
               </span>
               <span className="text-zinc-600">·</span>
-              <span className="text-[11px] font-mono text-[#a39ea8]">
+              <span className="text-[11px] font-mono text-zinc-400">
                 {item.client || 'Great Light Collection'}
               </span>
               {item.lensInfo && (
                 <>
                   <span className="text-zinc-600 hidden sm:inline">·</span>
-                  <span className="text-[11px] font-mono text-[#f5e8d2] bg-[#e8d5b5]/10 px-2 py-0.5 rounded hidden sm:inline border border-[#e8d5b5]/20">
+                  <span className="text-[11px] font-mono text-[#f5eedc] bg-[#b89047]/10 px-2 py-0.5 rounded hidden sm:inline border border-[#b89047]/30">
                     {item.lensInfo}
                   </span>
                 </>
@@ -182,7 +182,7 @@ export default function PhotoLightboxModal({
               {item.title}
             </h3>
 
-            <p className="text-xs sm:text-sm text-[#d4c5b9] leading-relaxed">
+            <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans">
               {item.caption}
             </p>
           </div>
@@ -192,7 +192,7 @@ export default function PhotoLightboxModal({
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-[#e8d5b5] text-[#0c0a0e] hover:bg-[#f5e8d2] transition-all shadow-[0_0_25px_rgba(232,213,181,0.3)] hover:scale-105"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-[#b89047] text-white hover:bg-[#9e7526] transition-all shadow-[0_10px_25px_rgba(184,144,71,0.25)] hover:scale-105"
             >
               <MessageSquare className="w-4 h-4 fill-current" />
               <span>Book This Style on WhatsApp</span>
