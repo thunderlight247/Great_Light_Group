@@ -7,13 +7,12 @@ import MediaNavbar from '@/components/media/MediaNavbar';
 import MediaServicesOnly from '@/components/media/MediaServicesOnly';
 import MediaEnquiry from '@/components/media/MediaEnquiry';
 import MediaFooter from '@/components/media/MediaFooter';
-import { ArrowLeft, Film, Sparkles, Camera } from 'lucide-react';
-import { MEDIA_SERVICES } from '@/data/portfolioData';
+import { ArrowLeft, Film, Sparkles } from 'lucide-react';
 
 export default function MediaServicesPage() {
   return (
     <SmoothScroll>
-      <div className="relative min-h-screen bg-[#0a080d] text-glg-text-primary selection:bg-glg-gold selection:text-black">
+      <div className="relative min-h-screen bg-[#08060a] text-zinc-100 selection:bg-amber-500 selection:text-black">
         <MediaBackground />
         <MediaNavbar />
 
@@ -23,22 +22,24 @@ export default function MediaServicesPage() {
             <div className="mb-10">
               <Link
                 href="/media"
-                className="inline-flex items-center gap-2 text-xs font-mono text-glg-gold hover:text-white transition-colors mb-4"
+                className="inline-flex items-center gap-2 text-xs font-mono text-amber-400 hover:text-white transition-colors mb-4"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Return to Media Division Home</span>
+                <span>Return to Media Division Gallery</span>
               </Link>
 
-              <div className="text-xs uppercase font-mono tracking-eyebrow text-glg-gold font-semibold mb-2 flex items-center gap-2">
+              <div className="text-xs uppercase font-mono tracking-eyebrow text-amber-400 font-semibold mb-2 flex items-center gap-2">
                 <Film className="w-4 h-4" />
-                <span>Creative Capabilities &amp; Production Packages</span>
+                <span>Great Light Atelier · Production Packages</span>
               </div>
               <h1 className="clamp-h1 font-serif font-black text-white tracking-tight leading-[0.95] mb-4">
-                Creative Services &amp; <br />
-                <span className="text-glg-gold-champagne italic font-normal">Production Capabilities.</span>
+                Creative Production &amp; <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-200 to-yellow-100 italic font-normal">
+                  Studio Packages.
+                </span>
               </h1>
-              <p className="max-w-2xl text-sm text-glg-text-secondary leading-relaxed">
-                Full-scope visual creation for commercial brands, fashion houses, institutions, and documentary stories. From directional aperture capture to DaVinci Resolve color science.
+              <p className="max-w-2xl text-sm text-zinc-300 leading-relaxed">
+                Full-scope visual creation for high-fashion bridal clients, cultural institutions, and commercial brands. From directional chiaroscuro capture to DaVinci Resolve color science.
               </p>
             </div>
 

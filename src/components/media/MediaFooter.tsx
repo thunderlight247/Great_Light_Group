@@ -66,7 +66,7 @@ export default function MediaFooter() {
                 </Link>
               </li>
               <li>
-                <a href="#story" className="hover:text-glg-gold transition-colors">
+                <a href="#ethos" className="hover:text-glg-gold transition-colors">
                   04 Creative Ethos
                 </a>
               </li>

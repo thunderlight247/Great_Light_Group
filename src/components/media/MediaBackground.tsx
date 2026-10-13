@@ -10,7 +10,7 @@ interface FilmParticle {
   vy: number;
   vx: number;
   alpha: number;
-  baseAlpha: number;
+  color: string;
 }
 
 export default function MediaBackground() {
@@ -37,20 +37,20 @@ export default function MediaBackground() {
 
     window.addEventListener('resize', handleResize);
 
-    // Warm cinematic atmospheric motes
-    const particleCount = Math.min(Math.floor((width * height) / 32000), 40);
+    // Warm cinematic atmospheric motes (amber, champagne, soft ruby)
+    const particleCount = Math.min(Math.floor((width * height) / 30000), 45);
     const particles: FilmParticle[] = [];
+    const colors = ['#f59e0b', '#d4af37', '#fbbf24', '#f43f5e'];
 
     for (let i = 0; i < particleCount; i++) {
-      const baseAlpha = Math.random() * 0.35 + 0.1;
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        size: Math.random() * 2.2 + 0.6,
-        vx: (Math.random() - 0.5) * 0.2,
-        vy: -Math.random() * 0.3 - 0.1, // gently drifting upwards like theatrical dust motes
-        alpha: baseAlpha,
-        baseAlpha,
+        size: Math.random() * 2.4 + 0.8,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: -Math.random() * 0.35 - 0.1, // Drifting upwards like projector dust motes
+        alpha: Math.random() * 0.3 + 0.08,
+        color: colors[Math.floor(Math.random() * colors.length)],
       });
     }
 
@@ -62,14 +62,13 @@ export default function MediaBackground() {
         p.x += p.vx;
         p.y += p.vy;
 
-        // Wrap around vertically
         if (p.y < 0) p.y = height;
         if (p.x < 0) p.x = width;
         if (p.x > width) p.x = 0;
 
         ctx.save();
         ctx.globalAlpha = p.alpha;
-        ctx.fillStyle = '#d4af37'; // warm film gold
+        ctx.fillStyle = p.color;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
@@ -88,18 +87,22 @@ export default function MediaBackground() {
   }, [prefersReduced]);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#0a080d]">
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#08060a]">
       {/* Warm Cinematic Film Light Leaks & Lens Flares */}
-      <div className="absolute top-[-15%] right-[-10%] w-[55vw] h-[55vw] rounded-full bg-gradient-to-br from-amber-600/15 via-yellow-500/10 to-transparent blur-[160px] pointer-events-none" />
-      <div className="absolute top-[40%] left-[-15%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-tr from-orange-950/20 via-amber-900/10 to-transparent blur-[180px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[20%] w-[45vw] h-[45vw] rounded-full bg-yellow-600/10 blur-[150px] pointer-events-none" />
+      <div className="absolute top-[-10%] right-[-5%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-br from-amber-600/20 via-orange-600/10 to-transparent blur-[160px] pointer-events-none" />
+      <div className="absolute top-[35%] left-[-15%] w-[55vw] h-[55vw] rounded-full bg-gradient-to-tr from-rose-950/25 via-amber-900/15 to-transparent blur-[180px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[15%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-tl from-amber-500/15 via-yellow-600/10 to-transparent blur-[160px] pointer-events-none" />
 
-      {/* Subtle Analog Film Grain Texture Effect */}
+      {/* Anamorphic Horizontal Golden Lens Streak */}
+      <div className="absolute top-[22%] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-amber-500/25 to-transparent blur-[1px] pointer-events-none" />
+      <div className="absolute top-[68%] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-rose-500/20 to-transparent blur-[1px] pointer-events-none" />
+
+      {/* Analog 35mm Celluloid Grain Texture */}
       <div
-        className="absolute inset-0 opacity-[0.035] pointer-events-none"
+        className="absolute inset-0 opacity-[0.04] pointer-events-none mix-blend-screen"
         style={{
           backgroundImage:
-            'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.4) 1px, transparent 1px)',
+            'radial-gradient(circle at 50% 50%, rgba(255, 220, 150, 0.45) 1px, transparent 1px)',
           backgroundSize: '4px 4px',
         }}
       />

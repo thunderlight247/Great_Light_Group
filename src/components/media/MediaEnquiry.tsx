@@ -45,10 +45,10 @@ export default function MediaEnquiry() {
 
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
           {/* Booking Form Card */}
-          <div className="md:col-span-8 glass-panel rounded-3xl p-7 sm:p-10 shadow-editorial border border-glg-gold/30">
+          <div className="md:col-span-8 bg-[#0e0a14] rounded-3xl p-7 sm:p-10 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.8)] border border-amber-500/25">
             {submitted ? (
               <div className="py-12 text-center space-y-4">
-                <div className="w-16 h-16 rounded-full bg-glg-gold/20 text-glg-gold mx-auto flex items-center justify-center border border-glg-gold/40 shadow-gold-glow">
+                <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-400 mx-auto flex items-center justify-center border border-amber-500/40 shadow-[0_0_20px_rgba(245,158,11,0.3)]">
                   <CheckCircle className="w-9 h-9" />
                 </div>
                 <h3 className="font-serif text-2xl font-bold text-white">
@@ -187,8 +187,8 @@ export default function MediaEnquiry() {
           {/* Right Column: Creative Contact Info & Rates Notice */}
           <div className="md:col-span-4 space-y-6">
             {/* Direct Line Card */}
-            <div className="glass-panel rounded-3xl p-6 sm:p-7 border border-glg-gold/30 space-y-4">
-              <div className="text-xs uppercase font-mono tracking-wider text-glg-gold font-bold">
+            <div className="bg-[#0e0a14] rounded-3xl p-6 sm:p-7 border border-amber-500/25 space-y-4 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.8)]">
+              <div className="text-xs uppercase font-mono tracking-wider text-amber-400 font-bold">
                 Direct Studio Line
               </div>
               <div className="space-y-3">
@@ -196,34 +196,34 @@ export default function MediaEnquiry() {
                   href="https://wa.me/233594273358"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-start gap-3 text-xs text-glg-text-secondary hover:text-white transition-colors"
+                  className="flex items-start gap-3 text-xs text-zinc-300 hover:text-white transition-colors"
                 >
-                  <Phone className="w-4 h-4 text-glg-gold shrink-0 mt-0.5" />
+                  <Phone className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                   <div>
                     <div className="font-bold text-white font-mono">+233 59 427 3358</div>
-                    <div className="text-[10px] text-glg-text-muted">Direct WhatsApp &amp; Calls</div>
+                    <div className="text-[10px] text-zinc-400">Direct WhatsApp &amp; Calls</div>
                   </div>
                 </a>
 
                 <a
                   href={`mailto:${BRAND_DATA.email}`}
-                  className="flex items-start gap-3 text-xs text-glg-text-secondary hover:text-white transition-colors"
+                  className="flex items-start gap-3 text-xs text-zinc-300 hover:text-white transition-colors"
                 >
-                  <Mail className="w-4 h-4 text-glg-gold shrink-0 mt-0.5" />
+                  <Mail className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                   <div>
                     <div className="font-bold text-white font-mono break-all">{BRAND_DATA.email}</div>
-                    <div className="text-[10px] text-glg-text-muted">Official Creative Enquiries</div>
+                    <div className="text-[10px] text-zinc-400">Official Creative Enquiries</div>
                   </div>
                 </a>
               </div>
             </div>
 
             {/* Production Standard Guarantee */}
-            <div className="glass-panel rounded-3xl p-6 sm:p-7 border border-white/10 space-y-3">
+            <div className="bg-[#0e0a14] rounded-3xl p-6 sm:p-7 border border-white/10 space-y-3 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.8)]">
               <div className="text-xs uppercase font-mono tracking-wider text-white font-bold">
                 The Creative Guarantee
               </div>
-              <p className="text-xs text-glg-text-muted leading-relaxed">
+              <p className="text-xs text-zinc-400 leading-relaxed">
                 Every project includes calibrated color management, licensed music clearances for commercial delivery, and high-bitrate master exports.
               </p>
             </div>

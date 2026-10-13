@@ -67,7 +67,7 @@ export default function MediaNavbar() {
             <Link href="/media/services" className="hover:text-glg-gold transition-colors">
               03 Creative Services
             </Link>
-            <a href="#story" className="hover:text-glg-gold transition-colors">
+            <a href="#ethos" className="hover:text-glg-gold transition-colors">
               04 Ethos
             </a>
           </nav>
@@ -161,7 +161,7 @@ export default function MediaNavbar() {
               03 Creative Services (4 Offerings)
             </Link>
             <a
-              href="#story"
+              href="#ethos"
               onClick={() => setMobileMenuOpen(false)}
               className="py-1.5 px-2 text-glg-text-secondary hover:text-glg-gold"
             >

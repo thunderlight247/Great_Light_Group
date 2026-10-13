@@ -139,7 +139,7 @@ export default function MediaVideoCinema() {
                 aria-label={isMuted ? 'Unmute audio' : 'Mute audio'}
                 title={isMuted ? 'Unmute audio' : 'Mute audio'}
               >
-                {isMuted ? <VolumeX className="w-4 h-4 text-glg-gold" /> : <Volume2 className="w-4 h-4 text-glg-emerald" />}
+                {isMuted ? <VolumeX className="w-4 h-4 text-amber-400" /> : <Volume2 className="w-4 h-4 text-amber-300" />}
               </button>
 
               <button
