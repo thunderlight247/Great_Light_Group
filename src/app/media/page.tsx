@@ -22,8 +22,8 @@ export default function MediaPage() {
 
   return (
     <SmoothScroll>
-      <div className="relative min-h-screen bg-[#08060a] text-zinc-100 selection:bg-amber-500 selection:text-black">
-        {/* Warm Cinematic Celluloid Atmosphere & Light Leaks */}
+      <div className="relative min-h-screen bg-[#0c0a0e] text-[#fbf8f3] selection:bg-[#e8d5b5] selection:text-[#0c0a0e]">
+        {/* Soft Champagne Silk & Deep Espresso Atmosphere */}
         <MediaBackground />
 
         {/* Dedicated Media Navigation */}
@@ -50,7 +50,7 @@ export default function MediaPage() {
           {/* 4 Creative Production Packages */}
           <MediaServicesOnly />
 
-          {/* Dedicated Media Ethos & Creative Director Manifesto (No Software References) */}
+          {/* Dedicated Media Ethos & Creative Director Manifesto */}
           <MediaEthos />
 
           {/* Commission Production Brief (WhatsApp: 0594273358) */}

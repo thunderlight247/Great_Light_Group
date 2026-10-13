@@ -28,39 +28,39 @@ export default function MediaEnquiry() {
     <section id="contact" className="py-24 md:py-36 relative scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <div className="text-xs uppercase font-mono tracking-eyebrow text-glg-gold font-semibold mb-3 flex items-center justify-center gap-2">
-            <Film className="w-4 h-4" />
+          <div className="text-xs uppercase font-mono tracking-eyebrow text-[#e8d5b5] font-semibold mb-3 flex items-center justify-center gap-2">
+            <Film className="w-4 h-4 text-[#e8d5b5]" />
             <span>Creative Commissioning &amp; Booking</span>
           </div>
           <h2 className="clamp-h2 font-serif font-bold text-white tracking-tight mb-4">
             Commission a Production with <br />
-            <span className="font-normal italic text-glg-gold">
+            <span className="font-normal italic text-transparent bg-clip-text bg-gradient-to-r from-[#e8d5b5] via-[#f5e8d2] to-[#b89758]">
               Great Light Creative.
             </span>
           </h2>
-          <p className="text-sm text-glg-text-secondary leading-relaxed">
+          <p className="text-sm text-[#d4c5b9] leading-relaxed">
             Whether you require an executive commercial shoot, an editorial lookbook, or precision color grading, our creative director responds within 24 hours.
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
           {/* Booking Form Card */}
-          <div className="md:col-span-8 bg-[#0e0a14] rounded-3xl p-7 sm:p-10 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.8)] border border-amber-500/25">
+          <div className="md:col-span-8 bg-[#131017] rounded-3xl p-7 sm:p-10 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.85)] border border-[#e8d5b5]/20">
             {submitted ? (
               <div className="py-12 text-center space-y-4">
-                <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-400 mx-auto flex items-center justify-center border border-amber-500/40 shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+                <div className="w-16 h-16 rounded-full bg-[#e8d5b5]/20 text-[#e8d5b5] mx-auto flex items-center justify-center border border-[#e8d5b5]/40 shadow-[0_0_20px_rgba(232,213,181,0.25)]">
                   <CheckCircle className="w-9 h-9" />
                 </div>
                 <h3 className="font-serif text-2xl font-bold text-white">
                   Production Brief Received
                 </h3>
-                <p className="text-xs text-glg-text-secondary max-w-sm mx-auto leading-relaxed">
+                <p className="text-xs text-[#d4c5b9] max-w-sm mx-auto leading-relaxed">
                   Thank you for commissioning Great Light Creative. Our production lead will review your treatment and schedule a concept review within 24 hours.
                 </p>
                 <div className="pt-4">
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="text-xs font-mono font-bold text-glg-gold underline hover:text-glg-gold-bright"
+                    className="text-xs font-mono font-bold text-[#e8d5b5] underline hover:text-white"
                   >
                     Submit another brief
                   </button>
@@ -70,13 +70,13 @@ export default function MediaEnquiry() {
               <form onSubmit={handleFormSubmit} className="space-y-6">
                 {/* Service Dropdown */}
                 <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-glg-gold mb-2 font-semibold">
+                  <label className="block text-xs font-mono uppercase tracking-wider text-[#e8d5b5] mb-2 font-semibold">
                     Select Creative Service *
                   </label>
                   <select
                     value={service}
                     onChange={(e) => setService(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-xs text-white focus:outline-none focus:border-glg-gold focus:ring-1 focus:ring-glg-gold"
+                    className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-xs text-white focus:outline-none focus:border-[#e8d5b5] focus:ring-1 focus:ring-[#e8d5b5]"
                   >
                     {MEDIA_SERVICES.map((s) => (
                       <option key={s.number} value={s.title} className="bg-black text-white">
@@ -89,7 +89,7 @@ export default function MediaEnquiry() {
                 {/* Name & Email Row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-glg-text-muted mb-1 font-semibold">
+                    <label className="block text-xs font-mono uppercase tracking-wider text-[#a39ea8] mb-1 font-semibold">
                       Your Name / Brand *
                     </label>
                     <input
@@ -98,12 +98,12 @@ export default function MediaEnquiry() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Kwesi Mensah"
-                      className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/15 text-xs text-white placeholder:text-glg-text-muted focus:outline-none focus:border-glg-gold focus:ring-1 focus:ring-glg-gold"
+                      className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/15 text-xs text-white placeholder:text-[#a39ea8] focus:outline-none focus:border-[#e8d5b5] focus:ring-1 focus:ring-[#e8d5b5]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-glg-text-muted mb-1 font-semibold">
+                    <label className="block text-xs font-mono uppercase tracking-wider text-[#a39ea8] mb-1 font-semibold">
                       Email Address *
                     </label>
                     <input
@@ -112,7 +112,7 @@ export default function MediaEnquiry() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="e.g. kwesi@example.com"
-                      className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/15 text-xs text-white placeholder:text-glg-text-muted focus:outline-none focus:border-glg-gold focus:ring-1 focus:ring-glg-gold"
+                      className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/15 text-xs text-white placeholder:text-[#a39ea8] focus:outline-none focus:border-[#e8d5b5] focus:ring-1 focus:ring-[#e8d5b5]"
                     />
                   </div>
                 </div>
@@ -120,7 +120,7 @@ export default function MediaEnquiry() {
                 {/* Phone & Target Shoot Date Row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-glg-text-muted mb-1 font-semibold">
+                    <label className="block text-xs font-mono uppercase tracking-wider text-[#a39ea8] mb-1 font-semibold">
                       Phone Number
                     </label>
                     <input
@@ -128,12 +128,12 @@ export default function MediaEnquiry() {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="e.g. +233 59 427 3358"
-                      className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/15 text-xs text-white placeholder:text-glg-text-muted focus:outline-none focus:border-glg-gold focus:ring-1 focus:ring-glg-gold"
+                      className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/15 text-xs text-white placeholder:text-[#a39ea8] focus:outline-none focus:border-[#e8d5b5] focus:ring-1 focus:ring-[#e8d5b5]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-glg-text-muted mb-1 font-semibold">
+                    <label className="block text-xs font-mono uppercase tracking-wider text-[#a39ea8] mb-1 font-semibold">
                       Target Production Date
                     </label>
                     <input
@@ -141,14 +141,14 @@ export default function MediaEnquiry() {
                       value={shootDate}
                       onChange={(e) => setShootDate(e.target.value)}
                       placeholder="e.g. November 2026 / Next Month"
-                      className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/15 text-xs text-white placeholder:text-glg-text-muted focus:outline-none focus:border-glg-gold focus:ring-1 focus:ring-glg-gold"
+                      className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/15 text-xs text-white placeholder:text-[#a39ea8] focus:outline-none focus:border-[#e8d5b5] focus:ring-1 focus:ring-[#e8d5b5]"
                     />
                   </div>
                 </div>
 
                 {/* Project Details */}
                 <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-glg-text-muted mb-1 font-semibold">
+                  <label className="block text-xs font-mono uppercase tracking-wider text-[#a39ea8] mb-1 font-semibold">
                     Production Treatment &amp; Creative Scope
                   </label>
                   <textarea
@@ -156,7 +156,7 @@ export default function MediaEnquiry() {
                     value={details}
                     onChange={(e) => setDetails(e.target.value)}
                     placeholder="Describe your visual concept, location, expected deliverables (e.g. 60s commercial + 10 stills), and references..."
-                    className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/15 text-xs text-white placeholder:text-glg-text-muted focus:outline-none focus:border-glg-gold focus:ring-1 focus:ring-glg-gold resize-none"
+                    className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/15 text-xs text-white placeholder:text-[#a39ea8] focus:outline-none focus:border-[#e8d5b5] focus:ring-1 focus:ring-[#e8d5b5] resize-none"
                   />
                 </div>
 
@@ -164,7 +164,7 @@ export default function MediaEnquiry() {
                 <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
                   <button
                     type="submit"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-glg-gold text-black hover:bg-glg-gold-bright transition-all shadow-gold-glow hover:scale-105"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-[#e8d5b5] text-[#0c0a0e] hover:bg-[#f5e8d2] transition-all shadow-[0_0_20px_rgba(232,213,181,0.25)] hover:scale-105"
                   >
                     <span>Submit Creative Brief</span>
                     <Send className="w-3.5 h-3.5" />
@@ -174,9 +174,9 @@ export default function MediaEnquiry() {
                     href={generateWhatsAppUrl()}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-emerald-600 text-white hover:bg-emerald-500 transition-all shadow-md"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-white/10 hover:bg-white/20 text-white transition-all border border-white/15"
                   >
-                    <MessageSquare className="w-4 h-4" />
+                    <MessageSquare className="w-4 h-4 text-[#e8d5b5]" />
                     <span>Instant WhatsApp (0594273358)</span>
                   </a>
                 </div>
@@ -187,8 +187,8 @@ export default function MediaEnquiry() {
           {/* Right Column: Creative Contact Info & Rates Notice */}
           <div className="md:col-span-4 space-y-6">
             {/* Direct Line Card */}
-            <div className="bg-[#0e0a14] rounded-3xl p-6 sm:p-7 border border-amber-500/25 space-y-4 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.8)]">
-              <div className="text-xs uppercase font-mono tracking-wider text-amber-400 font-bold">
+            <div className="bg-[#131017] rounded-3xl p-6 sm:p-7 border border-[#e8d5b5]/20 space-y-4 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.85)]">
+              <div className="text-xs uppercase font-mono tracking-wider text-[#e8d5b5] font-bold">
                 Direct Studio Line
               </div>
               <div className="space-y-3">
@@ -196,34 +196,34 @@ export default function MediaEnquiry() {
                   href="https://wa.me/233594273358"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-start gap-3 text-xs text-zinc-300 hover:text-white transition-colors"
+                  className="flex items-start gap-3 text-xs text-[#d4c5b9] hover:text-white transition-colors"
                 >
-                  <Phone className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                  <Phone className="w-4 h-4 text-[#e8d5b5] shrink-0 mt-0.5" />
                   <div>
                     <div className="font-bold text-white font-mono">+233 59 427 3358</div>
-                    <div className="text-[10px] text-zinc-400">Direct WhatsApp &amp; Calls</div>
+                    <div className="text-[10px] text-[#a39ea8]">Direct WhatsApp &amp; Calls</div>
                   </div>
                 </a>
 
                 <a
                   href={`mailto:${BRAND_DATA.email}`}
-                  className="flex items-start gap-3 text-xs text-zinc-300 hover:text-white transition-colors"
+                  className="flex items-start gap-3 text-xs text-[#d4c5b9] hover:text-white transition-colors"
                 >
-                  <Mail className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                  <Mail className="w-4 h-4 text-[#e8d5b5] shrink-0 mt-0.5" />
                   <div>
                     <div className="font-bold text-white font-mono break-all">{BRAND_DATA.email}</div>
-                    <div className="text-[10px] text-zinc-400">Official Creative Enquiries</div>
+                    <div className="text-[10px] text-[#a39ea8]">Official Creative Enquiries</div>
                   </div>
                 </a>
               </div>
             </div>
 
             {/* Production Standard Guarantee */}
-            <div className="bg-[#0e0a14] rounded-3xl p-6 sm:p-7 border border-white/10 space-y-3 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.8)]">
+            <div className="bg-[#131017] rounded-3xl p-6 sm:p-7 border border-white/10 space-y-3 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.85)]">
               <div className="text-xs uppercase font-mono tracking-wider text-white font-bold">
                 The Creative Guarantee
               </div>
-              <p className="text-xs text-zinc-400 leading-relaxed">
+              <p className="text-xs text-[#a39ea8] leading-relaxed">
                 Every project includes calibrated color management, licensed music clearances for commercial delivery, and high-bitrate master exports.
               </p>
             </div>

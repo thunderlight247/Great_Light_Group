@@ -37,19 +37,19 @@ export default function MediaBackground() {
 
     window.addEventListener('resize', handleResize);
 
-    // Warm cinematic atmospheric motes (amber, champagne, soft ruby)
-    const particleCount = Math.min(Math.floor((width * height) / 30000), 45);
+    // Warm champagne atelier particles (Pale Champagne Silk, Brushed Brass, Soft Ivory)
+    const particleCount = Math.min(Math.floor((width * height) / 32000), 40);
     const particles: FilmParticle[] = [];
-    const colors = ['#f59e0b', '#d4af37', '#fbbf24', '#f43f5e'];
+    const colors = ['#e8d5b5', '#f5e8d2', '#b89758', '#d6c4a5'];
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        size: Math.random() * 2.4 + 0.8,
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: -Math.random() * 0.35 - 0.1, // Drifting upwards like projector dust motes
-        alpha: Math.random() * 0.3 + 0.08,
+        size: Math.random() * 2.0 + 0.6,
+        vx: (Math.random() - 0.5) * 0.2,
+        vy: -Math.random() * 0.3 - 0.08, // Gently drifting upwards like projector dust motes
+        alpha: Math.random() * 0.25 + 0.06,
         color: colors[Math.floor(Math.random() * colors.length)],
       });
     }
@@ -87,22 +87,22 @@ export default function MediaBackground() {
   }, [prefersReduced]);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#08060a]">
-      {/* Warm Cinematic Film Light Leaks & Lens Flares */}
-      <div className="absolute top-[-10%] right-[-5%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-br from-amber-600/20 via-orange-600/10 to-transparent blur-[160px] pointer-events-none" />
-      <div className="absolute top-[35%] left-[-15%] w-[55vw] h-[55vw] rounded-full bg-gradient-to-tr from-rose-950/25 via-amber-900/15 to-transparent blur-[180px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[15%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-tl from-amber-500/15 via-yellow-600/10 to-transparent blur-[160px] pointer-events-none" />
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#0c0a0e]">
+      {/* Soft Champagne Silk & Deep Espresso Atmospheric Halos */}
+      <div className="absolute top-[-15%] right-[-8%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-br from-[#e8d5b5]/10 via-[#b89758]/5 to-transparent blur-[160px] pointer-events-none" />
+      <div className="absolute top-[35%] left-[-15%] w-[55vw] h-[55vw] rounded-full bg-gradient-to-tr from-[#1d1625]/40 via-[#271e16]/20 to-transparent blur-[180px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[15%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-tl from-[#e8d5b5]/8 via-[#b89758]/5 to-transparent blur-[160px] pointer-events-none" />
 
-      {/* Anamorphic Horizontal Golden Lens Streak */}
-      <div className="absolute top-[22%] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-amber-500/25 to-transparent blur-[1px] pointer-events-none" />
-      <div className="absolute top-[68%] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-rose-500/20 to-transparent blur-[1px] pointer-events-none" />
+      {/* Subtle Anamorphic Champagne Horizontal Flare */}
+      <div className="absolute top-[20%] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#e8d5b5]/20 to-transparent blur-[1px] pointer-events-none" />
+      <div className="absolute top-[65%] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#b89758]/15 to-transparent blur-[1px] pointer-events-none" />
 
       {/* Analog 35mm Celluloid Grain Texture */}
       <div
-        className="absolute inset-0 opacity-[0.04] pointer-events-none mix-blend-screen"
+        className="absolute inset-0 opacity-[0.035] pointer-events-none mix-blend-screen"
         style={{
           backgroundImage:
-            'radial-gradient(circle at 50% 50%, rgba(255, 220, 150, 0.45) 1px, transparent 1px)',
+            'radial-gradient(circle at 50% 50%, rgba(232, 213, 181, 0.4) 1px, transparent 1px)',
           backgroundSize: '4px 4px',
         }}
       />

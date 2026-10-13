@@ -36,29 +36,29 @@ export default function MediaVideoCinema() {
   };
 
   return (
-    <section id="reels" className="py-24 md:py-36 relative border-b border-glg-gold/15 scroll-mt-20">
+    <section id="reels" className="py-24 md:py-36 relative border-b border-[#e8d5b5]/15 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>
-            <div className="text-xs uppercase font-mono tracking-eyebrow text-glg-gold font-semibold mb-3 flex items-center gap-2">
-              <Film className="w-4 h-4" />
+            <div className="text-xs uppercase font-mono tracking-eyebrow text-[#e8d5b5] font-semibold mb-3 flex items-center gap-2">
+              <Film className="w-4 h-4 text-[#e8d5b5]" />
               <span>Original Motion Production</span>
             </div>
-            <h2 className="clamp-h2 font-serif font-bold text-white tracking-tight">
+            <h2 className="clamp-h2 font-serif font-bold text-white tracking-tight leading-[1.05]">
               Cinematic Reels &amp; <br />
-              <span className="font-normal italic text-glg-gold-champagne">
+              <span className="font-normal italic text-transparent bg-clip-text bg-gradient-to-r from-[#e8d5b5] via-[#f5e8d2] to-[#b89758]">
                 Motion Studies.
               </span>
             </h2>
           </div>
-          <p className="max-w-md text-sm text-glg-text-secondary leading-relaxed">
+          <p className="max-w-md text-sm text-[#d4c5b9] leading-relaxed">
             Experience our original camera work, pacing, and color science. Switch between our dynamic commercial studio reel and our mobile-first visual narrative.
           </p>
         </div>
 
         {/* Video Reel Selector Tabs */}
-        <div className="flex items-center justify-between flex-wrap gap-4 mb-6 pb-4 border-b border-glg-gold/15">
+        <div className="flex items-center justify-between flex-wrap gap-4 mb-6 pb-4 border-b border-[#e8d5b5]/15">
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={() => {
@@ -67,8 +67,8 @@ export default function MediaVideoCinema() {
               }}
               className={`px-5 py-2 rounded-full text-xs font-mono font-bold transition-all ${
                 selectedVideo === 'reel-01'
-                  ? 'bg-glg-gold text-black shadow-gold-glow'
-                  : 'bg-white/5 text-glg-text-muted hover:text-white border border-white/10'
+                  ? 'bg-[#e8d5b5] text-[#0c0a0e] shadow-[0_0_20px_rgba(232,213,181,0.3)]'
+                  : 'bg-white/5 text-[#d4c5b9] hover:text-white border border-white/10'
               }`}
             >
               01 Motion Reel (Dynamic Studio)
@@ -80,25 +80,25 @@ export default function MediaVideoCinema() {
               }}
               className={`px-5 py-2 rounded-full text-xs font-mono font-bold transition-all ${
                 selectedVideo === 'reel-02'
-                  ? 'bg-glg-gold text-black shadow-gold-glow'
-                  : 'bg-white/5 text-glg-text-muted hover:text-white border border-white/10'
+                  ? 'bg-[#e8d5b5] text-[#0c0a0e] shadow-[0_0_20px_rgba(232,213,181,0.3)]'
+                  : 'bg-white/5 text-[#d4c5b9] hover:text-white border border-white/10'
               }`}
             >
               02 Visual Story Reel (Mobile-First)
             </button>
           </div>
 
-          <div className="text-xs font-mono text-glg-text-muted hidden sm:block">
-            <span>Verified Original Media Asset</span>
+          <div className="text-xs font-mono text-[#a39ea8] hidden sm:block">
+            <span>Verified 4K Master Asset</span>
           </div>
         </div>
 
         {/* Cinematic Theatre Frame with Ambient Back-Glow */}
-        <div className="relative rounded-3xl overflow-hidden p-1 sm:p-2 bg-gradient-to-b from-glg-gold/30 via-white/5 to-transparent shadow-2xl">
+        <div className="relative rounded-3xl overflow-hidden p-1 sm:p-2 bg-gradient-to-b from-[#e8d5b5]/25 via-white/5 to-transparent shadow-2xl">
           {/* Ambient Video Backlight Halo */}
-          <div className="absolute -inset-4 bg-glg-gold/10 rounded-3xl blur-3xl pointer-events-none" />
+          <div className="absolute -inset-4 bg-[#e8d5b5]/10 rounded-3xl blur-3xl pointer-events-none" />
 
-          <div className="relative aspect-video rounded-2xl overflow-hidden bg-black border border-glg-gold/30 shadow-2xl flex items-center justify-center group">
+          <div className="relative aspect-video rounded-2xl overflow-hidden bg-black border border-[#e8d5b5]/25 shadow-2xl flex items-center justify-center group">
             <video
               key={selectedVideo}
               ref={videoRef}
@@ -120,11 +120,11 @@ export default function MediaVideoCinema() {
               }`}
             >
               <button
-                className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-glg-gold text-black flex items-center justify-center shadow-gold-glow transition-transform duration-300 hover:scale-110 active:scale-95 focus:outline-none"
+                className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-[#e8d5b5] text-[#0c0a0e] flex items-center justify-center shadow-[0_0_30px_rgba(232,213,181,0.4)] transition-transform duration-300 hover:scale-110 active:scale-95 focus:outline-none"
                 aria-label={isPlaying ? 'Pause video' : 'Play video'}
               >
                 {isPlaying ? (
-                  <Pause className="w-8 h-8 sm:w-10 sm:h-10" />
+                  <Pause className="w-8 h-8 sm:w-10 sm:h-10 fill-current" />
                 ) : (
                   <Play className="w-8 h-8 sm:w-10 sm:h-10 ml-1 fill-current" />
                 )}
@@ -135,16 +135,16 @@ export default function MediaVideoCinema() {
             <div className="absolute top-4 right-4 flex items-center gap-2 z-20">
               <button
                 onClick={toggleMute}
-                className="p-2.5 rounded-full bg-black/70 backdrop-blur-md text-white/80 hover:text-white border border-white/10 hover:border-glg-gold/40 transition-all"
+                className="p-2.5 rounded-full bg-black/70 backdrop-blur-md text-white/80 hover:text-white border border-white/10 hover:border-[#e8d5b5]/40 transition-all"
                 aria-label={isMuted ? 'Unmute audio' : 'Mute audio'}
                 title={isMuted ? 'Unmute audio' : 'Mute audio'}
               >
-                {isMuted ? <VolumeX className="w-4 h-4 text-amber-400" /> : <Volume2 className="w-4 h-4 text-amber-300" />}
+                {isMuted ? <VolumeX className="w-4 h-4 text-[#e8d5b5]" /> : <Volume2 className="w-4 h-4 text-[#f5e8d2]" />}
               </button>
 
               <button
                 onClick={toggleFullscreen}
-                className="p-2.5 rounded-full bg-black/70 backdrop-blur-md text-white/80 hover:text-white border border-white/10 hover:border-glg-gold/40 transition-all hidden sm:flex"
+                className="p-2.5 rounded-full bg-black/70 backdrop-blur-md text-white/80 hover:text-white border border-white/10 hover:border-[#e8d5b5]/40 transition-all hidden sm:flex"
                 aria-label="View fullscreen"
                 title="Fullscreen"
               >
@@ -160,13 +160,13 @@ export default function MediaVideoCinema() {
                     ? 'Reel 01 · Dynamic Pacing & Studio Composition'
                     : 'Reel 02 · Mobile-First Visual Storytelling & Fluid Motion'}
                 </span>
-                <span className="text-[10px] sm:text-xs font-mono text-glg-gold block mt-0.5">
+                <span className="text-[10px] sm:text-xs font-mono text-[#e8d5b5] block mt-0.5">
                   High-Definition Video · Directional Natural Lighting · Great Light Creative Division
                 </span>
               </div>
 
               <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-white/60">
-                <span className="px-2 py-0.5 rounded bg-white/10">1080p Web</span>
+                <span className="px-2 py-0.5 rounded bg-white/10">1080p Web Master</span>
                 <span className="px-2 py-0.5 rounded bg-white/10">H.264 / AAC</span>
               </div>
             </div>

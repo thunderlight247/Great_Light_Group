@@ -43,6 +43,20 @@ const config: Config = {
           paper: '#070b09',
           ink: '#f8fafc',
         },
+        atelier: {
+          bg: '#0c0a0e',            // Deep Espresso Noir
+          card: '#131017',          // Elevated Espresso Slate
+          surface: '#18141f',       // Highlight Card Surface
+          border: 'rgba(232, 213, 181, 0.15)',
+          champagne: {
+            DEFAULT: '#e8d5b5',     // Pale Champagne Silk
+            bright: '#f5e8d2',      // Crisp Pale Silk
+            muted: '#b89758',       // Muted Brushed Brass
+            dark: '#8a6d3b',        // Antique Bronze
+          },
+          ivory: '#fbf8f3',         // Pure Headline Ivory
+          ash: '#9e98a3',           // Soft Warm Ash
+        },
       },
       fontFamily: {
         serif: ['var(--font-serif)', 'Playfair Display', 'Georgia', 'serif'],
