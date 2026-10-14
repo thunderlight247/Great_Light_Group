@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // <--- Add this line
+  output: 'export',
   reactStrictMode: true,
   images: {
+    unoptimized: true, // <--- Add this line here
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
