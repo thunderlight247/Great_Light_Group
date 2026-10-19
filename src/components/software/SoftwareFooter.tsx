@@ -51,14 +51,14 @@ export default function SoftwareFooter() {
             </div>
             <ul className="space-y-2.5">
               <li>
-                <a href="#projects" className="hover:text-glg-emerald transition-colors">
+                <Link href="/software#projects" className="hover:text-glg-emerald transition-colors">
                   01 Featured Projects
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#skills" className="hover:text-glg-emerald transition-colors">
+                <Link href="/software#skills" className="hover:text-glg-emerald transition-colors">
                   02 Tech Stack &amp; Languages
-                </a>
+                </Link>
               </li>
               <li>
                 <Link href="/software/services" className="hover:text-glg-emerald transition-colors">
@@ -66,14 +66,19 @@ export default function SoftwareFooter() {
                 </Link>
               </li>
               <li>
-                <a href="#story" className="hover:text-glg-emerald transition-colors">
-                  04 Engineering Ethos
-                </a>
+                <Link href="/software/reviews" className="hover:text-glg-emerald transition-colors text-glg-emerald font-semibold">
+                  04 Client Reviews
+                </Link>
               </li>
               <li>
-                <a href="#contact" className="hover:text-glg-emerald transition-colors">
-                  05 Scoping &amp; Quotation
-                </a>
+                <Link href="/software#story" className="hover:text-glg-emerald transition-colors">
+                  05 Engineering Ethos
+                </Link>
+              </li>
+              <li>
+                <Link href="/software#contact" className="hover:text-glg-emerald transition-colors">
+                  06 Scoping &amp; Quotation
+                </Link>
               </li>
             </ul>
           </div>

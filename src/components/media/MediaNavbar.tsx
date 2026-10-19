@@ -58,18 +58,21 @@ export default function MediaNavbar() {
 
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-6 font-mono text-xs uppercase tracking-wider text-[#4b4754]">
-            <a href="#reels" className="hover:text-[#b89047] transition-colors">
+            <Link href="/media#reels" className="hover:text-[#b89047] transition-colors">
               01 Motion Reels
-            </a>
-            <a href="#photography" className="hover:text-[#b89047] transition-colors">
-              02 Photography
-            </a>
-            <Link href="/media/services" className="hover:text-[#b89047] transition-colors">
-              03 Production Services
             </Link>
-            <a href="#ethos" className="hover:text-[#b89047] transition-colors">
-              04 Creative Ethos
-            </a>
+            <Link href="/media#photography" className="hover:text-[#b89047] transition-colors">
+              02 Photography
+            </Link>
+            <Link href="/media/services" className="hover:text-[#b89047] transition-colors">
+              03 Services
+            </Link>
+            <Link href="/media/reviews" className="hover:text-[#b89047] transition-colors text-[#b89047] font-semibold">
+              04 Reviews
+            </Link>
+            <Link href="/media#ethos" className="hover:text-[#b89047] transition-colors">
+              05 Creative Ethos
+            </Link>
           </nav>
 
           {/* Desktop Right Switcher & CTA */}
@@ -139,20 +142,20 @@ export default function MediaNavbar() {
           </div>
 
           <div className="flex flex-col gap-3 pt-4 font-mono text-sm">
-            <a
-              href="#reels"
+            <Link
+              href="/media#reels"
               onClick={() => setMobileMenuOpen(false)}
               className="py-1.5 px-2 text-[#4b4754] hover:text-[#b89047]"
             >
               01 4K Motion Reels
-            </a>
-            <a
-              href="#photography"
+            </Link>
+            <Link
+              href="/media#photography"
               onClick={() => setMobileMenuOpen(false)}
               className="py-1.5 px-2 text-[#4b4754] hover:text-[#b89047]"
             >
               02 Editorial Photography
-            </a>
+            </Link>
             <Link
               href="/media/services"
               onClick={() => setMobileMenuOpen(false)}
@@ -160,20 +163,27 @@ export default function MediaNavbar() {
             >
               03 Production Services
             </Link>
-            <a
-              href="#ethos"
+            <Link
+              href="/media/reviews"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-1.5 px-2 text-[#b89047] font-semibold hover:text-[#121115]"
+            >
+              04 Client Reviews
+            </Link>
+            <Link
+              href="/media#ethos"
               onClick={() => setMobileMenuOpen(false)}
               className="py-1.5 px-2 text-[#4b4754] hover:text-[#b89047]"
             >
-              04 Creative Ethos
-            </a>
-            <a
-              href="#contact"
+              05 Creative Ethos
+            </Link>
+            <Link
+              href="/media#contact"
               onClick={() => setMobileMenuOpen(false)}
               className="mt-3 text-center py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#b89047] text-white shadow-[0_4px_16px_rgba(184,144,71,0.25)]"
             >
               Book Production Session
-            </a>
+            </Link>
           </div>
         </div>
       )}

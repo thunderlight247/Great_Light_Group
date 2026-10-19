@@ -51,14 +51,14 @@ export default function MediaFooter() {
             </div>
             <ul className="space-y-2.5">
               <li>
-                <a href="#reels" className="text-[#4b4754] hover:text-[#b89047] transition-colors">
+                <Link href="/media#reels" className="text-[#4b4754] hover:text-[#b89047] transition-colors">
                   01 Motion Reels (4K)
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#photography" className="text-[#4b4754] hover:text-[#b89047] transition-colors">
+                <Link href="/media#photography" className="text-[#4b4754] hover:text-[#b89047] transition-colors">
                   02 Editorial Photography
-                </a>
+                </Link>
               </li>
               <li>
                 <Link href="/media/services" className="text-[#4b4754] hover:text-[#b89047] transition-colors">
@@ -66,14 +66,19 @@ export default function MediaFooter() {
                 </Link>
               </li>
               <li>
-                <a href="#ethos" className="text-[#4b4754] hover:text-[#b89047] transition-colors">
-                  04 Creative Ethos
-                </a>
+                <Link href="/media/reviews" className="text-[#b89047] font-semibold hover:text-[#121115] transition-colors">
+                  04 Client Reviews
+                </Link>
               </li>
               <li>
-                <a href="#contact" className="text-[#4b4754] hover:text-[#b89047] transition-colors">
-                  05 Book Production
-                </a>
+                <Link href="/media#ethos" className="text-[#4b4754] hover:text-[#b89047] transition-colors">
+                  05 Creative Ethos
+                </Link>
+              </li>
+              <li>
+                <Link href="/media#contact" className="text-[#4b4754] hover:text-[#b89047] transition-colors">
+                  06 Book Production
+                </Link>
               </li>
             </ul>
           </div>

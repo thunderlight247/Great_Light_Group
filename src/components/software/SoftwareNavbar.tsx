@@ -54,18 +54,21 @@ export default function SoftwareNavbar() {
 
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-6 font-mono text-xs uppercase tracking-wider text-glg-text-secondary">
-            <a href="#projects" className="hover:text-glg-emerald transition-colors">
+            <Link href="/software#projects" className="hover:text-glg-emerald transition-colors">
               01 Projects
-            </a>
-            <a href="#skills" className="hover:text-glg-emerald transition-colors">
-              02 Tech Stack
-            </a>
-            <Link href="/software/services" className="hover:text-glg-emerald transition-colors">
-              03 Services (12)
             </Link>
-            <a href="#story" className="hover:text-glg-emerald transition-colors">
-              04 About
-            </a>
+            <Link href="/software/services" className="hover:text-glg-emerald transition-colors">
+              02 Services
+            </Link>
+            <Link href="/software/reviews" className="hover:text-glg-emerald transition-colors text-glg-emerald font-semibold">
+              03 Reviews
+            </Link>
+            <Link href="/software#skills" className="hover:text-glg-emerald transition-colors">
+              04 Tech Stack
+            </Link>
+            <Link href="/software#story" className="hover:text-glg-emerald transition-colors">
+              05 About
+            </Link>
           </nav>
 
           {/* Desktop Right Switcher & CTA */}
@@ -135,41 +138,48 @@ export default function SoftwareNavbar() {
           </div>
 
           <div className="flex flex-col gap-3 pt-4 font-mono text-sm">
-            <a
-              href="#projects"
+            <Link
+              href="/software#projects"
               onClick={() => setMobileMenuOpen(false)}
               className="py-1.5 px-2 text-glg-text-secondary hover:text-white"
             >
               01 Software Projects
-            </a>
-            <a
-              href="#skills"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-1.5 px-2 text-glg-text-secondary hover:text-white"
-            >
-              02 Tech Skills &amp; Stack
-            </a>
+            </Link>
             <Link
               href="/software/services"
               onClick={() => setMobileMenuOpen(false)}
               className="py-1.5 px-2 text-glg-text-secondary hover:text-white"
             >
-              03 Services (12 Offerings)
+              02 Services (12 Offerings)
             </Link>
-            <a
-              href="#story"
+            <Link
+              href="/software/reviews"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-1.5 px-2 text-glg-emerald font-semibold hover:text-white"
+            >
+              03 Client Reviews
+            </Link>
+            <Link
+              href="/software#skills"
               onClick={() => setMobileMenuOpen(false)}
               className="py-1.5 px-2 text-glg-text-secondary hover:text-white"
             >
-              04 Engineering Ethos
-            </a>
-            <a
-              href="#contact"
+              04 Tech Skills &amp; Stack
+            </Link>
+            <Link
+              href="/software#story"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-1.5 px-2 text-glg-text-secondary hover:text-white"
+            >
+              05 Engineering Ethos
+            </Link>
+            <Link
+              href="/software#contact"
               onClick={() => setMobileMenuOpen(false)}
               className="mt-3 text-center py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-glg-gold text-black shadow-gold-glow"
             >
               Initiate Software Project
-            </a>
+            </Link>
           </div>
         </div>
       )}
