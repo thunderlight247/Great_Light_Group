@@ -11,6 +11,7 @@ import {
   MapPin,
   Send,
   MessageSquare,
+  Loader2,
 } from 'lucide-react';
 import { ClientReview } from '@/data/reviewsData';
 
@@ -18,23 +19,18 @@ interface ReviewsManagerProps {
   division: 'software' | 'media';
 }
 
-// Ensure any old test sample IDs are excluded from display
-const FORBIDDEN_SAMPLE_IDS = new Set([
-  'rev-soft-01',
-  'rev-soft-02',
-  'rev-soft-03',
-  'rev-soft-04',
-  'rev-media-01',
-  'rev-media-02',
-  'rev-media-03',
-  'rev-media-04',
-]);
+// The Cloudflare Worker API URL backed by Neon Postgres
+const REVIEWS_API_URL =
+  process.env.NEXT_PUBLIC_REVIEWS_API_URL ||
+  'https://glg-reviews-api.greatlightgroup247.workers.dev';
 
 export default function ReviewsManager({ division }: ReviewsManagerProps) {
   const isSoftware = division === 'software';
-  const storageKey = isSoftware ? 'glg_software_reviews' : 'glg_media_reviews';
 
   const [reviews, setReviews] = useState<ClientReview[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [fetchError, setFetchError] = useState<string | null>(null);
   const [filterRating, setFilterRating] = useState<number | 'all'>('all');
   const [helpfulVoted, setHelpfulVoted] = useState<Record<string, boolean>>({});
   const [showForm, setShowForm] = useState(false);
@@ -49,34 +45,33 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
   const [highlightTag, setHighlightTag] = useState('Highly Recommended');
   const [submittedSuccess, setSubmittedSuccess] = useState(false);
 
-  // Load reviews from localStorage on client mount (only real user reviews)
+  // ── Fetch reviews from the Worker API on mount ──────────────────────────────
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem(storageKey);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) {
-          // Strictly filter out any sample/test reviews
-          const realReviews = parsed.filter(
-            (r: ClientReview) => !FORBIDDEN_SAMPLE_IDS.has(r.id)
-          );
-          setReviews(realReviews);
-          // If no reviews yet, keep form visible so real users can easily add one
-          if (realReviews.length === 0) {
-            setShowForm(true);
-          }
-        }
-      } else {
-        // If clean state with no reviews, show the form so the first real visitor can review
+    const fetchReviews = async () => {
+      setLoading(true);
+      setFetchError(null);
+      try {
+        const res = await fetch(`${REVIEWS_API_URL}/reviews?division=${division}`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (!res.ok) throw new Error(`Server returned ${res.status}`);
+        const data = await res.json();
+        const fetched: ClientReview[] = Array.isArray(data.reviews) ? data.reviews : [];
+        setReviews(fetched);
+        if (fetched.length === 0) setShowForm(true);
+      } catch (err) {
+        console.error('Failed to load reviews:', err);
+        setFetchError('Could not load reviews right now. Please try again later.');
         setShowForm(true);
+      } finally {
+        setLoading(false);
       }
-    } catch {
-      // Storage fallback
-      setShowForm(true);
-    }
-  }, [storageKey]);
+    };
+    fetchReviews();
+  }, [division]);
 
-  // Project options tailored to division
+  // ── Project options per division ────────────────────────────────────────────
   const projectOptions = isSoftware
     ? [
         'SchoolHub Administration Portal',
@@ -101,65 +96,84 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
     ? ['Zero Downtime', 'Fast Delivery', 'Clean Architecture', 'Exceptional Support', 'Highly Recommended']
     : ['Cinematic Masterpiece', 'Master Color Science', 'Unposed & Reverent', 'Timeless Quality', 'Highly Recommended'];
 
-  // Handle new review submission
-  const handleSubmit = (e: React.FormEvent) => {
+  // ── Submit a new review to the Worker API ───────────────────────────────────
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !comment.trim() || !city.trim()) return;
 
-    const newReview: ClientReview = {
-      id: `rev-real-${Date.now()}`,
-      category: division,
+    setSubmitting(true);
+    const reviewId = `rev-real-${Date.now()}`;
+    const payload = {
+      id: reviewId,
+      division,
       name: name.trim(),
       city: city.trim(),
       projectType: projectType || projectOptions[0],
       rating,
       comment: comment.trim(),
-      date: new Date().toISOString().split('T')[0],
-      verified: true,
-      helpfulCount: 0,
       highlightTag: highlightTag || 'Real Client Review',
     };
 
-    const updated = [newReview, ...reviews];
-    setReviews(updated);
-
     try {
-      localStorage.setItem(storageKey, JSON.stringify(updated));
-    } catch {
-      // Ignore storage errors
-    }
+      const res = await fetch(`${REVIEWS_API_URL}/reviews`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error(`Server returned ${res.status}`);
 
-    setSubmittedSuccess(true);
-    setName('');
-    setCity('');
-    setProjectType('');
-    setComment('');
+      // Optimistically add to local state so the submitter sees it immediately
+      const newReview: ClientReview = {
+        id: reviewId,
+        category: division,
+        name: payload.name,
+        city: payload.city,
+        projectType: payload.projectType,
+        rating,
+        comment: payload.comment,
+        date: new Date().toISOString().split('T')[0],
+        verified: true,
+        helpfulCount: 0,
+        highlightTag: payload.highlightTag,
+      };
+      setReviews((prev) => [newReview, ...prev]);
+      setSubmittedSuccess(true);
+      setName('');
+      setCity('');
+      setProjectType('');
+      setComment('');
+    } catch (err) {
+      console.error('Failed to submit review:', err);
+      alert('Sorry, we could not save your review right now. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  // Upvote / helpful reaction
-  const toggleHelpful = (id: string) => {
+  // ── Upvote / helpful reaction ────────────────────────────────────────────────
+  const toggleHelpful = async (id: string) => {
     if (helpfulVoted[id]) return;
     setHelpfulVoted((prev) => ({ ...prev, [id]: true }));
-    setReviews((prev) => {
-      const next = prev.map((r) =>
-        r.id === id ? { ...r, helpfulCount: r.helpfulCount + 1 } : r
-      );
-      try {
-        localStorage.setItem(storageKey, JSON.stringify(next));
-      } catch {
-        // Ignore
-      }
-      return next;
-    });
+    setReviews((prev) =>
+      prev.map((r) => (r.id === id ? { ...r, helpfulCount: r.helpfulCount + 1 } : r))
+    );
+    try {
+      await fetch(`${REVIEWS_API_URL}/reviews`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      });
+    } catch {
+      // Non-critical — the UI already updated optimistically
+    }
   };
 
-  // Filtered reviews
+  // ── Derived data ─────────────────────────────────────────────────────────────
   const filteredReviews = useMemo(() => {
     if (filterRating === 'all') return reviews;
     return reviews.filter((r) => r.rating === filterRating);
   }, [reviews, filterRating]);
 
-  // Compute stats
   const averageRating = useMemo(() => {
     if (reviews.length === 0) return '0.0';
     const sum = reviews.reduce((acc, r) => acc + r.rating, 0);
@@ -174,8 +188,35 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
     return counts;
   }, [reviews]);
 
+  // ── Loading skeleton ─────────────────────────────────────────────────────────
+  if (loading) {
+    return (
+      <div className="w-full flex flex-col items-center justify-center py-24 gap-4">
+        <Loader2
+          className={`w-10 h-10 animate-spin ${isSoftware ? 'text-glg-emerald' : 'text-[#b89047]'}`}
+        />
+        <p className="font-mono text-xs uppercase tracking-wider opacity-60">
+          Loading reviews…
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full">
+      {/* Fetch error banner */}
+      {fetchError && (
+        <div
+          className={`rounded-2xl px-6 py-4 mb-8 text-sm font-sans border ${
+            isSoftware
+              ? 'bg-red-950/30 border-red-500/30 text-red-300'
+              : 'bg-red-50 border-red-200 text-red-700'
+          }`}
+        >
+          ⚠️ {fetchError}
+        </div>
+      )}
+
       {/* Overview Metric Banner (When real reviews exist) */}
       {reviews.length > 0 ? (
         <div
@@ -276,7 +317,7 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
           </div>
         </div>
       ) : (
-        /* Empty State (Honest & Welcoming when 0 reviews exist) */
+        /* Empty State — honest & welcoming when 0 reviews exist */
         <div
           className={`rounded-3xl p-8 sm:p-12 mb-12 text-center border ${
             isSoftware
@@ -295,7 +336,9 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
             Be the First to Review Our {isSoftware ? 'Software' : 'Media'} Work
           </h2>
           <p className="text-xs sm:text-sm max-w-xl mx-auto opacity-75 leading-relaxed font-sans mb-6">
-            We only display authentic, real feedback from actual clients and partners. If you have worked with Great Light Group ({isSoftware ? 'Software & Technology' : 'Media & Creative'}), please share your genuine review below!
+            We only display authentic, real feedback from actual clients and partners. If you have
+            worked with Great Light Group ({isSoftware ? 'Software & Technology' : 'Media & Creative'}),
+            please share your genuine review below!
           </p>
           {!showForm && (
             <button
@@ -338,7 +381,8 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
                   Your Review Has Been Published!
                 </h3>
                 <p className="text-sm opacity-80 max-w-md mx-auto leading-relaxed font-sans">
-                  Thank you for reviewing Great Light Group ({isSoftware ? 'Software' : 'Media'} Division). Your feedback is now saved and live on our website.
+                  Thank you for reviewing Great Light Group ({isSoftware ? 'Software' : 'Media'}{' '}
+                  Division). Your feedback is now saved in our database and visible to all visitors.
                 </p>
                 <button
                   onClick={() => setSubmittedSuccess(false)}
@@ -527,18 +571,28 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
                 <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
                   <button
                     type="submit"
-                    className={`w-full sm:w-auto px-8 py-3.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg hover:scale-105 active:scale-95 ${
+                    disabled={submitting}
+                    className={`w-full sm:w-auto px-8 py-3.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg hover:scale-105 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed disabled:scale-100 ${
                       isSoftware
                         ? 'bg-glg-emerald text-black hover:bg-glg-emerald-accent shadow-emerald-glow'
                         : 'bg-[#b89047] text-white hover:bg-[#9e7526] shadow-[0_10px_25px_rgba(184,144,71,0.25)]'
                     }`}
                   >
-                    <span>Publish Real Review</span>
-                    <Send className="w-3.5 h-3.5" />
+                    {submitting ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        <span>Publishing…</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Publish Real Review</span>
+                        <Send className="w-3.5 h-3.5" />
+                      </>
+                    )}
                   </button>
 
                   <span className="text-[11px] font-mono text-current/60">
-                    Saves directly to website and displays publicly.
+                    Saved to database — visible to all visitors worldwide.
                   </span>
                 </div>
               </form>
@@ -547,7 +601,7 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
         )}
       </div>
 
-      {/* Filter and Feed Bar (Only if real reviews exist) */}
+      {/* Filter and Feed Bar */}
       {reviews.length > 0 && (
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b border-current/10">
           <div className="flex items-center gap-2 font-mono text-xs">

@@ -1,5 +1,8 @@
 # Dependencies
 /node_modules
+reviews-worker/node_modules
+reviews-worker/dist
+reviews-worker/.wrangler
 /.pnp
 .pnp.js
 .yarn/cache
