@@ -61,6 +61,10 @@ export const BRAND_DATA = {
   github: 'https://github.com/thunderlight247/',
   githubSecondary: 'https://github.com/johnseidu/',
   whatsappNumber: '+233594273358',
+  softwareWhatsappNumber: '+233594273358',
+  softwarePhoneDisplay: '+233 59 427 3358',
+  mediaWhatsappNumber: '+233256287121',
+  mediaPhoneDisplay: '+233 25 628 7121',
   location: 'Ghana',
   founder: {
     name: 'Lead Practitioner & Engineer',

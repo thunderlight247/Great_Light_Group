@@ -84,7 +84,7 @@ export default function MediaServicesOnly() {
                     </a>
 
                     <a
-                      href={`https://wa.me/233594273358?text=${whatsappServiceMessage}`}
+                      href={`https://wa.me/233256287121?text=${whatsappServiceMessage}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#faf8f5] hover:bg-[#b89047] hover:text-white text-[#4b4754] text-[11px] font-mono transition-all border border-[#e8decb] hover:border-[#b89047]"

@@ -5,7 +5,7 @@ import { Camera, Film, Sparkles, MessageSquare, Aperture, Award } from 'lucide-r
 import { BRAND_DATA } from '@/data/portfolioData';
 
 export default function MediaEthos() {
-  const whatsappUrl = `https://wa.me/233594273358?text=${encodeURIComponent(
+  const whatsappUrl = `https://wa.me/233256287121?text=${encodeURIComponent(
     'Hello Great Light Creative Director, I would like to consult on creative direction and booking for an upcoming shoot.'
   )}`;
 

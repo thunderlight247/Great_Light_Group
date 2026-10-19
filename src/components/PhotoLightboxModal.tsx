@@ -55,7 +55,7 @@ export default function PhotoLightboxModal({
   const whatsappMessage = encodeURIComponent(
     `Hello Great Light Group (Creative Division),\n\nI am viewing your media portfolio piece *"${item.title}"* (${item.frameNumber || 'Frame'} - ${item.category}).\n\nI would love to book or inquire about photography/cinematography in this exact creative style.\n\nCould we discuss availability and rates?`
   );
-  const whatsappUrl = `https://wa.me/233594273358?text=${whatsappMessage}`;
+  const whatsappUrl = `https://wa.me/233256287121?text=${whatsappMessage}`;
 
   return (
     <div

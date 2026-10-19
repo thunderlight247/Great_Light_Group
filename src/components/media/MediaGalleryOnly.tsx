@@ -246,7 +246,7 @@ export default function MediaGalleryOnly({ onOpenLightbox }: MediaGalleryOnlyPro
                     </span>
 
                     <a
-                      href={`https://wa.me/233594273358?text=${whatsappQuickMessage}`}
+                      href={`https://wa.me/233256287121?text=${whatsappQuickMessage}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}

@@ -21,7 +21,7 @@ export default function MediaEnquiry() {
 
   const generateWhatsAppUrl = () => {
     const message = `Hello Great Light Group (Creative Division),\n\nMy name is ${name || '[Your Name]'}.\nI would like to book a creative production for: *${service}*.\nTarget Date/Timeline: ${shootDate || 'Flexible / To Be Discussed'}.\n\nBrief:\n${details || 'I would like to discuss creative direction and rates.'}\n\nEmail: ${email || '[Your Email]'}\nPhone: ${phone || '[Your Phone]'}`;
-    return `https://wa.me/233594273358?text=${encodeURIComponent(message)}`;
+    return `https://wa.me/233256287121?text=${encodeURIComponent(message)}`;
   };
 
   return (
@@ -127,7 +127,7 @@ export default function MediaEnquiry() {
                       type="tel"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      placeholder="e.g. +233 59 427 3358"
+                      placeholder="e.g. +233 25 628 7121"
                       className="w-full px-4 py-3 rounded-xl bg-[#faf8f5] border border-[#e8decb] text-xs text-[#121115] placeholder:text-[#787280] focus:outline-none focus:border-[#b89047] focus:ring-1 focus:ring-[#b89047]"
                     />
                   </div>
@@ -177,7 +177,7 @@ export default function MediaEnquiry() {
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-[#faf8f5] hover:bg-[#121115] hover:text-white text-[#121115] transition-all border border-[#e8decb]"
                   >
                     <MessageSquare className="w-4 h-4 text-[#b89047]" />
-                    <span>Instant WhatsApp (0594273358)</span>
+                    <span>Instant WhatsApp (0256287121)</span>
                   </a>
                 </div>
               </form>
@@ -193,14 +193,14 @@ export default function MediaEnquiry() {
               </div>
               <div className="space-y-3">
                 <a
-                  href="https://wa.me/233594273358"
+                  href="https://wa.me/233256287121"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start gap-3 text-xs text-[#4b4754] hover:text-[#121115] transition-colors"
                 >
                   <Phone className="w-4 h-4 text-[#b89047] shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-bold text-[#121115] font-mono">+233 59 427 3358</div>
+                    <div className="font-bold text-[#121115] font-mono">+233 25 628 7121</div>
                     <div className="text-[10px] text-[#787280]">Direct WhatsApp &amp; Calls</div>
                   </div>
                 </a>

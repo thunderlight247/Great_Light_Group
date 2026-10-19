@@ -8,28 +8,33 @@ import {
   MessageSquarePlus,
   Filter,
   ShieldCheck,
-  Building2,
   MapPin,
-  Sparkles,
-  ArrowRight,
   Send,
+  MessageSquare,
 } from 'lucide-react';
-import {
-  ClientReview,
-  INITIAL_SOFTWARE_REVIEWS,
-  INITIAL_MEDIA_REVIEWS,
-} from '@/data/reviewsData';
+import { ClientReview } from '@/data/reviewsData';
 
 interface ReviewsManagerProps {
   division: 'software' | 'media';
 }
 
+// Ensure any old test sample IDs are excluded from display
+const FORBIDDEN_SAMPLE_IDS = new Set([
+  'rev-soft-01',
+  'rev-soft-02',
+  'rev-soft-03',
+  'rev-soft-04',
+  'rev-media-01',
+  'rev-media-02',
+  'rev-media-03',
+  'rev-media-04',
+]);
+
 export default function ReviewsManager({ division }: ReviewsManagerProps) {
   const isSoftware = division === 'software';
   const storageKey = isSoftware ? 'glg_software_reviews' : 'glg_media_reviews';
-  const initialData = isSoftware ? INITIAL_SOFTWARE_REVIEWS : INITIAL_MEDIA_REVIEWS;
 
-  const [reviews, setReviews] = useState<ClientReview[]>(initialData);
+  const [reviews, setReviews] = useState<ClientReview[]>([]);
   const [filterRating, setFilterRating] = useState<number | 'all'>('all');
   const [helpfulVoted, setHelpfulVoted] = useState<Record<string, boolean>>({});
   const [showForm, setShowForm] = useState(false);
@@ -44,23 +49,32 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
   const [highlightTag, setHighlightTag] = useState('Highly Recommended');
   const [submittedSuccess, setSubmittedSuccess] = useState(false);
 
-  // Load reviews from localStorage on client mount
+  // Load reviews from localStorage on client mount (only real user reviews)
   useEffect(() => {
     try {
       const stored = localStorage.getItem(storageKey);
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          // Merge stored reviews with initial, avoiding duplicates by id
-          const existingIds = new Set(initialData.map((r) => r.id));
-          const customReviews = parsed.filter((r: ClientReview) => !existingIds.has(r.id));
-          setReviews([...customReviews, ...initialData]);
+        if (Array.isArray(parsed)) {
+          // Strictly filter out any sample/test reviews
+          const realReviews = parsed.filter(
+            (r: ClientReview) => !FORBIDDEN_SAMPLE_IDS.has(r.id)
+          );
+          setReviews(realReviews);
+          // If no reviews yet, keep form visible so real users can easily add one
+          if (realReviews.length === 0) {
+            setShowForm(true);
+          }
         }
+      } else {
+        // If clean state with no reviews, show the form so the first real visitor can review
+        setShowForm(true);
       }
     } catch {
-      // Fallback to initial data if storage fails
+      // Storage fallback
+      setShowForm(true);
     }
-  }, [storageKey, initialData]);
+  }, [storageKey]);
 
   // Project options tailored to division
   const projectOptions = isSoftware
@@ -93,7 +107,7 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
     if (!name.trim() || !comment.trim() || !city.trim()) return;
 
     const newReview: ClientReview = {
-      id: `rev-client-${Date.now()}`,
+      id: `rev-real-${Date.now()}`,
       category: division,
       name: name.trim(),
       city: city.trim(),
@@ -102,8 +116,8 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
       comment: comment.trim(),
       date: new Date().toISOString().split('T')[0],
       verified: true,
-      helpfulCount: 1,
-      highlightTag: highlightTag || 'Verified Commission',
+      helpfulCount: 0,
+      highlightTag: highlightTag || 'Real Client Review',
     };
 
     const updated = [newReview, ...reviews];
@@ -126,9 +140,17 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
   const toggleHelpful = (id: string) => {
     if (helpfulVoted[id]) return;
     setHelpfulVoted((prev) => ({ ...prev, [id]: true }));
-    setReviews((prev) =>
-      prev.map((r) => (r.id === id ? { ...r, helpfulCount: r.helpfulCount + 1 } : r))
-    );
+    setReviews((prev) => {
+      const next = prev.map((r) =>
+        r.id === id ? { ...r, helpfulCount: r.helpfulCount + 1 } : r
+      );
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(next));
+      } catch {
+        // Ignore
+      }
+      return next;
+    });
   };
 
   // Filtered reviews
@@ -139,7 +161,7 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
 
   // Compute stats
   const averageRating = useMemo(() => {
-    if (reviews.length === 0) return 5.0;
+    if (reviews.length === 0) return '0.0';
     const sum = reviews.reduce((acc, r) => acc + r.rating, 0);
     return (sum / reviews.length).toFixed(1);
   }, [reviews]);
@@ -154,105 +176,142 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
 
   return (
     <div className="w-full">
-      {/* Overview Metric Banner */}
-      <div
-        className={`rounded-3xl p-6 sm:p-10 mb-12 border ${
-          isSoftware
-            ? 'bg-[#0d1410] border-glg-emerald/30 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.85)]'
-            : 'bg-white border-[#e8decb] shadow-[0_15px_40px_rgba(0,0,0,0.06)]'
-        }`}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-          {/* Big Score Box */}
-          <div className="md:col-span-4 flex flex-col items-center md:items-start text-center md:text-left border-b md:border-b-0 md:border-r pb-6 md:pb-0 border-current/10">
-            <div className="text-xs uppercase font-mono tracking-widest font-semibold mb-2 flex items-center gap-2">
-              <ShieldCheck className={`w-4 h-4 ${isSoftware ? 'text-glg-emerald' : 'text-[#b89047]'}`} />
-              <span className={isSoftware ? 'text-glg-emerald' : 'text-[#9e7526]'}>
-                Verified Client Feedback
-              </span>
-            </div>
-            <div className="flex items-baseline gap-3 my-1">
-              <span
-                className={`font-serif text-5xl sm:text-6xl font-black ${
-                  isSoftware ? 'text-white' : 'text-[#121115]'
-                }`}
-              >
-                {averageRating}
-              </span>
-              <span className="text-sm font-mono text-current/60">/ 5.0</span>
-            </div>
-            {/* Stars visual */}
-            <div className="flex items-center gap-1.5 my-2">
-              {[1, 2, 3, 4, 5].map((s) => (
-                <Star
-                  key={s}
-                  className={`w-5 h-5 fill-current ${
-                    isSoftware ? 'text-glg-gold' : 'text-[#b89047]'
-                  }`}
-                />
-              ))}
-            </div>
-            <p className="text-xs font-mono text-current/70 mt-1">
-              Based on {reviews.length} authentic customer commissions
-            </p>
-          </div>
-
-          {/* Star Breakdown Progress Bars */}
-          <div className="md:col-span-5 space-y-2">
-            {[5, 4, 3, 2, 1].map((starVal) => {
-              const count = ratingCounts[starVal] || 0;
-              const pct = reviews.length > 0 ? (count / reviews.length) * 100 : 0;
-              return (
-                <button
-                  key={starVal}
-                  onClick={() => setFilterRating(filterRating === starVal ? 'all' : starVal)}
-                  className={`w-full flex items-center gap-3 text-xs font-mono group transition-opacity hover:opacity-100 ${
-                    filterRating === starVal ? 'opacity-100 font-bold' : 'opacity-75'
+      {/* Overview Metric Banner (When real reviews exist) */}
+      {reviews.length > 0 ? (
+        <div
+          className={`rounded-3xl p-6 sm:p-10 mb-12 border ${
+            isSoftware
+              ? 'bg-[#0d1410] border-glg-emerald/30 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.85)]'
+              : 'bg-white border-[#e8decb] shadow-[0_15px_40px_rgba(0,0,0,0.06)]'
+          }`}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            {/* Big Score Box */}
+            <div className="md:col-span-4 flex flex-col items-center md:items-start text-center md:text-left border-b md:border-b-0 md:border-r pb-6 md:pb-0 border-current/10">
+              <div className="text-xs uppercase font-mono tracking-widest font-semibold mb-2 flex items-center gap-2">
+                <ShieldCheck className={`w-4 h-4 ${isSoftware ? 'text-glg-emerald' : 'text-[#b89047]'}`} />
+                <span className={isSoftware ? 'text-glg-emerald' : 'text-[#9e7526]'}>
+                  Real Client Feedback
+                </span>
+              </div>
+              <div className="flex items-baseline gap-3 my-1">
+                <span
+                  className={`font-serif text-5xl sm:text-6xl font-black ${
+                    isSoftware ? 'text-white' : 'text-[#121115]'
                   }`}
                 >
-                  <span className="w-12 text-left flex items-center gap-1">
-                    <span>{starVal}</span>
-                    <Star className="w-3 h-3 fill-current inline text-amber-500" />
-                  </span>
-                  <div className="flex-1 h-2 rounded-full overflow-hidden bg-black/10 dark:bg-white/10">
-                    <div
-                      className={`h-full rounded-full transition-all duration-500 ${
-                        isSoftware ? 'bg-glg-emerald' : 'bg-[#b89047]'
-                      }`}
-                      style={{ width: `${pct}%` }}
-                    />
-                  </div>
-                  <span className="w-8 text-right text-[11px] text-current/60">{count}</span>
-                </button>
-              );
-            })}
-          </div>
+                  {averageRating}
+                </span>
+                <span className="text-sm font-mono text-current/60">/ 5.0</span>
+              </div>
+              <div className="flex items-center gap-1.5 my-2">
+                {[1, 2, 3, 4, 5].map((s) => (
+                  <Star
+                    key={s}
+                    className={`w-5 h-5 fill-current ${
+                      isSoftware ? 'text-glg-gold' : 'text-[#b89047]'
+                    }`}
+                  />
+                ))}
+              </div>
+              <p className="text-xs font-mono text-current/70 mt-1">
+                Based on {reviews.length} {reviews.length === 1 ? 'client review' : 'client reviews'}
+              </p>
+            </div>
 
-          {/* Call to Action Button */}
-          <div className="md:col-span-3 flex flex-col items-center justify-center text-center">
+            {/* Star Breakdown Progress Bars */}
+            <div className="md:col-span-5 space-y-2">
+              {[5, 4, 3, 2, 1].map((starVal) => {
+                const count = ratingCounts[starVal] || 0;
+                const pct = (count / reviews.length) * 100;
+                return (
+                  <button
+                    key={starVal}
+                    onClick={() => setFilterRating(filterRating === starVal ? 'all' : starVal)}
+                    className={`w-full flex items-center gap-3 text-xs font-mono group transition-opacity hover:opacity-100 ${
+                      filterRating === starVal ? 'opacity-100 font-bold' : 'opacity-75'
+                    }`}
+                  >
+                    <span className="w-12 text-left flex items-center gap-1">
+                      <span>{starVal}</span>
+                      <Star className="w-3 h-3 fill-current inline text-amber-500" />
+                    </span>
+                    <div className="flex-1 h-2 rounded-full overflow-hidden bg-black/10 dark:bg-white/10">
+                      <div
+                        className={`h-full rounded-full transition-all duration-500 ${
+                          isSoftware ? 'bg-glg-emerald' : 'bg-[#b89047]'
+                        }`}
+                        style={{ width: `${pct}%` }}
+                      />
+                    </div>
+                    <span className="w-8 text-right text-[11px] text-current/60">{count}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Call to Action Button */}
+            <div className="md:col-span-3 flex flex-col items-center justify-center text-center">
+              <button
+                onClick={() => {
+                  setShowForm(true);
+                  setSubmittedSuccess(false);
+                  setTimeout(() => {
+                    document.getElementById('review-form-section')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }}
+                className={`w-full py-3.5 px-6 rounded-full text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg hover:scale-105 active:scale-95 ${
+                  isSoftware
+                    ? 'bg-glg-emerald text-black hover:bg-glg-emerald-accent shadow-emerald-glow'
+                    : 'bg-[#b89047] text-white hover:bg-[#9e7526] shadow-[0_10px_25px_rgba(184,144,71,0.25)]'
+                }`}
+              >
+                <MessageSquarePlus className="w-4 h-4" />
+                <span>Add Your Review</span>
+              </button>
+              <span className="text-[11px] font-mono text-current/60 mt-2 block">
+                No personal data required
+              </span>
+            </div>
+          </div>
+        </div>
+      ) : (
+        /* Empty State (Honest & Welcoming when 0 reviews exist) */
+        <div
+          className={`rounded-3xl p-8 sm:p-12 mb-12 text-center border ${
+            isSoftware
+              ? 'bg-[#0d1410] border-glg-emerald/30 text-white'
+              : 'bg-white border-[#e8decb] text-[#121115] shadow-sm'
+          }`}
+        >
+          <div
+            className={`w-14 h-14 rounded-2xl mx-auto flex items-center justify-center mb-4 ${
+              isSoftware ? 'bg-glg-emerald/10 text-glg-emerald' : 'bg-[#b89047]/10 text-[#b89047]'
+            }`}
+          >
+            <MessageSquare className="w-7 h-7" />
+          </div>
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold mb-2">
+            Be the First to Review Our {isSoftware ? 'Software' : 'Media'} Work
+          </h2>
+          <p className="text-xs sm:text-sm max-w-xl mx-auto opacity-75 leading-relaxed font-sans mb-6">
+            We only display authentic, real feedback from actual clients and partners. If you have worked with Great Light Group ({isSoftware ? 'Software & Technology' : 'Media & Creative'}), please share your genuine review below!
+          </p>
+          {!showForm && (
             <button
-              onClick={() => {
-                setShowForm(true);
-                setSubmittedSuccess(false);
-                setTimeout(() => {
-                  document.getElementById('review-form-section')?.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-              }}
-              className={`w-full py-3.5 px-6 rounded-full text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg hover:scale-105 active:scale-95 ${
+              onClick={() => setShowForm(true)}
+              className={`py-3 px-7 rounded-full text-xs font-mono font-bold uppercase tracking-wider transition-all inline-flex items-center gap-2 ${
                 isSoftware
                   ? 'bg-glg-emerald text-black hover:bg-glg-emerald-accent shadow-emerald-glow'
-                  : 'bg-[#b89047] text-white hover:bg-[#9e7526] shadow-[0_10px_25px_rgba(184,144,71,0.25)]'
+                  : 'bg-[#b89047] text-white hover:bg-[#9e7526] shadow-sm'
               }`}
             >
               <MessageSquarePlus className="w-4 h-4" />
-              <span>Leave a Review</span>
+              <span>Write a Client Review</span>
             </button>
-            <span className="text-[11px] font-mono text-current/60 mt-2 block">
-              No personal data required
-            </span>
-          </div>
+          )}
         </div>
-      </div>
+      )}
 
       {/* Interactive Review Form Section */}
       <div id="review-form-section" className="mb-14">
@@ -276,20 +335,20 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
                   <CheckCircle className="w-9 h-9" />
                 </div>
                 <h3 className="font-serif text-2xl font-bold">
-                  Review Published Live!
+                  Your Review Has Been Published!
                 </h3>
-                <p className="text-sm opacity-80 max-w-md mx-auto leading-relaxed">
-                  Thank you for reviewing Great Light Group ({isSoftware ? 'Software' : 'Media'} Division). Your review has been saved and is now visible to all visitors.
+                <p className="text-sm opacity-80 max-w-md mx-auto leading-relaxed font-sans">
+                  Thank you for reviewing Great Light Group ({isSoftware ? 'Software' : 'Media'} Division). Your feedback is now saved and live on our website.
                 </p>
                 <button
-                  onClick={() => setShowForm(false)}
+                  onClick={() => setSubmittedSuccess(false)}
                   className={`px-6 py-2.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider transition-all ${
                     isSoftware
                       ? 'bg-white/10 hover:bg-white/20 text-white'
                       : 'bg-[#faf8f5] hover:bg-[#121115] hover:text-white text-[#121115] border border-[#e8decb]'
                   }`}
                 >
-                  Close Form
+                  Submit Another Review
                 </button>
               </div>
             ) : (
@@ -297,25 +356,27 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
                 <div className="flex items-center justify-between border-b pb-4 border-current/10">
                   <div>
                     <h3 className="font-serif text-2xl font-bold">
-                      Add Your Review — {isSoftware ? 'Software Division' : 'Media Division'}
+                      Add a Client Review — {isSoftware ? 'Software Division' : 'Media Division'}
                     </h3>
                     <p className="text-xs opacity-75 mt-1 font-sans">
-                      Share your genuine feedback on our delivery, reliability, and work standard.
+                      Only genuine feedback from clients and organizations is published.
                     </p>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setShowForm(false)}
-                    className="text-xs font-mono underline opacity-60 hover:opacity-100"
-                  >
-                    Cancel
-                  </button>
+                  {reviews.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => setShowForm(false)}
+                      className="text-xs font-mono underline opacity-60 hover:opacity-100"
+                    >
+                      Close
+                    </button>
+                  )}
                 </div>
 
                 {/* Rating Clickable Stars */}
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider font-semibold mb-2">
-                    Overall Rating *
+                    Rating *
                   </label>
                   <div className="flex items-center gap-2">
                     <div className="flex items-center gap-1.5">
@@ -393,7 +454,7 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
                 {/* Project / Commission Type */}
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider font-semibold mb-1">
-                    Commission / Service Delivered
+                    Project / Work Completed
                   </label>
                   <select
                     value={projectType}
@@ -415,7 +476,7 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
                 {/* Quick Highlight Tag */}
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider font-semibold mb-2">
-                    Key Standout Quality
+                    Key Highlight Tag
                   </label>
                   <div className="flex flex-wrap gap-2">
                     {quickHighlightTags.map((tag) => (
@@ -442,7 +503,7 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
                 {/* Comment textarea */}
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider font-semibold mb-1">
-                    Your Review &amp; Experience *
+                    Your Honest Feedback &amp; Review *
                   </label>
                   <textarea
                     rows={4}
@@ -451,8 +512,8 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
                     onChange={(e) => setComment(e.target.value)}
                     placeholder={
                       isSoftware
-                        ? 'Describe the software performance, system stability, delivery timelines, and how the team communicated...'
-                        : 'Describe the visual results, lighting, cinematography, pacing, and overall professionalism of Great Light Creative...'
+                        ? 'Share your experience with our software development, code quality, communication, and delivery...'
+                        : 'Share your experience with our video/photo production, lighting, cinematography, and professionalism...'
                     }
                     className={`w-full px-4 py-3 rounded-xl text-xs focus:outline-none transition-all resize-none ${
                       isSoftware
@@ -472,12 +533,12 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
                         : 'bg-[#b89047] text-white hover:bg-[#9e7526] shadow-[0_10px_25px_rgba(184,144,71,0.25)]'
                     }`}
                   >
-                    <span>Publish Review</span>
+                    <span>Publish Real Review</span>
                     <Send className="w-3.5 h-3.5" />
                   </button>
 
                   <span className="text-[11px] font-mono text-current/60">
-                    Saved directly to website database for public viewing.
+                    Saves directly to website and displays publicly.
                   </span>
                 </div>
               </form>
@@ -486,72 +547,76 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
         )}
       </div>
 
-      {/* Filter and Feed Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b border-current/10">
-        <div className="flex items-center gap-2 font-mono text-xs">
-          <Filter className="w-4 h-4 opacity-70" />
-          <span className="font-semibold uppercase tracking-wider">Filter Reviews:</span>
-          <button
-            onClick={() => setFilterRating('all')}
-            className={`px-3 py-1 rounded-full text-xs transition-all ${
-              filterRating === 'all'
-                ? isSoftware
-                  ? 'bg-glg-emerald text-black font-bold'
-                  : 'bg-[#b89047] text-white font-bold'
-                : 'opacity-70 hover:opacity-100'
-            }`}
-          >
-            All ({reviews.length})
-          </button>
-          {[5, 4].map((star) => (
+      {/* Filter and Feed Bar (Only if real reviews exist) */}
+      {reviews.length > 0 && (
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b border-current/10">
+          <div className="flex items-center gap-2 font-mono text-xs">
+            <Filter className="w-4 h-4 opacity-70" />
+            <span className="font-semibold uppercase tracking-wider">Filter Reviews:</span>
             <button
-              key={star}
-              onClick={() => setFilterRating(star)}
-              className={`px-3 py-1 rounded-full text-xs transition-all flex items-center gap-1 ${
-                filterRating === star
+              onClick={() => setFilterRating('all')}
+              className={`px-3 py-1 rounded-full text-xs transition-all ${
+                filterRating === 'all'
                   ? isSoftware
                     ? 'bg-glg-emerald text-black font-bold'
                     : 'bg-[#b89047] text-white font-bold'
                   : 'opacity-70 hover:opacity-100'
               }`}
             >
-              <span>{star} Stars</span>
-              <span className="text-[10px] opacity-75">({ratingCounts[star] || 0})</span>
+              All ({reviews.length})
             </button>
-          ))}
-        </div>
+            {[5, 4, 3, 2, 1]
+              .filter((star) => (ratingCounts[star] || 0) > 0)
+              .map((star) => (
+                <button
+                  key={star}
+                  onClick={() => setFilterRating(star)}
+                  className={`px-3 py-1 rounded-full text-xs transition-all flex items-center gap-1 ${
+                    filterRating === star
+                      ? isSoftware
+                        ? 'bg-glg-emerald text-black font-bold'
+                        : 'bg-[#b89047] text-white font-bold'
+                      : 'opacity-70 hover:opacity-100'
+                  }`}
+                >
+                  <span>{star} Stars</span>
+                  <span className="text-[10px] opacity-75">({ratingCounts[star] || 0})</span>
+                </button>
+              ))}
+          </div>
 
-        <div className="text-xs font-mono opacity-70">
-          Showing {filteredReviews.length} {filteredReviews.length === 1 ? 'review' : 'reviews'}
+          <div className="text-xs font-mono opacity-70">
+            Showing {filteredReviews.length} {filteredReviews.length === 1 ? 'review' : 'reviews'}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Customer Reviews Feed */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-        {filteredReviews.map((rev) => (
-          <div
-            key={rev.id}
-            className={`rounded-3xl p-6 sm:p-8 border flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 ${
-              isSoftware
-                ? 'bg-[#0d1410] border-glg-emerald/20 hover:border-glg-emerald/60 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
-                : 'bg-white border-[#e8decb] hover:border-[#b89047] shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_15px_35px_rgba(184,144,71,0.12)]'
-            }`}
-          >
-            <div>
-              {/* Header with Name, City, and Rating */}
-              <div className="flex items-start justify-between gap-3 mb-4">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`font-serif font-bold text-lg sm:text-xl tracking-tight ${
-                        isSoftware ? 'text-white' : 'text-[#121115]'
-                      }`}
-                    >
-                      {rev.name}
-                    </span>
-                    {rev.verified && (
+      {reviews.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          {filteredReviews.map((rev) => (
+            <div
+              key={rev.id}
+              className={`rounded-3xl p-6 sm:p-8 border flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 ${
+                isSoftware
+                  ? 'bg-[#0d1410] border-glg-emerald/20 hover:border-glg-emerald/60 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
+                  : 'bg-white border-[#e8decb] hover:border-[#b89047] shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_15px_35px_rgba(184,144,71,0.12)]'
+              }`}
+            >
+              <div>
+                {/* Header with Name, City, and Rating */}
+                <div className="flex items-start justify-between gap-3 mb-4">
+                  <div>
+                    <div className="flex items-center gap-2">
                       <span
-                        title="Verified Client"
+                        className={`font-serif font-bold text-lg sm:text-xl tracking-tight ${
+                          isSoftware ? 'text-white' : 'text-[#121115]'
+                        }`}
+                      >
+                        {rev.name}
+                      </span>
+                      <span
+                        title="Verified Client Review"
                         className={`inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
                           isSoftware
                             ? 'bg-glg-emerald/15 text-glg-emerald border border-glg-emerald/30'
@@ -559,78 +624,78 @@ export default function ReviewsManager({ division }: ReviewsManagerProps) {
                         }`}
                       >
                         <ShieldCheck className="w-3 h-3" />
-                        <span>Verified</span>
+                        <span>Client</span>
                       </span>
-                    )}
+                    </div>
+
+                    <div className="flex items-center gap-2 text-xs font-mono text-current/60 mt-1">
+                      <MapPin className="w-3 h-3 shrink-0" />
+                      <span>{rev.city}</span>
+                      <span>·</span>
+                      <span>{rev.projectType}</span>
+                    </div>
                   </div>
 
-                  <div className="flex items-center gap-2 text-xs font-mono text-current/60 mt-1">
-                    <MapPin className="w-3 h-3 shrink-0" />
-                    <span>{rev.city}</span>
-                    <span>·</span>
-                    <span>{rev.projectType}</span>
+                  {/* Star rating pill */}
+                  <div className="flex items-center gap-0.5 shrink-0 bg-black/5 dark:bg-white/5 px-2.5 py-1 rounded-full border border-current/10">
+                    {[...Array(rev.rating)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-3.5 h-3.5 fill-current ${
+                          isSoftware ? 'text-glg-gold' : 'text-[#b89047]'
+                        }`}
+                      />
+                    ))}
                   </div>
                 </div>
 
-                {/* Star rating pill */}
-                <div className="flex items-center gap-0.5 shrink-0 bg-black/5 dark:bg-white/5 px-2.5 py-1 rounded-full border border-current/10">
-                  {[...Array(rev.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`w-3.5 h-3.5 fill-current ${
-                        isSoftware ? 'text-glg-gold' : 'text-[#b89047]'
+                {/* Highlight Tag */}
+                {rev.highlightTag && (
+                  <div className="mb-3">
+                    <span
+                      className={`inline-block text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-md font-semibold ${
+                        isSoftware
+                          ? 'bg-white/5 text-glg-emerald border border-glg-emerald/20'
+                          : 'bg-[#faf8f5] text-[#9e7526] border border-[#e8decb]'
                       }`}
-                    />
-                  ))}
-                </div>
+                    >
+                      ★ {rev.highlightTag}
+                    </span>
+                  </div>
+                )}
+
+                {/* Review Comment Body */}
+                <p
+                  className={`text-sm leading-relaxed mb-6 font-sans ${
+                    isSoftware ? 'text-glg-text-secondary' : 'text-[#4b4754]'
+                  }`}
+                >
+                  &ldquo;{rev.comment}&rdquo;
+                </p>
               </div>
 
-              {/* Highlight Tag */}
-              {rev.highlightTag && (
-                <div className="mb-3">
-                  <span
-                    className={`inline-block text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-md font-semibold ${
-                      isSoftware
-                        ? 'bg-white/5 text-glg-emerald border border-glg-emerald/20'
-                        : 'bg-[#faf8f5] text-[#9e7526] border border-[#e8decb]'
-                    }`}
-                  >
-                    ★ {rev.highlightTag}
-                  </span>
-                </div>
-              )}
+              {/* Footer with Date and Interactive Helpful Button */}
+              <div className="pt-4 border-t border-current/10 flex items-center justify-between text-xs font-mono text-current/60">
+                <span>{rev.date}</span>
 
-              {/* Review Comment Body */}
-              <p
-                className={`text-sm leading-relaxed mb-6 font-sans ${
-                  isSoftware ? 'text-glg-text-secondary' : 'text-[#4b4754]'
-                }`}
-              >
-                &ldquo;{rev.comment}&rdquo;
-              </p>
+                <button
+                  onClick={() => toggleHelpful(rev.id)}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full transition-all ${
+                    helpfulVoted[rev.id]
+                      ? isSoftware
+                        ? 'bg-glg-emerald/20 text-glg-emerald font-bold'
+                        : 'bg-[#b89047]/20 text-[#b89047] font-bold'
+                      : 'hover:bg-black/5 dark:hover:bg-white/5'
+                  }`}
+                >
+                  <ThumbsUp className="w-3.5 h-3.5" />
+                  <span>Helpful ({rev.helpfulCount})</span>
+                </button>
+              </div>
             </div>
-
-            {/* Footer with Date and Interactive Helpful Button */}
-            <div className="pt-4 border-t border-current/10 flex items-center justify-between text-xs font-mono text-current/60">
-              <span>{rev.date}</span>
-
-              <button
-                onClick={() => toggleHelpful(rev.id)}
-                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full transition-all ${
-                  helpfulVoted[rev.id]
-                    ? isSoftware
-                      ? 'bg-glg-emerald/20 text-glg-emerald font-bold'
-                      : 'bg-[#b89047]/20 text-[#b89047] font-bold'
-                    : 'hover:bg-black/5 dark:hover:bg-white/5'
-                }`}
-              >
-                <ThumbsUp className="w-3.5 h-3.5" />
-                <span>Helpful ({rev.helpfulCount})</span>
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

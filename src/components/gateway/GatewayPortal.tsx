@@ -201,8 +201,8 @@ export default function GatewayPortal() {
                   <span>Featured: SchoolHub · LightEx · Dagbani Hymn</span>
                 </div>
                 <div className="flex items-center gap-1.5 text-[#065f46] font-semibold">
-                  <Star className="w-3.5 h-3.5 fill-current text-amber-500" />
-                  <span>5.0 / 5.0 Rating · Verified Client Endorsements</span>
+                  <Star className="w-3.5 h-3.5 text-amber-500" />
+                  <span>Real Client Reviews · Open Public Register</span>
                 </div>
               </div>
             </div>
@@ -270,8 +270,8 @@ export default function GatewayPortal() {
                   <span>Featured: Motion Reel 01 &amp; Visual Story Reel 02</span>
                 </div>
                 <div className="flex items-center gap-1.5 text-[#8a5d1b] font-semibold">
-                  <Star className="w-3.5 h-3.5 fill-current text-amber-500" />
-                  <span>5.0 / 5.0 Rating · Verified Client Commendations</span>
+                  <Star className="w-3.5 h-3.5 text-amber-500" />
+                  <span>Real Client Reviews · Open Public Register</span>
                 </div>
               </div>
             </div>

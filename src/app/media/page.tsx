@@ -53,7 +53,7 @@ export default function MediaPage() {
           {/* Dedicated Media Ethos & Creative Director Manifesto */}
           <MediaEthos />
 
-          {/* Commission Production Brief (WhatsApp: 0594273358) */}
+          {/* Commission Production Brief (WhatsApp: 0256287121) */}
           <MediaEnquiry />
         </main>
 
