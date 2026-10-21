@@ -1,73 +1,30 @@
-'use client';
+import type { Metadata } from 'next';
+import MediaPageClient from '@/components/media/MediaPageClient';
 
-import { useState } from 'react';
-import SmoothScroll from '@/components/SmoothScroll';
-import MediaBackground from '@/components/media/MediaBackground';
-import MediaNavbar from '@/components/media/MediaNavbar';
-import MediaHero from '@/components/media/MediaHero';
-import MediaVideoCinema from '@/components/media/MediaVideoCinema';
-import MediaGalleryOnly from '@/components/media/MediaGalleryOnly';
-import MediaServicesOnly from '@/components/media/MediaServicesOnly';
-import MediaEthos from '@/components/media/MediaEthos';
-import MediaEnquiry from '@/components/media/MediaEnquiry';
-import MediaFooter from '@/components/media/MediaFooter';
-import PhotoLightboxModal from '@/components/PhotoLightboxModal';
-import { MediaItem, MEDIA_ITEMS } from '@/data/portfolioData';
+export const metadata: Metadata = {
+  title: 'Media & Cinematic Atelier',
+  description:
+    'Cinematic wedding films, cultural documentaries, master color grading, and editorial photography by Great Light Atelier in Ghana and across the globe.',
+  alternates: {
+    canonical: '/media',
+  },
+  openGraph: {
+    title: 'Media & Cinematic Atelier | Great Light Group',
+    description:
+      'Cinematic wedding films, cultural documentaries, master color grading, and editorial photography by Great Light Atelier.',
+    url: 'https://greatlightgroup.com/media',
+    type: 'website',
+    images: [
+      {
+        url: '/brand/logo.jpeg',
+        width: 1024,
+        height: 1024,
+        alt: 'Great Light Group Media Atelier',
+      },
+    ],
+  },
+};
 
 export default function MediaPage() {
-  const [lightboxItem, setLightboxItem] = useState<MediaItem | null>(null);
-  const [activeGalleryItems, setActiveGalleryItems] = useState<MediaItem[]>(
-    MEDIA_ITEMS.filter((i) => i.type === 'image')
-  );
-
-  return (
-    <SmoothScroll>
-      <div className="relative min-h-screen bg-[#faf8f5] text-[#121115] selection:bg-[#b89047] selection:text-white">
-        {/* Luminous Warm Alabaster Canvas Atmosphere */}
-        <MediaBackground />
-
-        {/* Dedicated Media Navigation */}
-        <MediaNavbar />
-
-        {/* Main Content Area */}
-        <main className="relative z-10 flex-1">
-          {/* Cinematic Hero with Curated Film Strip */}
-          <MediaHero />
-
-          {/* 4K Motion Cinema Player (Reel 01 & Reel 02) */}
-          <MediaVideoCinema />
-
-          {/* Curated Photography Exhibition (22 Authentic Works from WhatsApp Media) */}
-          <MediaGalleryOnly
-            onOpenLightbox={(item, allItems) => {
-              setLightboxItem(item);
-              if (allItems && allItems.length > 0) {
-                setActiveGalleryItems(allItems);
-              }
-            }}
-          />
-
-          {/* 4 Creative Production Packages */}
-          <MediaServicesOnly />
-
-          {/* Dedicated Media Ethos & Creative Director Manifesto */}
-          <MediaEthos />
-
-          {/* Commission Production Brief (WhatsApp: 0256287121) */}
-          <MediaEnquiry />
-        </main>
-
-        {/* Media Footer */}
-        <MediaFooter />
-
-        {/* Interactive Cinema Darkroom Lightbox with Prev/Next Controls */}
-        <PhotoLightboxModal
-          item={lightboxItem}
-          items={activeGalleryItems}
-          onClose={() => setLightboxItem(null)}
-          onNavigate={(item) => setLightboxItem(item)}
-        />
-      </div>
-    </SmoothScroll>
-  );
+  return <MediaPageClient />;
 }
