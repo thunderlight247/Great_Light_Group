@@ -54,13 +54,13 @@ export default function SoftwareNavbar() {
 
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-6 font-mono text-xs uppercase tracking-wider text-glg-text-secondary">
-            <Link href="/software#projects" className="hover:text-glg-emerald transition-colors">
-              01 Projects
+            <Link href="/software/projects" className="hover:text-glg-emerald transition-colors text-glg-emerald font-semibold">
+              01 Projects (16)
             </Link>
             <Link href="/software/services" className="hover:text-glg-emerald transition-colors">
               02 Services
             </Link>
-            <Link href="/software/reviews" className="hover:text-glg-emerald transition-colors text-glg-emerald font-semibold">
+            <Link href="/software/reviews" className="hover:text-glg-emerald transition-colors">
               03 Reviews
             </Link>
             <Link href="/software#skills" className="hover:text-glg-emerald transition-colors">
@@ -139,11 +139,11 @@ export default function SoftwareNavbar() {
 
           <div className="flex flex-col gap-3 pt-4 font-mono text-sm">
             <Link
-              href="/software#projects"
+              href="/software/projects"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-1.5 px-2 text-glg-text-secondary hover:text-white"
+              className="py-1.5 px-2 text-glg-emerald font-semibold hover:text-white"
             >
-              01 Software Projects
+              01 Software Projects (16 Systems)
             </Link>
             <Link
               href="/software/services"

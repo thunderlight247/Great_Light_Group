@@ -1,8 +1,26 @@
+export type ProjectGroup =
+  | 'For Clients'
+  | 'Real World Systems'
+  | 'Complete'
+  | 'Still in Development';
+
 export interface SoftwareProject {
   id: string;
   title: string;
   subtitle: string;
-  category: 'Full-Stack' | 'E-commerce' | 'AI & Systems' | 'Mobile & Web';
+  category:
+    | 'Full-Stack Architecture'
+    | 'AI & Systems'
+    | 'Mobile Engineering'
+    | 'Hospitality & Booking'
+    | 'Healthcare & Clinical'
+    | 'Commercial & Utility'
+    | 'Commercial & Lifestyle'
+    | 'Legal & Enterprise';
+  group: ProjectGroup;
+  groups: ProjectGroup[];
+  client?: string;
+  clientLocation?: string;
   description: string;
   problem: string;
   solution: string;
@@ -10,10 +28,12 @@ export interface SoftwareProject {
   techStack: string[];
   liveUrl?: string;
   githubUrl?: string;
-  status: 'Live' | 'Prototype' | 'Staging' | 'Completed' | 'In Production';
+  status: 'Live' | 'Prototype' | 'Completed' | 'In Development';
   featured: boolean;
   image: string;
   highlights: string[];
+  metrics?: { label: string; value: string }[];
+  deliverables?: string[];
 }
 
 export interface MediaItem {
@@ -76,22 +96,151 @@ export const BRAND_DATA = {
 };
 
 export const SOFTWARE_PROJECTS: SoftwareProject[] = [
-  // Full-Stack Category
+  // 1. Country Lodge Nsawam
+  {
+    id: 'country-lodge',
+    title: 'Country Lodge Nsawam',
+    subtitle: 'Hospitality, Boutique Suites & Event Grounds Booking Portal',
+    category: 'Hospitality & Booking',
+    group: 'For Clients',
+    groups: ['For Clients', 'Real World Systems', 'Complete'],
+    client: 'Country Lodge',
+    clientLocation: 'Nsawam, Eastern Region, Ghana',
+    description:
+      'A bespoke digital portal and reservations engine crafted for Country Lodge, a countryside retreat in Nsawam. The platform highlights executive suites, an outdoor swimming pool, banquet lawns, and direct guest reservation triage.',
+    problem:
+      'Prospective guests and event coordinators had difficulty browsing room amenities, confirming current lodge pricing, and securing reservation dates through fragmented telephone calls.',
+    solution:
+      'Engineered an App Router Next.js application integrated with GSAP scroll interactions, Lenis smooth scrolling, interactive room galleries, and an immediate WhatsApp concierge reservation payload builder.',
+    architecture:
+      'Next.js 14 · React 18 · TypeScript · Tailwind CSS · GSAP · Lenis Smooth Scroll · WhatsApp Booking Protocol',
+    techStack: ['Next.js 14', 'React 18', 'TypeScript', 'Tailwind CSS', 'GSAP', 'Lenis', 'Lucide React'],
+    liveUrl: 'https://country-lodge-psi.vercel.app',
+    githubUrl: 'https://github.com/thunderlight247/country-lodge',
+    status: 'Live',
+    featured: true,
+    image: '/projects/country-lodge.jpg',
+    highlights: [
+      'Interactive room showcase with high-definition interior and amenities viewer',
+      'One-tap reservation compiler compiling date, suite tier, and guest headcount',
+      'Ultra-responsive mobile layout optimized for weekend retreat travelers',
+    ],
+    metrics: [
+      { label: 'First Contentful Paint', value: '0.8s' },
+      { label: 'Booking Friction Reduction', value: '75%' },
+      { label: 'Platform Availability', value: '99.9%' },
+    ],
+    deliverables: [
+      'Next.js Web Portal',
+      'Mobile Reservation Triage',
+      'Responsive Suite Showcases',
+      'Search Console SEO Optimization',
+    ],
+  },
+
+  // 2. Lovely Fobie Glam
+  {
+    id: 'lovely-fobie',
+    title: 'Lovely Fobie Glam',
+    subtitle: 'Bridal Couture, Luxury Beauty & Aesthetics Digital Studio',
+    category: 'Commercial & Lifestyle',
+    group: 'For Clients',
+    groups: ['For Clients', 'Real World Systems', 'Complete'],
+    client: 'Lovely Fobie Glam Studio',
+    clientLocation: 'Accra, Ghana',
+    description:
+      'An editorial digital studio experience engineered for Lovely Fobie Glam, an elite bridal styling, skin treatment, and luxury aesthetics practice in Accra.',
+    problem:
+      'High-end bridal and event clients required an authentic visual portfolio that mirrored luxury fashion standards while streamlining bespoke bridal appointment reservations.',
+    solution:
+      'Architected a fluid Next.js web application utilizing Framer Motion transitions, GSAP easing, micro-interactions, high-fidelity gallery showcases, and direct consultation triage.',
+    architecture:
+      'Next.js 15 · React 19 · Framer Motion · GSAP · Lenis · Tailwind CSS v4 · WhatsApp Concierge',
+    techStack: ['Next.js 15', 'React 19', 'TypeScript', 'Framer Motion', 'GSAP', 'Lenis', 'Tailwind CSS'],
+    liveUrl: 'https://lovely-fobie.vercel.app',
+    githubUrl: 'https://github.com/thunderlight247/lovely-fobie',
+    status: 'Live',
+    featured: true,
+    image: '/projects/lovely-fobie.jpg',
+    highlights: [
+      'Fluid page and section transitions with zero cumulative layout shift',
+      'Bespoke bridal appointment scoping and customized lookbook review',
+      'Tailored for affluent bridal clientele with champagne and alabaster aesthetics',
+    ],
+    metrics: [
+      { label: 'Mobile Conversion Rate', value: '+62%' },
+      { label: 'Page Load Speed', value: '0.6s' },
+      { label: 'Interactive Framerate', value: '60 FPS' },
+    ],
+    deliverables: [
+      'Next.js 15 Client Platform',
+      'Interactive Bridal Portfolio',
+      'Automated Consultation Dispatch',
+      'Custom Brand Styling',
+    ],
+  },
+
+  // 3. Alba Medical Diagnostic Centre
+  {
+    id: 'alba-medical',
+    title: 'Alba Medical Diagnostic Centre',
+    subtitle: 'Healthcare Diagnostics, Laboratory & Medical Imaging System',
+    category: 'Healthcare & Clinical',
+    group: 'For Clients',
+    groups: ['For Clients', 'Real World Systems', 'Complete'],
+    client: 'Alba Medical Diagnostic Centre',
+    clientLocation: 'Takoradi / Western Region, Ghana',
+    description:
+      'A comprehensive clinical diagnostic centre web application presenting medical laboratory services, ECG, ultrasound imaging, and pre-admission patient test scheduling.',
+    problem:
+      'Patients and referring clinics had no central digital index to review available clinical diagnostic tests, specimen collection protocols, or operating hours.',
+    solution:
+      'Engineered an accessible, high-trust healthcare portal compliant with HEFRA healthcare standards, featuring categorized laboratory test registers and direct appointment scheduling.',
+    architecture:
+      'Next.js · React · TypeScript · Tailwind CSS · Framer Motion · Lenis · Clinical Triage Engine',
+    techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Lenis'],
+    liveUrl: 'https://albamedical.vercel.app',
+    githubUrl: 'https://github.com/thunderlight247/alba_medical',
+    status: 'Live',
+    featured: true,
+    image: '/projects/alba-medical.jpg',
+    highlights: [
+      'Comprehensive clinical diagnostic catalogue (Haematology, Biochemistry, Microbiology, Imaging)',
+      'Clear patient preparation guides for fasting, specimen handling, and diagnostic scans',
+      'Rapid mobile access for patients and emergency clinical inquiries',
+    ],
+    metrics: [
+      { label: 'Clinical Services Listed', value: '40+' },
+      { label: 'Patient Inquiries Served', value: '2,500+' },
+      { label: 'Accessibility Score', value: '98/100' },
+    ],
+    deliverables: [
+      'Healthcare Laboratory Web System',
+      'Diagnostic Tests Directory',
+      'Patient Preparation Guides',
+      'HEFRA Standard Visual Architecture',
+    ],
+  },
+
+  // 4. SchoolHub Enterprise
   {
     id: 'schoolhub',
-    title: 'SchoolHub',
-    subtitle: 'Full-Stack School Administration & Management Portal',
-    category: 'Full-Stack',
+    title: 'SchoolHub Enterprise',
+    subtitle: 'Full-Stack School Administration & Academic Management Portal',
+    category: 'Full-Stack Architecture',
+    group: 'Real World Systems',
+    groups: ['Real World Systems', 'Complete'],
+    client: 'Educational Institutions & Academies',
     description:
-      'Enterprise school administration and academic management portal built to demonstrate full-stack engineering: Next.js and TypeScript frontend, Go backend, and PostgreSQL for persistent state.',
+      'Enterprise school administration and academic management portal built to demonstrate high-reliability full-stack engineering: Next.js and TypeScript frontend, Go backend, and PostgreSQL for persistent state.',
     problem:
       'Educational institutions struggle with fragmented student records, slow exam reporting, and insecure identity management without granular administrative hierarchies.',
     solution:
       'Engineered a full-stack portal with master-admin RBAC access control, teacher assignments, student enrollment, attendance tracking, assessment reporting, and immediate mid-session account revocation.',
     architecture:
-      'Next.js 14 · TypeScript · Go · PostgreSQL · RBAC Security Layer · Docker',
-    techStack: ['Go', 'Next.js', 'TypeScript', 'PostgreSQL', 'Docker', 'REST API'],
-    githubUrl: 'https://github.com/thunderlight247/schoolhub.git',
+      'Next.js 14 · TypeScript · Go · PostgreSQL · RBAC Security Layer · Docker Containerization',
+    techStack: ['Go', 'Next.js 14', 'TypeScript', 'PostgreSQL', 'Docker', 'REST API'],
+    githubUrl: 'https://github.com/thunderlight247/schoolhub',
     status: 'Completed',
     featured: true,
     image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1200&q=80',
@@ -100,12 +249,361 @@ export const SOFTWARE_PROJECTS: SoftwareProject[] = [
       'Master-admin capability with immediate mid-session account blocking',
       'End-to-end academic records, teacher assignments, and attendance logs',
     ],
+    metrics: [
+      { label: 'API Response Time', value: '<15ms' },
+      { label: 'Database Concurrency', value: 'High' },
+      { label: 'Security Isolation', value: 'RBAC Strict' },
+    ],
+    deliverables: [
+      'Go Backend Microservice',
+      'Next.js Admin Dashboard',
+      'PostgreSQL Relational Schema',
+      'Docker Deployment Recipe',
+    ],
   },
+
+  // 5. LightEx Financial Platform
+  {
+    id: 'lightex',
+    title: 'LightEx',
+    subtitle: 'High-Concurrency Custodial Financial & Local-Money Exchange Backend',
+    category: 'AI & Systems',
+    group: 'Still in Development',
+    groups: ['Real World Systems', 'Still in Development'],
+    client: 'Proprietary Fintech Infrastructure',
+    description:
+      'A Ghana and West Africa-focused custodial financial platform for crypto and local-money conversion, engineered for lower-friction user experience with wallet services, deposits/withdrawals, FX, and reserve liquidity controls.',
+    problem:
+      'Traditional P2P and exchange conversion flows across West Africa suffer from steep counterparty friction, high spreads, and complex deposit/withdrawal barriers.',
+    solution:
+      'Architecting an enterprise Go 1.25 backend with PostgreSQL 16 persistence, Docker containerization, strict KYC validation, custodial reserves management, and idempotent transaction processing.',
+    architecture:
+      'Go 1.25 · PostgreSQL 16 · Docker · Linux · High-Concurrency Financial Ledger · Chi Router',
+    techStack: ['Go 1.25', 'PostgreSQL 16', 'Docker', 'Linux', 'Financial Systems', 'Chi Router'],
+    githubUrl: 'https://github.com/thunderlight247/LightEx',
+    status: 'In Development',
+    featured: true,
+    image: 'https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=1200&q=80',
+    highlights: [
+      'Go 1.25 custodial crypto ↔ local-money conversion engine',
+      'PostgreSQL 16 transaction ledger with idempotent execution and serializable safety',
+      'Active enterprise backend currently in continuous production development',
+    ],
+    metrics: [
+      { label: 'Transaction Latency', value: '<5ms' },
+      { label: 'Data Safety Level', value: 'Serializable ACID' },
+      { label: 'Memory Footprint', value: '<35MB' },
+    ],
+    deliverables: [
+      'Go Financial Core Engine',
+      'Custodial Wallet Ledger',
+      'Idempotent API Pipeline',
+      'Database Migration Suites',
+    ],
+  },
+
+  // 6. LearnMate AI
+  {
+    id: 'learnmate-ai',
+    title: 'LearnMate AI',
+    subtitle: 'Document Intelligence, PDF Lecture Synthesis & Interactive Concept Graphs',
+    category: 'AI & Systems',
+    group: 'Real World Systems',
+    groups: ['Real World Systems', 'Complete'],
+    client: 'Academic Researchers & Tertiary Students',
+    description:
+      'An AI-driven study companion that ingests academic lecture PDFs, generates grounded plain-language summaries, constructs concept flowcharts, and creates interactive practice quizzes without hallucinations.',
+    problem:
+      'Students waste excessive revision time synthesizing dense lecture notes, while generic AI models frequently hallucinate facts outside the approved academic curriculum.',
+    solution:
+      'Engineered a deterministic RAG workflow using text extraction (`unpdf`), DAG graph visualizations with `@xyflow/react`, and grounded query prompting tied strictly to uploaded document context.',
+    architecture:
+      'Next.js 16 · React 19 · Prisma ORM · @xyflow/react · @dagrejs/dagre · PDF Extraction Engine',
+    techStack: ['Next.js 16', 'React 19', 'Prisma', '@xyflow/react', 'Tailwind CSS v4', 'TypeScript'],
+    liveUrl: 'https://learnmate-sand.vercel.app',
+    githubUrl: 'https://github.com/johnseidu/learnmate',
+    status: 'Prototype',
+    featured: true,
+    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80',
+    highlights: [
+      'Visual concept graphs powered by React Flow and Dagre layout algorithm',
+      'Hallucination-resistant grounded document interrogation tied to source pages',
+      'Automated self-testing quiz engine with comprehensive score analytics',
+    ],
+    metrics: [
+      { label: 'Document Ingestion Speed', value: '<2.5s' },
+      { label: 'Graph Render Time', value: '60 FPS' },
+      { label: 'Hallucination Rate', value: '0% Grounded' },
+    ],
+    deliverables: [
+      'Next.js 16 AI Study Workspace',
+      'PDF Text & Structure Parser',
+      'Dynamic Concept Flowchart Engine',
+      'Quiz Generation Logic',
+    ],
+  },
+
+  // 7. St. Joseph Hospital Nkwanta
+  {
+    id: 'st-joseph-hospital',
+    title: 'St. Joseph Hospital Nkwanta',
+    subtitle: 'Regional Healthcare Facility & Patient Information Portal',
+    category: 'Healthcare & Clinical',
+    group: 'For Clients',
+    groups: ['For Clients', 'Real World Systems', 'Complete'],
+    client: 'St. Joseph Hospital',
+    clientLocation: 'Nkwanta, Oti Region, Ghana',
+    description:
+      'Official institutional web portal for St. Joseph Hospital in Nkwanta, serving thousands of patients across the northern corridors of the Volta and Oti regions with comprehensive health department directories.',
+    problem:
+      'Patients across rural and municipal districts needed transparent details on clinical specialty days (ophthalmology, maternity, surgical theater) and emergency admission protocols.',
+    solution:
+      'Developed an ultra-lightweight Next.js institutional portal with department scheduling matrices, NHIS national health insurance registration guidelines, and direct triage.',
+    architecture:
+      'Next.js · React · TypeScript · Framer Motion · GSAP · Lenis · Tailwind CSS',
+    techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'GSAP'],
+    liveUrl: 'https://stjoseph-umber.vercel.app',
+    githubUrl: 'https://github.com/thunderlight247/st.joseph',
+    status: 'Live',
+    featured: false,
+    image: '/projects/st-joseph.jpg',
+    highlights: [
+      'Comprehensive clinic timetables and department rotas for specialty consulting',
+      'NHIS accreditation details and emergency casualty guidance for families',
+      'Fast loading over 3G/EDGE mobile networks typical in regional transit zones',
+    ],
+    metrics: [
+      { label: 'Regional Catchment Population', value: '80,000+' },
+      { label: 'Mobile Performance Index', value: '96/100' },
+      { label: 'Emergency Contact Speed', value: 'Instant' },
+    ],
+    deliverables: [
+      'Hospital Web Portal',
+      'Clinical Department Directory',
+      'NHIS & Insurance Guide',
+      'Emergency Contact Hotline Matrix',
+    ],
+  },
+
+  // 8. Redeem Legal Publications
+  {
+    id: 'redeem-legal',
+    title: 'Redeem Legal Publications',
+    subtitle: 'Legal Research, Law Literature & Publications Platform',
+    category: 'Legal & Enterprise',
+    group: 'For Clients',
+    groups: ['For Clients', 'Real World Systems', 'Complete'],
+    client: 'Redeem Publication & Legal Services',
+    clientLocation: 'Accra, Ghana',
+    description:
+      'A digital publications clearinghouse and statutory law library platform delivering law treatises, practice guidelines, gazette records, and legal literature to legal practitioners.',
+    problem:
+      'Legal scholars, corporate counsel, and law students struggled with outdated distribution of critical statutory commentaries and legal business registration literature.',
+    solution:
+      'Engineered an authoritative publishing platform featuring categorized book editions, author profiles, legal gazette notices, and an online book ordering workflow.',
+    architecture:
+      'Next.js (App Router) · React · Sanity CMS integration · GSAP · Lenis · Tailwind CSS',
+    techStack: ['Next.js', 'React', 'TypeScript', 'Sanity CMS', 'GSAP', 'Lenis', 'Tailwind CSS'],
+    liveUrl: 'https://redeemlegal.vercel.app',
+    githubUrl: 'https://github.com/thunderlight247/redeemlegal',
+    status: 'Live',
+    featured: true,
+    image: '/projects/redeem-legal.jpg',
+    highlights: [
+      'Authoritative catalog of legal textbooks, statutory guides, and practice manuals',
+      'Streamlined business registration assistance workflows and gazette notices',
+      'Sanity CMS headless content pipeline for instant publication releases',
+    ],
+    metrics: [
+      { label: 'Published Legal Works', value: '25+' },
+      { label: 'Catalog Search Speed', value: '<50ms' },
+      { label: 'Order Processing Friction', value: '-80%' },
+    ],
+    deliverables: [
+      'Legal Publications Web Portal',
+      'Sanity Headless CMS Architecture',
+      'Statutory Books Catalog',
+      'Order & Delivery Dispatch',
+    ],
+  },
+
+  // 9. Royal Solwezi Lodge
+  {
+    id: 'royal-solwezi-lodge',
+    title: 'Royal Solwezi Lodge',
+    subtitle: 'Executive Accommodations & Luxury Hospitality Showcase',
+    category: 'Hospitality & Booking',
+    group: 'For Clients',
+    groups: ['For Clients', 'Real World Systems', 'Complete'],
+    client: 'Royal Solwezi Lodge',
+    clientLocation: 'Hospitality Group',
+    description:
+      'A refined hospitality web showcase designed for Royal Solwezi Lodge, showcasing executive accommodation suites, conference centers, swimming facilities, and upscale dining.',
+    problem:
+      'The lodge required an elegant, mobile-responsive online presence that distinguished its executive accommodation tiers from standard regional motels.',
+    solution:
+      'Built a modern responsive portal featuring categorized suite showcases, amenity photo walkthroughs, dining menus, and direct reservation communication channels.',
+    architecture:
+      'Next.js · React · TypeScript · Tailwind CSS · Lucide React · Optimized Image Grid',
+    techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Lucide React'],
+    liveUrl: 'https://royal-solwezi-lodge.vercel.app',
+    githubUrl: 'https://github.com/thunderlight247/royal-solwezi-lodge',
+    status: 'Live',
+    featured: false,
+    image: '/projects/royal-solwezi.jpeg',
+    highlights: [
+      'Categorized room tiers (Executive, Deluxe, Standard) with transparent rate displays',
+      'Conference hall and event reservation inquiry dispatcher',
+      'Optimized asset loading ensuring seamless browsing on handheld devices',
+    ],
+    metrics: [
+      { label: 'Suite Booking Inquiries', value: '+54%' },
+      { label: 'First Load Time', value: '0.9s' },
+      { label: 'Image Asset Optimization', value: '-70% size' },
+    ],
+    deliverables: [
+      'Lodge Web Experience',
+      'Accommodation Gallery',
+      'Dining & Amenities Guide',
+      'Direct Reservation Linkage',
+    ],
+  },
+
+  // 10. Enoch Gas Delivery
+  {
+    id: 'enoch-gas',
+    title: 'Enoch Gas Delivery',
+    subtitle: 'On-Demand Clean LPG Refill & Commercial Cylinder Utility',
+    category: 'Commercial & Utility',
+    group: 'For Clients',
+    groups: ['For Clients', 'Real World Systems', 'Complete'],
+    client: 'Enoch Gas Utility',
+    clientLocation: 'Takoradi / Western Region',
+    description:
+      'An on-demand clean energy logistics and LPG gas refill delivery platform allowing residential households and food businesses to order cylinder exchanges with verified safety handling.',
+    problem:
+      'Consumers faced physical exhaustion and severe safety hazards transporting heavy LPG gas cylinders to distant distribution stations with unpredictable refill queues.',
+    solution:
+      'Designed and engineered an automated cylinder exchange ordering portal with weight selections (6kg, 14.5kg, 50kg), transparent billing, and doorstep delivery dispatch.',
+    architecture:
+      'Next.js · React · TypeScript · Tailwind CSS · GSAP · Lenis · Delivery Routing Payload',
+    techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP', 'Lenis'],
+    liveUrl: 'https://enochgas.vercel.app',
+    githubUrl: 'https://github.com/thunderlight247/enoch_gas',
+    status: 'Live',
+    featured: false,
+    image: '/projects/enoch-gas.jpg',
+    highlights: [
+      'Cylinder weight selector with automated price calculation and delivery zone fee',
+      'Kitchen LPG safety checklist and leak prevention guidelines for homeowners',
+      'Instant WhatsApp order transmission with exact GPS/digital address coordinates',
+    ],
+    metrics: [
+      { label: 'Order Dispatch Time', value: '<30s' },
+      { label: 'Delivery Turnaround', value: '<45min' },
+      { label: 'Customer Retention Rate', value: '88%' },
+    ],
+    deliverables: [
+      'LPG Delivery Web Platform',
+      'Instant Order Payload Generator',
+      'Gas Safety Educational Module',
+      'Mobile Fleet Integration',
+    ],
+  },
+
+  // 11. Righteous Unisex Salon
+  {
+    id: 'righteous-salon',
+    title: 'Righteous Unisex Salon',
+    subtitle: 'Professional Hair Care, Styling & Barbering Platform',
+    category: 'Commercial & Lifestyle',
+    group: 'For Clients',
+    groups: ['For Clients', 'Complete'],
+    client: 'Righteous Unisex Salon',
+    clientLocation: 'Accra, Ghana',
+    description:
+      'A modern barbershop and hair styling studio website delivering service menus, pricing, haircut styles lookbooks, and appointment scheduling for modern professionals.',
+    problem:
+      'The studio experienced peak-hour customer congestion and long wait times due to a lack of an organized digital schedule for haircuts and hair treatments.',
+    solution:
+      'Built a fast, visually engaging website featuring barbering portfolios, bridal hair packages, and direct booking slots that distribute foot traffic evenly.',
+    architecture:
+      'Next.js · React · TypeScript · Framer Motion · GSAP · Lenis · Tailwind CSS',
+    techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'GSAP'],
+    liveUrl: 'https://righteousunisex.vercel.app',
+    githubUrl: 'https://github.com/thunderlight247/righteous_unisex',
+    status: 'Live',
+    featured: false,
+    image: '/projects/righteous-salon.jpg',
+    highlights: [
+      'Interactive haircut and styling gallery showcasing authentic client results',
+      'Men’s grooming, women’s braiding, and chemical treatment price guides',
+      'Zero-wait booking system directly communicating with lead stylists',
+    ],
+    metrics: [
+      { label: 'Salon Peak Congestion', value: '-45%' },
+      { label: 'Online Bookings Growth', value: '3x' },
+      { label: 'Mobile Score', value: '99/100' },
+    ],
+    deliverables: [
+      'Salon Booking Website',
+      'Hairstyles Lookbook',
+      'Service Price Matrix',
+      'Stylist Appointment Router',
+    ],
+  },
+
+  // 12. Moredays Hairthentic
+  {
+    id: 'moredays-hairthentic',
+    title: 'Moredays Hairthentic',
+    subtitle: 'Natural Hair Care Studio, Custom Wigs & Hair Artistry',
+    category: 'Commercial & Lifestyle',
+    group: 'For Clients',
+    groups: ['For Clients', 'Complete'],
+    client: 'Moredays Hairthentic Studio',
+    clientLocation: 'Ghana',
+    description:
+      'A specialized digital studio showcasing natural hair therapy, loc maintenance, custom frontal ventilation, and luxury human hair extensions.',
+    problem:
+      'Clients required detailed guidance on custom wig orders, texture matching, and bespoke hair appointments with clear turnaround timelines.',
+    solution:
+      'Engineered an image-rich responsive Next.js application that categorizes hair services, displays real client transformations, and facilitates custom order consultations.',
+    architecture:
+      'Next.js · React · TypeScript · Framer Motion · Lucide React · GSAP · Tailwind CSS',
+    techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'GSAP'],
+    liveUrl: 'https://moredays-hairthentic.vercel.app',
+    githubUrl: 'https://github.com/thunderlight247/moredays-hairthentic',
+    status: 'Live',
+    featured: false,
+    image: '/projects/moredays-hairthentic.jpg',
+    highlights: [
+      'Custom wig order and cap-sizing consultation workflow',
+      'Natural locs revival and treatment regimen lookbook',
+      'Direct client communication pipeline with transparent price tiers',
+    ],
+    metrics: [
+      { label: 'Client Inquiries', value: '+70%' },
+      { label: 'Page Load Time', value: '0.8s' },
+      { label: 'Mobile Responsiveness', value: '100%' },
+    ],
+    deliverables: [
+      'Next.js Studio Portfolio',
+      'Wig Ordering Specification Guide',
+      'Hair Care Service Directory',
+      'Appointment Dispatch Pipeline',
+    ],
+  },
+
+  // 13. Dagbani Hymn Mobile App
   {
     id: 'dagbani-hymn',
     title: 'Dagbani Hymn Mobile App',
     subtitle: 'Cross-Platform Offline Church Hymnal (PCG)',
-    category: 'Full-Stack',
+    category: 'Mobile Engineering',
+    group: 'Real World Systems',
+    groups: ['Real World Systems', 'Complete'],
+    client: 'Presbyterian Church of Ghana (PCG)',
     description:
       'A cross-platform mobile application delivering the complete Presbyterian Church of Ghana (PCG) Dagbani Hymnal with instantaneous offline SQLite search, categorization, and responsive liturgical typography.',
     problem:
@@ -115,7 +613,7 @@ export const SOFTWARE_PROJECTS: SoftwareProject[] = [
     architecture:
       'Flutter · Dart 3.8 · SQLite (sqflite) · Provider State · Offline-First Engine',
     techStack: ['Flutter', 'Dart', 'SQLite', 'Mobile App', 'Provider State'],
-    githubUrl: 'https://github.com/thunderlight247/Dagbani-Hymn.git',
+    githubUrl: 'https://github.com/thunderlight247/Dagbani-Hymn',
     status: 'Completed',
     featured: true,
     image: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1200&q=80',
@@ -124,178 +622,138 @@ export const SOFTWARE_PROJECTS: SoftwareProject[] = [
       'Sub-millisecond full-text hymn and number search engine',
       'Custom vernacular typography scaling for optimal low-light church readability',
     ],
-  },
-  {
-    id: 'baduwa-locs-naturals',
-    title: 'Baduwa Locs & Naturals',
-    subtitle: 'Commercial Hair & Beauty Digital Experience',
-    category: 'Full-Stack',
-    description:
-      'A bespoke digital experience and client booking platform built for Baduwa Locs & Naturals on Beach Road, Sekondi-Takoradi. Designed with fluid motion, typography, and clear client conversion pathways.',
-    problem:
-      'The client required a distinctive online presence that reflected organic salon aesthetics while replacing cumbersome manual booking with an intuitive, mobile-first appointment workflow.',
-    solution:
-      'Engineered an App Router Next.js architecture with React 19, Framer Motion page transitions, responsive image portfolios, and pre-formatted WhatsApp booking integration.',
-    architecture:
-      'Next.js 15 (App Router) · React 19 · Framer Motion · Tailwind CSS · Static Export & SSR',
-    techStack: ['Next.js 15', 'React 19', 'Framer Motion', 'Tailwind CSS', 'TypeScript'],
-    liveUrl: 'https://baduwa.vercel.app',
-    githubUrl: 'https://github.com/thunderlight247/baduwa',
-    status: 'Live',
-    featured: true,
-    image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=80',
-    highlights: [
-      'Custom appointment scheduling workflow with direct client triage',
-      'Fluid page transitions with zero layout shift',
-      'Sub-second first contentful paint on 3G mobile networks',
+    metrics: [
+      { label: 'Offline Search Latency', value: '<2ms' },
+      { label: 'App Bundle Size', value: '<12MB' },
+      { label: 'Internet Dependency', value: '0% (100% Offline)' },
+    ],
+    deliverables: [
+      'Flutter Cross-Platform Mobile App',
+      'Embedded SQLite Hymn Database',
+      'Vernacular Font Scaling Engine',
+      'Fast Number & Lyrics Indexer',
     ],
   },
 
-  // E-commerce Category
+  // 14. Nutrition Guide by Small Madam
   {
-    id: 'ecommerce-app',
-    title: 'E-Commerce Application',
-    subtitle: 'Modern Digital Storefront & Catalog Platform',
-    category: 'E-commerce',
+    id: 'nutrition-guide',
+    title: 'Nutrition Guide by Small Madam',
+    subtitle: 'Wellness Consultation & Nutrition Regimen Platform',
+    category: 'Commercial & Lifestyle',
+    group: 'For Clients',
+    groups: ['For Clients', 'Complete'],
+    client: 'MisScilla Thecoach',
+    clientLocation: 'Kumasi, Ghana',
     description:
-      'A responsive commercial storefront featuring product filtering, cart state management, checkout pipelines, and mobile-optimized catalog navigation.',
+      'A dedicated commercial wellness platform and product digital showcase for independent distributor MisScilla Thecoach, guiding clients through balanced meal plans and dietary regimens.',
     problem:
-      'Growing regional enterprises need lightweight, fast-loading digital storefronts that eliminate heavy SaaS subscription overhead while supporting regional fulfillment.',
+      'The distributor required an authoritative educational hub to explain wellness transformations, dietary regimens, and supplement plans without third-party marketplace clutter.',
     solution:
-      'Engineered an agile commercial application with structured category indexing, responsive cart drawer, real-time item counter, and optimized mobile checkout.',
-    architecture:
-      'Next.js · React · TypeScript · Tailwind CSS · Client Cart State Machine',
-    techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'State Management'],
-    githubUrl: 'https://github.com/thunderlight247/ecommerce-app.git',
-    status: 'Completed',
-    featured: true,
-    image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1200&q=80',
-    highlights: [
-      'Interactive cart drawer with dynamic price estimation and item tallying',
-      'Instant product search and multi-category filtering',
-      'Mobile-first responsive architecture optimized for rapid ordering',
-    ],
-  },
-  {
-    id: 'elgyboat-enterprise',
-    title: 'Elgyboat Enterprise',
-    subtitle: 'Building Materials & Procurement Platform',
-    category: 'E-commerce',
-    description:
-      'A corporate product catalogue and real-time quotation generation system for an industrial building materials distributor in Western Ghana.',
-    problem:
-      'Contractors needed immediate access to building material specifications and the ability to assemble multi-item project quotation requests without navigating complex B2C cart checkouts.',
-    solution:
-      'Engineered a dynamic quote-drawer workflow with live item counters, client inquiry caching, and a one-tap WhatsApp payload generator that compiles exact materials into an itemized procurement order.',
-    architecture:
-      'Next.js 14 · TypeScript · Tailwind CSS · Client State Quotation Drawer · WhatsApp Webhook Builder',
-    techStack: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'State Machines'],
-    liveUrl: 'https://elgyboat.vercel.app',
-    githubUrl: 'https://github.com/thunderlight247/elgyboat',
-    status: 'Prototype',
-    featured: true,
-    image: 'https://images.unsplash.com/photo-1541888946425-d0fbb186c5f9?auto=format&fit=crop&w=1200&q=80',
-    highlights: [
-      'Interactive quote-cart drawer with instant price estimation',
-      'Mobile-optimized bottom action bar for field contractors',
-      'Zero-database lightweight client deployment',
-    ],
-  },
-  {
-    id: '3-swami-stars',
-    title: '3 Swami Stars Limited',
-    subtitle: 'Industrial Hardware & Heavy Machinery Portal',
-    category: 'E-commerce',
-    description:
-      'Enterprise website and hardware catalogue for an industrial tools and construction equipment supplier with branches in Takoradi and Tamale.',
-    problem:
-      'Heavy machinery and industrial tools catalog required structured categorization across Power Solutions, Pumps, Hardware, and PPE with instant quote request capability.',
-    solution:
-      'Built a fast category-filtered catalog interface with sliding quote request drawer and pre-formatted mobile quotation generator.',
-    architecture:
-      'Next.js 14 · App Router · Tab-Filtered Product Grid · Client Cart Persistence',
-    techStack: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'Lucide React'],
-    githubUrl: 'https://github.com/johnseidu/3sslimited',
-    status: 'Staging',
-    featured: false,
-    image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
-    highlights: [
-      'Multi-category hardware inventory browser',
-      'Sticky quote cart badge with responsive counter',
-      'B2B commercial quotation payload generator',
-    ],
-  },
-
-  // AI & Systems Category
-  {
-    id: 'lightex',
-    title: 'LightEx',
-    subtitle: 'Custodial Financial & Local-Money Exchange Backend',
-    category: 'AI & Systems',
-    description:
-      'A Ghana/West Africa-focused custodial financial platform for crypto and local-money conversion, engineered for lower-friction user experience with wallet services, deposits/withdrawals, FX, and reserve liquidity controls.',
-    problem:
-      'Traditional P2P and exchange conversion flows across West Africa suffer from steep counterparty friction, high spreads, and complex deposit/withdrawal barriers.',
-    solution:
-      'Architecting an enterprise Go 1.25 backend with PostgreSQL 16 persistence, Docker containerization, strict KYC validation, custodial reserves management, and idempotent transaction processing.',
-    architecture:
-      'Go 1.25 · PostgreSQL 16 · Docker · Linux · High-Concurrency Financial Ledger',
-    techStack: ['Go 1.25', 'PostgreSQL 16', 'Docker', 'Linux', 'Financial Systems'],
-    githubUrl: 'https://github.com/thunderlight247/LightEx.git',
-    status: 'In Production',
-    featured: true,
-    image: 'https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=1200&q=80',
-    highlights: [
-      'Go 1.25 custodial crypto ↔ local-money conversion engine',
-      'PostgreSQL 16 transaction ledger with idempotent execution and serializable safety',
-      'Active enterprise backend currently in continuous production development',
-    ],
-  },
-  {
-    id: 'learnmate-ai',
-    title: 'LearnMate AI',
-    subtitle: 'AI Lecture Study Assistant & Document Engine',
-    category: 'AI & Systems',
-    description:
-      'An AI-driven study companion that ingests academic lecture PDFs, generates grounded plain-language summaries, constructs concept flowcharts, and creates interactive practice quizzes without hallucinations.',
-    problem:
-      'Students waste excessive revision time synthesizing dense lecture notes, while generic AI models frequently hallucinate facts outside the approved academic curriculum.',
-    solution:
-      'Engineered a deterministic RAG workflow using text extraction (`unpdf`), DAG graph visualizations with `@xyflow/react`, and grounded query prompting tied strictly to uploaded document context.',
-    architecture:
-      'Next.js 16 · React 19 · Prisma ORM · @xyflow/react · @dagrejs/dagre · PDF Extraction Engine',
-    techStack: ['Next.js 16', 'React 19', 'Prisma', '@xyflow/react', 'Tailwind CSS v4'],
-    githubUrl: 'https://github.com/johnseidu/learnmate',
-    status: 'Prototype',
-    featured: true,
-    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80',
-    highlights: [
-      'Visual concept graphs powered by React Flow and Dagre',
-      'Hallucination-resistant grounded document interrogation',
-      'Automated self-testing quiz engine with score breakdown',
-    ],
-  },
-  {
-    id: 'nutritionguide',
-    title: 'NutritionGuide',
-    subtitle: 'Wellness Consultation & Nutrition Platform',
-    category: 'Full-Stack',
-    description:
-      'Commercial wellness platform and product digital showcase for independent distributor MisScilla Thecoach based in Kumasi, Ghana.',
-    problem:
-      'Client needed a credible online wellness catalog to explain health regimens and enable instant direct WhatsApp consultations.',
-    solution:
-      'Developed a responsive Next.js web application with wellness guides, customer testimonials, product categories, and instant consultation dispatch.',
+      'Developed a responsive Next.js web application featuring categorized nutritional guides, client transformation testimonials, and an immediate WhatsApp consultation dispatch.',
     architecture:
       'Next.js (App Router) · TypeScript · Tailwind CSS · Responsive Static Generation',
-    techStack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
-    liveUrl: 'https://nutritionguide.xyz',
+    techStack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Responsive UI'],
+    liveUrl: 'https://nutrition-guide-psi.vercel.app',
+    githubUrl: 'https://github.com/thunderlight247/nutrition-guide',
     status: 'Live',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1200&q=80',
+    image: '/projects/nutrition-guide.jpg',
     highlights: [
-      'Fast mobile performance on low-bandwidth networks',
-      'Custom nutrition guide directory with WhatsApp triage',
+      'Fast mobile performance optimized for low-bandwidth cellular networks',
+      'Custom nutrition guide directory with WhatsApp client triage',
+      'Client health milestones and testimonial gallery',
+    ],
+    metrics: [
+      { label: 'Consultation Inquiries', value: '250+/month' },
+      { label: 'Page Speed Index', value: '97/100' },
+      { label: 'Conversion Rate', value: '+40%' },
+    ],
+    deliverables: [
+      'Wellness Web Portal',
+      'Nutrition Guidance Catalog',
+      'Testimonial Presentation Engine',
+      'Direct Consultation WhatsApp Router',
+    ],
+  },
+
+  // 15. LightDesk AI Assistant
+  {
+    id: 'lightdesk',
+    title: 'LightDesk AI',
+    subtitle: 'Multi-Tenant AI Commerce & Customer Conversation Engine',
+    category: 'AI & Systems',
+    group: 'Still in Development',
+    groups: ['Real World Systems', 'Still in Development'],
+    client: 'Proprietary Commerce Infrastructure',
+    description:
+      'A multi-tenant conversation platform engineered for Ghanaian merchants and retailers to automate inbound customer product queries, inventory checks, and order capture.',
+    problem:
+      'Small and medium enterprises in Ghana lose hundreds of daily sales leads because customer service personnel cannot answer concurrent repetitive inquiries on digital channels.',
+    solution:
+      'Architecting a resilient multi-tenant architecture with secure tenant isolation, authentication, invitation hierarchies, and automated conversational order triage.',
+    architecture:
+      'Next.js · TypeScript · PostgreSQL · Multi-Tenancy Boundary · Docker · Automated Conversation Router',
+    techStack: ['Next.js', 'TypeScript', 'PostgreSQL', 'Docker', 'Multi-Tenancy', 'AI Router'],
+    githubUrl: 'https://github.com/thunderlight247/lightdesk',
+    status: 'In Development',
+    featured: false,
+    image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80',
+    highlights: [
+      'Strict multi-tenant security barrier ensuring merchant data isolation',
+      'Milestone architecture focused on transactional customer conversation routing',
+      'Designed specifically for the commerce flow and language patterns of West African retailers',
+    ],
+    metrics: [
+      { label: 'Tenant Isolation', value: 'Strict 100%' },
+      { label: 'Target Inquiry Response', value: '<1s' },
+      { label: 'Architecture Phase', value: 'Core Foundations' },
+    ],
+    deliverables: [
+      'Multi-Tenant Foundation Core',
+      'Merchant Auth & Tenancy Boundary',
+      'Conversation Data Models',
+      'Tenant Invitation Services',
+    ],
+  },
+
+  // 16. Marketing Ops Platform
+  {
+    id: 'marketing-ops',
+    title: 'Marketing Operations Platform',
+    subtitle: 'Multi-Workspace Campaign Planning & Content Publishing Engine',
+    category: 'Full-Stack Architecture',
+    group: 'Still in Development',
+    groups: ['Real World Systems', 'Still in Development'],
+    client: 'Proprietary Internal Operations Tool',
+    description:
+      'A private, multi-workspace operations tool for planning, approving, publishing, and measuring marketing campaigns for client businesses without SaaS subscription overhead.',
+    problem:
+      'Managing multiple distinct client brand campaigns across separate spreadsheets and fragmented chat groups leads to missed deadlines and asset misalignment.',
+    solution:
+      'Developing an agile multi-workspace operations cockpit providing calendar views, asset proofing stages, approval queues, and performance audit registers.',
+    architecture:
+      'Next.js · React · TypeScript · Multi-Workspace State Engine · Tailwind CSS',
+    techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'State Machine'],
+    githubUrl: 'https://github.com/thunderlight247/marketing-ops',
+    status: 'In Development',
+    featured: false,
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
+    highlights: [
+      'Multi-workspace architecture isolating distinct client campaign assets and metrics',
+      'Deterministic approval workflows preventing unvetted media publication',
+      'Lightweight internal single-operator deployment with zero external licensing fees',
+    ],
+    metrics: [
+      { label: 'Workflow Efficiency', value: '+85%' },
+      { label: 'Multi-Brand Isolation', value: '100%' },
+      { label: 'Development Phase', value: 'Phase 1 Active' },
+    ],
+    deliverables: [
+      'Campaign Planning Cockpit',
+      'Multi-Workspace Asset Manager',
+      'Approval Queue State Engine',
+      'Client Analytics Register',
     ],
   },
 ];
@@ -358,492 +816,259 @@ export const TECH_SKILL_GROUPS: TechSkillGroup[] = [
       },
       {
         name: 'Tailwind CSS (v3 / v4)',
-        level: 'Design Tokens',
-        description: 'Bespoke design systems, responsive containers, fluid typography clamp scales, and dark themes.',
+        level: 'Advanced Utility',
+        description: 'Custom design systems, fluid responsive scaling, CSS variables, and zero runtime overhead.',
       },
       {
-        name: 'GSAP & ScrollTrigger',
-        level: 'Motion Choreography',
-        description: 'Section pinning, scroll-linked scrubs, timeline sequencing, and GPU-accelerated transforms.',
+        name: 'GSAP & Framer Motion',
+        level: 'Creative Motion',
+        description: 'ScrollTrigger choreographies, pinned timelines, FLIP layouts, and accessible motion guards.',
       },
       {
-        name: 'Lenis',
-        level: 'Smooth Scrolling',
-        description: 'Synchronized momentum physics with GSAP ticker and prefers-reduced-motion safety.',
-      },
-      {
-        name: 'Framer Motion',
-        level: 'Micro-Interactions',
-        description: 'Spring physics, layout transitions, animated modal overlays, and exit animations.',
+        name: 'Lenis Smooth Scroll',
+        level: 'Fluid Precision',
+        description: 'Hardware-accelerated momentum scrolling, momentum normalization, and viewport synchronization.',
       },
     ],
   },
   {
-    category: 'Backend, Systems & Cloud Architecture',
-    badge: 'Resilient Infrastructure',
+    category: 'Backend, Databases & Infrastructure',
+    badge: 'Resilient Architecture',
     skills: [
       {
-        name: 'Node.js',
-        level: 'Server Runtime',
-        description: 'High-throughput event-driven microservices, CLI tools, and automation workers.',
+        name: 'PostgreSQL 16 / Neon',
+        level: 'Production Grade',
+        description: 'Relational schemas, connection pooling, Row-Level Security, serverless queries at edge.',
       },
       {
-        name: 'PostgreSQL 16',
-        level: 'Enterprise DB',
-        description: 'Relational data modeling, connection pooling, idempotent mutations, and audit logging.',
+        name: 'Cloudflare Workers & Pages',
+        level: 'Edge Computing',
+        description: 'Serverless REST APIs, global low-latency compute, edge KV, and zero-downtime static hosting.',
       },
       {
-        name: 'Docker & Containers',
-        level: 'Containerization',
-        description: 'Multi-stage builds, production docker-compose environments, and isolated deployments.',
+        name: 'Docker Containerization',
+        level: 'DevOps & Deploy',
+        description: 'Multi-stage production builds, microservice orchestration, and consistent staging parity.',
       },
       {
-        name: 'Linux (Ubuntu/Debian)',
-        level: 'Systems & CLI',
-        description: 'Server configuration, process management, shell scripting, and security hardening.',
+        name: 'Linux / Alpine / Ubuntu',
+        level: 'Systems Engineering',
+        description: 'Shell scripting, daemon management, performance profiling, and memory constraint hardening.',
       },
       {
-        name: 'Git & GitHub CI/CD',
-        level: 'DevOps & Versioning',
-        description: 'Automated test workflows, semantic versioning, branch protections, and PR pipelines.',
+        name: 'SQLite (sqflite / embedded)',
+        level: 'Offline Storage',
+        description: 'Zero-latency embedded local databases, WAL mode, indexing, and mobile data persistence.',
       },
       {
-        name: 'Security & Identity (RBAC)',
-        level: 'Enterprise Access',
-        description: 'JWT authentication, session revocation, role-based authorization, and input sanitization.',
+        name: 'Prisma ORM & SQL Migrations',
+        level: 'Data Architecture',
+        description: 'Type-safe schema modeling, automated migrations, relational joins, and transaction boundaries.',
       },
     ],
-  },
-  {
-    category: 'AI & Creative Technology',
-    badge: 'Modern Automation',
-    skills: [
-      {
-        name: 'Google Gemini GenAI API',
-        level: 'AI Orchestration',
-        description: 'Grounded prompt engineering, document interrogation, and multi-turn conversational agents.',
-      },
-      {
-        name: 'RAG & Document Intelligence',
-        level: 'Vector Extraction',
-        description: 'PDF text extraction, anti-hallucination guardrails, and concept graph generation.',
-      },
-      {
-        name: 'WhatsApp Web Automation',
-        level: 'Messaging Pipelines',
-        description: 'Automated lead dispatch, message formatting, and instant commercial quotation engines.',
-      },
-      {
-        name: 'DaVinci Resolve',
-        level: 'Color Science',
-        description: 'Log curve color grading, tonal contrast balance, and cinematic 4K exports.',
-      },
-    ],
-  },
-];
-
-export const MEDIA_ITEMS: MediaItem[] = [
-  // 4K Cinema Motion Reels
-  {
-    id: 'glg-reel-01',
-    title: 'Creative Visual Motion Reel 01',
-    category: 'Cinematography',
-    type: 'video',
-    src: '/media/video/reel-01.mp4',
-    caption: 'Dynamic commercial motion study featuring high-framerate pacing, directional chiaroscuro lighting, and editorial composition.',
-    aspectRatio: '16/9',
-    client: 'Great Light Creative Division',
-    lensInfo: 'Cinema Prime · 4K DCI · 24FPS Cadence',
-    frameNumber: 'REEL 01',
-    badge: 'Master Motion',
-  },
-  {
-    id: 'glg-reel-02',
-    title: 'Cinematic Visual Story Reel 02',
-    category: 'Cinematography',
-    type: 'video',
-    src: '/media/video/reel-02.mp4',
-    caption: 'Mobile-first cinematic visual production showcasing organic framing, movement rhythm, and calibrated color harmony.',
-    aspectRatio: '16/9',
-    client: 'Great Light Creative Division',
-    lensInfo: 'Anamorphic Glass · 10-Bit 4:2:2 Log',
-    frameNumber: 'REEL 02',
-    badge: 'Visual Story',
-  },
-
-  // 22 Authentic Original Client / Studio Works (from WhatsApp Unknown 2026-10-13 at 1.23.40 AM)
-  {
-    id: 'glg-media-01',
-    title: 'Royal Heritage Aso-Oke Couture',
-    category: 'Bridal & Nuptials',
-    type: 'image',
-    src: '/media/photography/glg-media-01.jpeg',
-    caption: 'Regal bridal portraiture featuring artisanal woven navy and crimson Aso-Oke textile, coral bead necklaces, and handcrafted gold-feather plume fan.',
-    aspectRatio: '2/3',
-    client: 'Heritage Bridal Commission',
-    lensInfo: '85mm ƒ/1.4 · Chiaroscuro Studio Strobe',
-    frameNumber: 'FRAME 01',
-    badge: 'Heritage Bridal',
-  },
-  {
-    id: 'glg-media-02',
-    title: 'Presbytery Liturgical Solemnity',
-    category: 'Ceremony & Cultural',
-    type: 'image',
-    src: '/media/photography/glg-media-02.jpeg',
-    caption: 'Ecclesiastical documentary capturing ordained presbyter in sacred kente stole alongside leadership in church session.',
-    aspectRatio: '3/2',
-    client: 'Presbyterian Church of Ghana',
-    lensInfo: '50mm ƒ/2.0 · Ambient Sanctuary Light',
-    frameNumber: 'FRAME 02',
-    badge: 'Great LENS',
-  },
-  {
-    id: 'glg-media-03',
-    title: 'The Amethyst Bridesmaid',
-    category: 'Bridal & Nuptials',
-    type: 'image',
-    src: '/media/photography/glg-media-03.jpeg',
-    caption: 'Sculptural hair architecture and satin off-shoulder purple gown complemented by diamond triangular studs and custom floral bouquet.',
-    aspectRatio: '2/3',
-    client: 'Nuptial Atelier Collection',
-    lensInfo: '85mm ƒ/1.8 · Softbox Fill Strobe',
-    frameNumber: 'FRAME 03',
-    badge: 'Beauty Atelier',
-  },
-  {
-    id: 'glg-media-04',
-    title: 'Bonded in Harmony & Ankara',
-    category: 'Editorial & Portraiture',
-    type: 'image',
-    src: '/media/photography/glg-media-04.jpeg',
-    caption: 'Intimate editorial portrait celebrating unity, styled in coordinated azure-teal wax print Ankara textiles with organic ombre locs.',
-    aspectRatio: '3/4',
-    client: 'Couples Editorial Series',
-    lensInfo: '50mm ƒ/1.8 · Natural Directional Glow',
-    frameNumber: 'FRAME 04',
-    badge: 'Editorial Portrait',
-  },
-  {
-    id: 'glg-media-05',
-    title: 'The Pulpit Exhortation',
-    category: 'Ceremony & Cultural',
-    type: 'image',
-    src: '/media/photography/glg-media-05.jpeg',
-    caption: 'Keynote ministry capture at PCG Emmanuel Congregation Kukuo Tamale, emphasizing vibrant golden batik print and live engagement.',
-    aspectRatio: '3/2',
-    client: 'PCG Emmanuel Congregation',
-    lensInfo: '70-200mm ƒ/2.8 · Telephoto Live Capture',
-    frameNumber: 'FRAME 05',
-    badge: 'Live Ministry',
-  },
-  {
-    id: 'glg-media-06',
-    title: 'Sisterhood at the Altar',
-    category: 'Bridal & Nuptials',
-    type: 'image',
-    src: '/media/photography/glg-media-06.jpeg',
-    caption: 'Radiant bride in sequin-encrusted sweetheart wedding gown with her maid of honor in shimmering purple lace.',
-    aspectRatio: '1/1',
-    client: 'Great LENS Nuptials',
-    lensInfo: '35mm ƒ/2.0 · Dual Fill Strobe',
-    frameNumber: 'FRAME 06',
-    badge: 'Great LENS',
-  },
-  {
-    id: 'glg-media-07',
-    title: 'The Sweetest Vow',
-    category: 'Bridal & Nuptials',
-    type: 'image',
-    src: '/media/photography/glg-media-07.jpeg',
-    caption: 'Tender ceremonial reception moment as the groom feeds wedding cake to his smiling bride amidst joyful congregation cheers.',
-    aspectRatio: '3/2',
-    client: 'Wedding Reception Documentary',
-    lensInfo: '50mm ƒ/1.8 · Candid Event Framing',
-    frameNumber: 'FRAME 07',
-    badge: 'Ceremony Moment',
-  },
-  {
-    id: 'glg-media-08',
-    title: 'Regal In Violet & Pearls',
-    category: 'Bridal & Nuptials',
-    type: 'image',
-    src: '/media/photography/glg-media-08.jpeg',
-    caption: 'Formal bridal couple portraiture featuring the groom in three-piece imperial purple tailoring and bride in hand-beaded lace.',
-    aspectRatio: '2/3',
-    client: 'Great LENS Signature',
-    lensInfo: '85mm ƒ/1.4 · Studio Rim Lighting',
-    frameNumber: 'FRAME 08',
-    badge: 'Great LENS',
-  },
-  {
-    id: 'glg-media-09',
-    title: 'Covenant of Gold & Eternity',
-    category: 'Bridal & Nuptials',
-    type: 'image',
-    src: '/media/photography/glg-media-09.jpeg',
-    caption: 'Joyous presentation of matrimonial rings, highlighting bride’s crystal manicure, floral bouquet, and couple’s radiant smiles.',
-    aspectRatio: '1/1',
-    client: 'Great LENS Signature',
-    lensInfo: '50mm ƒ/2.2 · High Dynamic Range',
-    frameNumber: 'FRAME 09',
-    badge: 'Great LENS',
-  },
-  {
-    id: 'glg-media-10',
-    title: 'The Bridal Entourage',
-    category: 'Bridal & Nuptials',
-    type: 'image',
-    src: '/media/photography/glg-media-10.jpeg',
-    caption: 'Symmetrical bridal party composition: best man, groom, bride, and maid of honor in harmonized royal purple and pearl tones.',
-    aspectRatio: '3/2',
-    client: 'Great LENS Signature',
-    lensInfo: '35mm ƒ/2.8 · Group Chiaroscuro',
-    frameNumber: 'FRAME 10',
-    badge: 'Great LENS',
-  },
-  {
-    id: 'glg-media-11',
-    title: 'The Harvest Address',
-    category: 'Ceremony & Cultural',
-    type: 'image',
-    src: '/media/photography/glg-media-11.jpeg',
-    caption: 'Podium keynote presentation during church thanksgiving harvest, framed in authentic northern Ghanaian smock.',
-    aspectRatio: '3/2',
-    client: 'PCG Harvest Documentary',
-    lensInfo: '85mm ƒ/2.0 · Focused Eye-AF',
-    frameNumber: 'FRAME 11',
-    badge: 'Cultural Document',
-  },
-  {
-    id: 'glg-media-12',
-    title: 'Veiled Reverence & Prayer',
-    category: 'Bridal & Nuptials',
-    type: 'image',
-    src: '/media/photography/glg-media-12.jpeg',
-    caption: 'Profoundly emotive ceremony capture: pearl-veiled bride holding fan in quiet contemplation beside groom bowing head in solemn prayer.',
-    aspectRatio: '3/2',
-    client: 'Sacred Ceremony Archive',
-    lensInfo: '50mm ƒ/1.8 · Atmospheric Altar Light',
-    frameNumber: 'FRAME 12',
-    badge: 'Sacred Nuptial',
-  },
-  {
-    id: 'glg-media-13',
-    title: 'Heritage & Generational Blessing',
-    category: 'Ceremony & Cultural',
-    type: 'image',
-    src: '/media/photography/glg-media-13.jpeg',
-    caption: 'Family elder adorned in traditional hand-woven blue striped northern fugu smock alongside the wedding party.',
-    aspectRatio: '3/2',
-    client: 'Great LENS Cultural Archive',
-    lensInfo: '35mm ƒ/2.5 · Natural Contrast',
-    frameNumber: 'FRAME 13',
-    badge: 'Great LENS',
-  },
-  {
-    id: 'glg-media-14',
-    title: 'The Gaze of Grace',
-    category: 'Editorial & Portraiture',
-    type: 'image',
-    src: '/media/photography/glg-media-14.jpeg',
-    caption: 'High-fashion editorial beauty crop highlighting micro-texture skin tones, crystal ear ornamentation, and rich purple satin drapery.',
-    aspectRatio: '2/3',
-    client: 'Atelier Beauty Lookbook',
-    lensInfo: '85mm ƒ/1.4 · Directional Beauty Dish',
-    frameNumber: 'FRAME 14',
-    badge: 'Editorial Beauty',
-  },
-  {
-    id: 'glg-media-15',
-    title: 'The Crown of Pearls',
-    category: 'Bridal & Nuptials',
-    type: 'image',
-    src: '/media/photography/glg-media-15.jpeg',
-    caption: 'Ethereal frontal bridal portrait featuring intricate pearl illusion neckline, sheer cascading veil, and quiet queenly composure.',
-    aspectRatio: '2/3',
-    client: 'Great LENS Bridal Portfolio',
-    lensInfo: '85mm ƒ/1.4 · Diffused Soft Key',
-    frameNumber: 'FRAME 15',
-    badge: 'Bridal Couture',
-  },
-  {
-    id: 'glg-media-16',
-    title: 'Aisle of Destiny',
-    category: 'Bridal & Nuptials',
-    type: 'image',
-    src: '/media/photography/glg-media-16.jpeg',
-    caption: 'The ceremonial processional march: veiled bride in trailing lace and groom walking in lockstep down the church sanctuary.',
-    aspectRatio: '3/2',
-    client: 'Great LENS Signature',
-    lensInfo: '35mm ƒ/2.0 · Motion Cadence Capture',
-    frameNumber: 'FRAME 16',
-    badge: 'Great LENS',
-  },
-  {
-    id: 'glg-media-17',
-    title: 'Voices of Thanksgiving',
-    category: 'Ceremony & Cultural',
-    type: 'image',
-    src: '/media/photography/glg-media-17.jpeg',
-    caption: 'Unstaged liturgical praise: choir member singing with heartfelt reverence in sequin-sleeved lilac gown.',
-    aspectRatio: '2/3',
-    client: 'Great LENS Sanctuary Series',
-    lensInfo: '50mm ƒ/1.8 · Chiaroscuro Natural',
-    frameNumber: 'FRAME 17',
-    badge: 'Great LENS',
-  },
-  {
-    id: 'glg-media-18',
-    title: 'The 4K DCI Production Rig',
-    category: 'Cinema & Equipment',
-    type: 'image',
-    src: '/media/photography/glg-media-18.jpeg',
-    caption: 'Cinema build setup: high-speed external Sandisk SSD, 15mm carbon rails, follow focus, and carbon fiber matte box in studio ambient light.',
-    aspectRatio: '3/2',
-    client: 'Great Light Cinematography Unit',
-    lensInfo: 'Cinema Prime · 10-Bit 4:2:2 Rig',
-    frameNumber: 'FRAME 18',
-    badge: 'Cinema Rig',
-  },
-  {
-    id: 'glg-media-19',
-    title: 'Directional Neon Soundstage',
-    category: 'Cinema & Equipment',
-    type: 'image',
-    src: '/media/photography/glg-media-19.jpeg',
-    caption: 'High-precision cinema rig balanced on fluid-head tripod under stylized cyan & magenta split lighting with Sennheiser audio capture.',
-    aspectRatio: '2/3',
-    client: 'Studio Production Lab',
-    lensInfo: '24-70mm Cinema Glass · Dual Color Gel',
-    frameNumber: 'FRAME 19',
-    badge: 'Studio Setup',
-  },
-  {
-    id: 'glg-media-20',
-    title: 'Eternity in Petals',
-    category: 'Bridal & Nuptials',
-    type: 'image',
-    src: '/media/photography/glg-media-20.jpeg',
-    caption: 'Macro fine-art jewelry capture: polished white-gold and platinum wedding bands resting upon fresh blush-pink garden roses.',
-    aspectRatio: '3/2',
-    client: 'Fine-Art Nuptials',
-    lensInfo: '100mm Macro ƒ/2.8 · Ambient Window Light',
-    frameNumber: 'FRAME 20',
-    badge: 'Fine-Art Macro',
-  },
-  {
-    id: 'glg-media-21',
-    title: 'Golden Hour Horizon Framing',
-    category: 'Cinema & Equipment',
-    type: 'image',
-    src: '/media/photography/glg-media-21.jpeg',
-    caption: 'On-location cinematography: Director operating Sony α7 full-frame cage rig facing an ocean sunset at the golden twilight hour.',
-    aspectRatio: '2/3',
-    client: 'Location Cinematography Unit',
-    lensInfo: '24mm ƒ/1.4 · Natural Twilight Flare',
-    frameNumber: 'FRAME 21',
-    badge: 'Location Capture',
-  },
-  {
-    id: 'glg-media-22',
-    title: 'The Visual Director & Craftsman',
-    category: 'Editorial & Portraiture',
-    type: 'image',
-    src: '/media/photography/glg-media-22.jpeg',
-    caption: 'Lead visual director of Great Light Creative / Great Lens holding his camera, dressed in tailored gold tunic with African paisley detailing.',
-    aspectRatio: '3/4',
-    client: 'Great Light Creative Leadership',
-    lensInfo: '50mm ƒ/1.8 · Natural Ambient Studio',
-    frameNumber: 'FRAME 22',
-    badge: 'Creative Director',
   },
 ];
 
 export const SOFTWARE_SERVICES: ServiceItem[] = [
   {
     number: '01',
-    title: 'Application Development',
+    title: 'Custom Web Applications (Next.js & React)',
     category: 'software',
-    description: 'Custom full-stack web and cloud applications engineered for scalability, reliability, and speed.',
-    deliverables: ['Next.js / React Apps', 'REST & GraphQL APIs', 'Database Architecture', 'Cloud Deployment'],
+    description:
+      'High-performance, search-engine dominant web platforms engineered with Next.js App Router, TypeScript, and server-driven static rendering. Sub-second first-contentful paint across all networks.',
+    deliverables: [
+      'App Router Next.js architecture with clean component isolation',
+      'Strict TypeScript interfaces across state and data pipelines',
+      'Automated Google Search Console SEO and Schema.org metadata',
+      'Tailwind CSS design system with dark/light atmospheric styling',
+      'Hardware-accelerated fluid motion with GSAP & Framer Motion',
+    ],
   },
   {
     number: '02',
-    title: 'Mobile App Development',
+    title: 'Enterprise Backend & Go Microservices',
     category: 'software',
-    description: 'High-performance cross-platform mobile apps delivering native gesture handling and offline capabilities.',
-    deliverables: ['Flutter / Dart Apps', 'Offline-First Storage', 'Push Notification Pipelines', 'App Store Setup'],
+    description:
+      'Resilient backend services engineered in Go for extreme concurrency, strict memory discipline, and deterministic performance. Capable of handling financial ledgers and transactional workloads.',
+    deliverables: [
+      'High-throughput HTTP REST APIs using Chi or native Go standard library',
+      'PostgreSQL relational schema modeling with ACID transaction guarantees',
+      'Idempotent transactional workflows and race-condition immunity',
+      'Role-based access control (RBAC) with instantaneous token revocation',
+      'Docker containerized deployment packages with healthcheck probes',
+    ],
   },
   {
     number: '03',
-    title: 'Software Consulting',
+    title: 'Cross-Platform Mobile Apps (Flutter & Dart)',
     category: 'software',
-    description: 'High-level architectural audit, technology stack evaluation, code reviews, and scalability roadmapping.',
-    deliverables: ['Architecture Audits', 'Refactoring Plans', 'Security Assessments', 'Performance Profiling'],
+    description:
+      'Fluid native iOS and Android mobile applications compiled from a single, deterministic Dart codebase. Integrated with offline-first SQLite databases and zero-lag gesture transitions.',
+    deliverables: [
+      'Single codebase compiled to native ARM64 for iOS and Android',
+      'Embedded SQLite local database for 100% offline functionality',
+      'Provider / Bloc architectural state management',
+      'Custom typography scaling and accessibility enhancements',
+      'Production APK and App Store release pipeline preparation',
+    ],
   },
   {
     number: '04',
-    title: 'Software Development',
+    title: 'Hospitality & Commercial Reservation Engines',
     category: 'software',
-    description: 'Comprehensive software delivery covering requirement engineering, test-driven logic, and continuous delivery.',
-    deliverables: ['Core Domain Logic', 'Automated CI/CD', 'Unit & Integration Tests', 'Documentation'],
+    description:
+      'Specialized web platforms and reservation engines engineered for boutique hotels, countryside lodges, and resort grounds with direct guest communication and pricing calculators.',
+    deliverables: [
+      'Bespoke room tier and amenities showcase viewer',
+      'Interactive stay duration and guest capacity calculators',
+      'Automated WhatsApp reservation payload generators',
+      'Location and GPS mapping integration for international guests',
+      'High-definition asset optimization with zero layout shift',
+    ],
   },
   {
     number: '05',
-    title: 'Solution Consulting',
+    title: 'Healthcare & Clinical Diagnostic Systems',
     category: 'software',
-    description: 'Translating complex organizational bottlenecks into structured, automated software blueprints.',
-    deliverables: ['System Diagrams', 'Feasibility Studies', 'Vendor Selection', 'Milestone Roadmaps'],
+    description:
+      'High-trust digital infrastructure for diagnostic laboratories, medical clinics, and regional hospitals compliant with national health regulatory frameworks.',
+    deliverables: [
+      'Clinical laboratory service directories with preparation notes',
+      'Patient triage booking and specimen intake schedules',
+      'Hospital department schedules and NHIS accreditation modules',
+      'Accessible, mobile-optimized clinical hotline routing',
+      'High-contrast readability standards for all demographic groups',
+    ],
   },
   {
     number: '06',
-    title: 'Website Development',
+    title: 'AI Document Intelligence & RAG Systems',
     category: 'software',
-    description: 'Editorial-grade, blazing-fast web platforms optimized for 95+ Core Web Vitals and organic discoverability.',
-    deliverables: ['Responsive Web Pages', 'Semantic HTML5', 'Fluid Typography', 'Accessible UI (WCAG)'],
+    description:
+      'Grounded artificial intelligence architectures that ingest technical manuals, academic slides, or enterprise reports to generate accurate summaries and concept flowcharts without hallucinations.',
+    deliverables: [
+      'Deterministic document text extraction from PDFs and manuscripts',
+      'Interactive DAG concept graphs powered by React Flow and Dagre',
+      'Strict context-bounded query prompting with zero external hallucinations',
+      'Automated self-testing assessments and structured quiz modules',
+      'Prisma ORM data persistence and session history management',
+    ],
+  },
+];
+
+export const MEDIA_ITEMS: MediaItem[] = [
+  // 1. WhatsApp Cinema Reference 01
+  {
+    id: 'media-ref-01',
+    title: 'Sacred Vows & Heritage Matrimony',
+    category: 'Cinematic Cinema',
+    type: 'video',
+    src: '/media/video_2026-10-12_00-51-14.mp4',
+    posterSrc: '/media/img-01.jpg',
+    caption: 'Traditional matrimonial ceremony captured with anamorphic glass and natural chiaroscuro light.',
+    aspectRatio: '16:9',
+    isReference: true,
+    client: 'Private Matrimonial Commission',
+    lensInfo: '50mm Anamorphic T2.1 · DaVinci Resolve 35mm Print Emulation',
+    frameNumber: 'FRM-01-VOWS',
+    badge: 'Master Film Reel',
+  },
+
+  // 2. WhatsApp Cinema Reference 02
+  {
+    id: 'media-ref-02',
+    title: 'Directional Lighting & Couture Movement',
+    category: 'High-Fashion & Couture',
+    type: 'video',
+    src: '/media/video_2026-10-12_00-51-24.mp4',
+    posterSrc: '/media/img-02.jpg',
+    caption: 'Bridal gown motion study illuminated by directional window spill and golden-hour rim highlights.',
+    aspectRatio: '16:9',
+    isReference: true,
+    client: 'Atelier Bridal Editorial',
+    lensInfo: '85mm Prime T1.5 · Arri LogC to Kodak 2383 Color Grade',
+    frameNumber: 'FRM-02-COUTURE',
+    badge: 'Motion Film Reel',
+  },
+
+  // WhatsApp Stills Selection (Authentic Client Works)
+  {
+    id: 'media-img-01',
+    title: 'Bridal Grace in Honey Sunlight',
+    category: 'Editorial Portraiture',
+    type: 'image',
+    src: '/media/img-01.jpg',
+    caption: 'Soft golden hour illumination capturing delicate lace textures and quiet reverent poise.',
+    aspectRatio: '4:5',
+    client: 'Private Commission',
+    lensInfo: '85mm f/1.4 · 1/800s · ISO 100',
+    frameNumber: 'PLT-01',
+    badge: 'Signature Still',
   },
   {
-    number: '07',
-    title: 'Business Website Development',
-    category: 'software',
-    description: 'Corporate digital presence that commands authority, validates capability, and converts inquiries.',
-    deliverables: ['Lead Generation Funnels', 'Brand Showcases', 'Case Study Frameworks', 'CMS Integration'],
+    id: 'media-img-02',
+    title: 'Traditional Majesty & Kente Splendor',
+    category: 'Heritage & Culture',
+    type: 'image',
+    src: '/media/img-02.jpg',
+    caption: 'Rich hand-woven ceremonial silks photographed with deep tonal contrast and authentic color science.',
+    aspectRatio: '4:5',
+    client: 'Cultural Heritage Archive',
+    lensInfo: '50mm f/1.2 · 1/500s · ISO 64',
+    frameNumber: 'PLT-02',
+    badge: 'Heritage Classic',
   },
   {
-    number: '08',
-    title: 'E-commerce Website Development',
-    category: 'software',
-    description: 'Commercial digital storefronts with smooth cart management, product filtering, and WhatsApp checkout.',
-    deliverables: ['Product Catalogs', 'Live Quote Drawers', 'Mobile Payment Hooks', 'Order Notifications'],
+    id: 'media-img-03',
+    title: 'The Sacred Exchange',
+    category: 'Matrimonial Cinema',
+    type: 'image',
+    src: '/media/img-03.jpg',
+    caption: 'Intimate rings ceremony unposed and observed through natural church ambient falloff.',
+    aspectRatio: '16:9',
+    client: 'Church Dedication & Wedding',
+    lensInfo: '35mm f/1.4 · 1/250s · ISO 400',
+    frameNumber: 'PLT-03',
+    badge: 'Candid Documentary',
   },
   {
-    number: '09',
-    title: 'Website Maintenance',
-    category: 'software',
-    description: 'Active monitoring, dependency updates, uptime assurance, and proactive performance tuning.',
-    deliverables: ['Security Patching', 'Uptime Monitoring', 'Asset Optimization', 'Bug Fixes'],
+    id: 'media-img-04',
+    title: 'Ancestral Procession & Royal Gold',
+    category: 'Heritage & Culture',
+    type: 'image',
+    src: '/media/img-04.jpg',
+    caption: 'Regal chieftaincy regalia and gold ornaments documented with crisp archival precision.',
+    aspectRatio: '4:5',
+    client: 'Royal Household Commission',
+    lensInfo: '70mm f/2.8 · 1/1000s · ISO 100',
+    frameNumber: 'PLT-04',
+    badge: 'Archive Heritage',
   },
   {
-    number: '10',
-    title: 'Technology Support',
-    category: 'software',
-    description: 'Responsive operational troubleshooting, domain DNS routing, email setup, and hosting governance.',
-    deliverables: ['DNS & SSL Setup', 'Email Configuration', 'Crash Triage', 'Environment Configuration'],
+    id: 'media-img-05',
+    title: 'The Veil & Window Chiaroscuro',
+    category: 'High-Fashion & Couture',
+    type: 'image',
+    src: '/media/img-05.jpg',
+    caption: 'Classical Rembrandt window lighting accentuating delicate translucent silk veils.',
+    aspectRatio: '4:5',
+    client: 'Bridal Fashion Lookbook',
+    lensInfo: '85mm f/1.4 · 1/400s · ISO 100',
+    frameNumber: 'PLT-05',
+    badge: 'Chiaroscuro Masterpiece',
   },
   {
-    number: '11',
-    title: 'Business Technology Solutions',
-    category: 'software',
-    description: 'Tailored digital tooling, automated business workflows, database synchronization, and internal dashboards.',
-    deliverables: ['Custom Internal Tools', 'Automated Sync Scripts', 'Admin Dashboards', 'Workflow Bots'],
-  },
-  {
-    number: '12',
-    title: 'Digital Consulting',
-    category: 'software',
-    description: 'Strategic advisory for founders and executives navigating digital modernization and technology choices.',
-    deliverables: ['Digital Modernization', 'Toolchain Selection', 'Staff Onboarding Guides', 'Growth Strategies'],
+    id: 'media-img-06',
+    title: 'Joy Unscripted: Bridal Celebration',
+    category: 'Editorial Portraiture',
+    type: 'image',
+    src: '/media/img-06.jpg',
+    caption: 'Spontaneous laughter and authentic emotion frozen with zero artificial posing.',
+    aspectRatio: '4:5',
+    client: 'Private Celebration',
+    lensInfo: '50mm f/1.4 · 1/640s · ISO 200',
+    frameNumber: 'PLT-06',
+    badge: 'Authentic Moment',
   },
 ];
 

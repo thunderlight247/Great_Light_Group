@@ -45,6 +45,7 @@ All execution phases, specifications, and progress logs live in the `/docs` dire
 | [`docs/DESIGN_BRIEF.md`](docs/DESIGN_BRIEF.md) | Visual direction, color tokens, typographic scales, and motion hierarchy. |
 | [`docs/PROGRESS.md`](docs/PROGRESS.md) | Active milestone tracker, decisions made, and exact next actions. |
 | [`docs/CHANGELOG.md`](docs/CHANGELOG.md) | Historical record of architectural and scope decisions. |
+| [`docs/MAILFLARE_DEPLOYMENT.md`](docs/MAILFLARE_DEPLOYMENT.md) | Deployment runbook for custom-domain mail (`contact@greatlightgroup.com`) on Cloudflare + Resend. |
 
 ---
 
